@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import ten3.core.machine.Cell;
 import ten3.init.template.DefItemBlock;
 import ten3.init.TileInit;

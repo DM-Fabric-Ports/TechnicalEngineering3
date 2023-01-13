@@ -1,6 +1,7 @@
 package ten3.init.template;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -8,9 +9,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.lwjgl.glfw.GLFW;
+import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import ten3.init.tab.DefGroup;
 import ten3.util.TranslateKeyUtil;
-import ten3.util.ExcUtil;
 
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
@@ -26,13 +27,12 @@ public class DefItem extends Item {
 
     public DefItem(int stack) {
 
-        super(new Properties().tab(DefGroup.ITEM).stacksTo(stack));
+        super(new QuiltItemSettings().stacksTo(stack));
 
     }
 
     public DefItem(CreativeModeTab g) {
-
-        super(new Properties().tab(g));
+		super(new Properties());
 
     }
 
@@ -45,7 +45,7 @@ public class DefItem extends Item {
     @Override
     public Component getName(ItemStack p_41458_)
     {
-        return TranslateKeyUtil.getKey(ExcUtil.regNameOf(this));
+        return TranslateKeyUtil.getKey(BuiltInRegistries.ITEM.getKey(this).getPath());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DefItem extends Item {
 
         for(int i = 0; true; i++) {
             //*getPATH!
-            String k = "ten3."+ getRegistryName().getPath() +"."+i;
+            String k = "ten3."+ BuiltInRegistries.ITEM.getKey(this).getPath() +"."+i;
             Component ttc = TranslateKeyUtil.translated(TranslateKeyUtil.GOLD, k);
             if(ttc.getString().equals(k)) break;
 

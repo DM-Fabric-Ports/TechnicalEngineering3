@@ -67,7 +67,7 @@ public class EnergyItemHelper {
         tile.nbtManager.writeNBTUpg(stack.getOrCreateTag());
 
         for(int i = tile.upgSlotFrom; i <= tile.upgSlotTo; i++) {
-            stack.getOrCreateTag().put("upg" + i, tile.inventory.getItem(i).serializeNBT());
+            stack.getOrCreateTag().put("upg" + i, tile.inventory.getItem(i).getTag());
         }
 
         return stack;
