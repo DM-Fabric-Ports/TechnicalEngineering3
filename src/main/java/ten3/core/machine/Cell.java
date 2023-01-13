@@ -5,10 +5,10 @@ import net.minecraft.world.level.material.Material;
 
 public class Cell extends Machine {
 
-    public Cell(Material m, SoundType s, String name) {
+	public Cell(Material m, SoundType s, String name) {
 
-        super(m, s, name, false);
+		super(m, s, name, false);
 
-    }
+	}
 
 }

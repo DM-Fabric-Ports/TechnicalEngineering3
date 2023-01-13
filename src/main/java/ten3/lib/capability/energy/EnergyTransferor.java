@@ -1,5 +1,7 @@
 package ten3.lib.capability.energy;
 
+import static ten3.lib.tile.CmTileMachine.ENERGY;
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -8,10 +10,6 @@ import ten3.lib.tile.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.util.DireUtil;
 import ten3.util.TransferUtil;
-
-import static ten3.lib.tile.CmTileMachine.ENERGY;
-
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("all")
 public class EnergyTransferor {
@@ -23,7 +21,7 @@ public class EnergyTransferor {
 	}
 
 	public static EnergyStorage handlerOf(@NotNull BlockEntity e, Direction d) {
-		return EnergyStorage.SIDED.find(null, null, null, e, d);
+		return EnergyStorage.SIDED.find(e.getLevel(), e.getBlockPos(), e.getBlockState(), e, d);
 	}
 
 	private BlockEntity checkTile(Direction d) {
@@ -52,7 +50,8 @@ public class EnergyTransferor {
 			if (e == null)
 				return;
 			if (e.supportsInsertion()) {
-				long diff = TransferUtil.execute(tr -> e.insert(Math.min(v, t.data.get(ENERGY)), tr));
+				long diff =
+						TransferUtil.execute(tr -> e.insert(Math.min(v, t.data.get(ENERGY)), tr));
 				if (diff != 0) {
 					t.data.translate(ENERGY, (int) -diff);
 				}
@@ -75,7 +74,9 @@ public class EnergyTransferor {
 			if (e == null)
 				return;
 			if (e.supportsExtraction()) {
-				int diff = TransferUtil.execute(tr -> e.extract(Math.min(v, t.maxStorage - t.data.get(ENERGY)), tr))
+				int diff = TransferUtil
+						.execute(
+								tr -> e.extract(Math.min(v, t.maxStorage - t.data.get(ENERGY)), tr))
 						.intValue();
 				if (diff != 0) {
 					t.data.translate(ENERGY, diff);

@@ -1,20 +1,19 @@
 package ten3.core.machine.useenergy.beacon;
 
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.option.Type;
 import ten3.lib.tile.recipe.CmTileMachineRadiused;
 import ten3.lib.wrapper.SlotCustomCm;
-
-import java.util.List;
 
 public class BeaconTile extends CmTileMachineRadiused {
 
@@ -25,8 +24,7 @@ public class BeaconTile extends CmTileMachineRadiused {
         setCap(kFE(20), FaceOption.BE_IN, FaceOption.OFF, 300);
         initialRadius = 32;
 
-        addSlot(new SlotCustomCm(inventory, 0, 79, 31, BrewingRecipeRegistry::isValidInput, false, false));
-
+        addSlot(new SlotCustomCm(inventory, 0, 79, 31, PotionBrewing::isIngredient, false, false));
     }
 
     @Override
