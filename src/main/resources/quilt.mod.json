@@ -1,0 +1,38 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "ten3",
+		"id": "ten3",
+		"version": "${version}",
+		"metadata": {
+			"name": "Technical Engineering",
+			"description": "~",
+			"contributors": {
+				"Cm": "Owner",
+				"Nova-Committee" : "Dev Team",
+				"DM-Earth" : "Port 1.19.3"
+			},
+			"contact": {
+				"sources": "https://github.com/DM-Fabric-Ports/TechnicalEngineering3"
+			},
+			"icon": "assets/ten3/icon.png"
+		},
+		"entrypoints": {
+			"init": "ten3.TechnicalEngineering"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.17.6-"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=5.0.0-"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.19.3"
+			}
+		]
+	}
+}
