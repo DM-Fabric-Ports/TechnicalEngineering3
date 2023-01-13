@@ -33,6 +33,10 @@ dependencies {
 
     implementation "com.electronwill.night-config:core:3.6.5"
     implementation "com.electronwill.night-config:toml:3.6.5"
+
+    include modApi('teamreborn:energy:2.3.0') {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 processResources {
