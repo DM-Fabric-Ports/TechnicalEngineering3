@@ -1,4 +1,4 @@
-package ten3.core.recipe;
+package ten3.core.recipe.part;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

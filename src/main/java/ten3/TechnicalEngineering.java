@@ -1,8 +1,5 @@
 package ten3;
 
-import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
-import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
-import org.intellij.lang.annotations.Identifier;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -10,10 +7,6 @@ import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import ten3.init.*;
 
 public class TechnicalEngineering implements ModInitializer, ClientModInitializer {
-
-    public TechnicalEngineering() {
-		ContInit.CONS.register(bus);
-	}
 
     @Override
     public void onInitialize(ModContainer mod) {
@@ -28,6 +21,7 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 	@ClientOnly
     @Override
     public void onInitializeClient(ModContainer mod) {
+		ContInit.doBinding();
 		FluidInit.clientInit();
     }
 

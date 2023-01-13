@@ -1,4 +1,4 @@
-package ten3.core.recipe;
+package ten3.core.recipe.serial;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,6 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import ten3.TConst;
+import ten3.core.recipe.CmItemList;
+import ten3.core.recipe.inter.IFactoryCm;
+import ten3.core.recipe.part.JsonParser;
+import ten3.core.recipe.SingleRecipe;
 
 public class SingleSerial<T extends SingleRecipe> extends BaseSerial implements CmSerializer<T> {
 

@@ -17,13 +17,13 @@ import java.util.List;
 public class SingleRecipe implements OpportunityRecipe<Container> {
 
     protected final ResourceLocation id;
-    protected CmItemList ingredient;
-    protected final ItemStack result;
-    protected final int time;
+    public CmItemList ingredient;
+    public final ItemStack result;
+    public final int time;
     protected final ResourceLocation reg;
-    protected final int count;
-    protected final double chance;
-    protected final ItemStack addition;
+    public final int count;
+    public final double chance;
+    public final ItemStack addition;
 
     public SingleRecipe(ResourceLocation regName, ResourceLocation idIn,
                         CmItemList ingredient, ItemStack resultIn, ItemStack add,

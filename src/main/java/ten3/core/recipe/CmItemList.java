@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import ten3.core.recipe.part.JsonParser;
 import ten3.util.TagUtil;
 
 import java.util.ArrayList;

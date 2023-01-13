@@ -7,7 +7,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import ten3.core.recipe.IBaseRecipeCm;
+import ten3.core.recipe.inter.IBaseRecipeCm;
 import ten3.core.recipe.OpportunityRecipe;
 import ten3.init.RecipeInit;
 import ten3.lib.tile.CmTileMachine;
