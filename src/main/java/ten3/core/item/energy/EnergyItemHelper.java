@@ -42,7 +42,6 @@ public class EnergyItemHelper {
 	}
 
 	public static void fillFull(Item i, FabricItemGroupEntries stacks, int sto, int rec, int ext) {
-
 		ItemStack full = getState(i, sto, rec, ext);
 		ItemUtil.setTag(full, "energy", sto);
 		stacks.accept(full);

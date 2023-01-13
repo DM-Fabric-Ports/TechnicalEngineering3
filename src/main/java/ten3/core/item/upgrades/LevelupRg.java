@@ -5,19 +5,18 @@ import ten3.lib.tile.recipe.CmTileMachineRadiused;
 
 public class LevelupRg extends UpgradeItem {
 
-    public LevelupRg() {
-        super(0);
-    }
+	public LevelupRg() {
+		super(0);
+	}
 
-    @Override
-    public boolean effect(CmTileMachine tile)
-    {
-        boolean a = tile instanceof CmTileMachineRadiused;
-        if(a) {
-            ((CmTileMachineRadiused) tile).radius += ((CmTileMachineRadiused) tile).initialRadius * 0.5;
-            tile.levelIn++;
-        }
-        return a;
-    }
+	@Override
+	public boolean effect(CmTileMachine tile) {
+		boolean a = tile instanceof CmTileMachineRadiused;
+		if (a) {
+			((CmTileMachineRadiused) tile).radius += ((CmTileMachineRadiused) tile).initialRadius * 0.5;
+			tile.levelIn++;
+		}
+		return a;
+	}
 
 }

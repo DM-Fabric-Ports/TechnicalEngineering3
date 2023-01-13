@@ -1,11 +1,11 @@
 package ten3.lib.capability.energy;
 
+import static ten3.lib.tile.CmTileMachine.ENERGY;
+
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.Direction;
 import ten3.lib.tile.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
-
-import static ten3.lib.tile.CmTileMachine.ENERGY;
 
 public class FEStorageTile extends FEStorage {
 
@@ -28,7 +28,7 @@ public class FEStorageTile extends FEStorage {
 
 	@Override
 	public long insert(long maxAmount, TransactionContext transaction) {
-		if (canReceive()) {
+		if (supportsInsertion()) {
 			return super.insert(maxAmount, transaction);
 		}
 		return 0;
@@ -46,7 +46,7 @@ public class FEStorageTile extends FEStorage {
 
 	@Override
 	public long extract(long maAmount, TransactionContext transaction) {
-		if (canExtract()) {
+		if (supportsExtraction()) {
 			return super.extract(maAmount, transaction);
 		}
 		return 0;
@@ -72,7 +72,8 @@ public class FEStorageTile extends FEStorage {
 		return tile.maxStorage;
 	}
 
-	public boolean canExtract() {
+	@Override
+	public boolean supportsExtraction() {
 		return tile.maxExtract > 0
 				&&
 				(di == null
@@ -83,7 +84,8 @@ public class FEStorageTile extends FEStorage {
 		// && tile.openEnergy;
 	}
 
-	public boolean canReceive() {
+	@Override
+	public boolean supportsInsertion() {
 		return tile.maxReceive > 0
 				&&
 				(di == null
