@@ -1,16 +1,19 @@
 package ten3.lib.client;
 
+import static net.minecraft.client.gui.GuiComponent.blit;
+import static net.minecraft.client.gui.GuiComponent.drawCenteredString;
+import static net.minecraft.client.gui.GuiComponent.drawString;
+
+import java.util.ArrayList;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import ten3.lib.client.element.ElementBase;
-
-import java.util.ArrayList;
-
-import static net.minecraft.client.gui.GuiComponent.*;
 
 public class RenderHelper {
 
@@ -102,6 +105,7 @@ public class RenderHelper {
 
     }
 
+	@SuppressWarnings("all")
     public static void renderString(PoseStack matrixStack, int x, int y, int color, Component str) {
 
         Font font = Minecraft.getInstance().font;
@@ -109,6 +113,7 @@ public class RenderHelper {
 
     }
 
+	@SuppressWarnings("all")
     public static void renderCString(PoseStack matrixStack, int x, int y, int color, Component str) {
 
         Font font = Minecraft.getInstance().font;

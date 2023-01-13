@@ -1,5 +1,8 @@
 package ten3.core.machine.engine;
 
+import com.mojang.datafixers.types.templates.Hook;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
@@ -8,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ForgeHooks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import ten3.util.TagUtil;
 
 public class MatchFuel {
@@ -21,7 +24,7 @@ public class MatchFuel {
 
         if(i.getCount() <= 0 || i.isEmpty()) return 0;
 
-        int time = ForgeHooks.getBurnTime(i, RecipeType.SMELTING);
+        int time = FuelRegistry.INSTANCE.get(i.getItem()).intValue();
 
         if(i.getItem() == Items.LAVA_BUCKET) {
             return 0;
