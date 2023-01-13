@@ -19,7 +19,7 @@ import ten3.util.TransferUtil;
 public class FEStorageWayFinding extends FEStorageTile {
 
 	public static Map<BlockPos, List<EnergyStorage>> nets = new HashMap<>();
-	public static Map<BlockPos, Integer> caps = new HashMap<>();
+	public static Map<BlockPos, Long> caps = new HashMap<>();
 
 	public static void updateNet(CableTile tile) {
 		find(tile);

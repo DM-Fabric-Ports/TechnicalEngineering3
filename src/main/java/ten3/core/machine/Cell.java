@@ -2,7 +2,6 @@ package ten3.core.machine;
 
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import ten3.core.machine.Machine;
 
 public class Cell extends Machine {
 

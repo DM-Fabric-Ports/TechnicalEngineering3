@@ -1,5 +1,7 @@
 package ten3.core.machine.useenergy.indfur;
 
+import java.util.Collection;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
@@ -12,11 +14,6 @@ import ten3.lib.tile.recipe.SlotInfo;
 import ten3.lib.wrapper.SlotCm;
 import ten3.lib.wrapper.SlotCustomCm;
 import ten3.util.ExcUtil;
-
-import java.util.Collection;
-import java.util.List;
-
-import static ten3.util.ExcUtil.hasRcpUseThisItem;
 
 public class IndfurTile extends CmTileMachineProcessed {
 

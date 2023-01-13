@@ -65,7 +65,8 @@ public abstract class CmTileMachine extends CmTileEntity {
 	}
 
 	@Nullable
-	public <T extends Recipe<Container>> T getRcp(RecipeType<T> type, SimpleContainer simpleContainer) {
+	public <T extends Recipe<Container>> T getRcp(RecipeType<T> type,
+			SimpleContainer simpleContainer) {
 		return ExcUtil.safeGetRecipe(level, type, simpleContainer).orElse(null);
 	}
 
@@ -161,7 +162,7 @@ public abstract class CmTileMachine extends CmTileEntity {
 	@Override
 	public int @NotNull [] getItemFirstTransferSlot(Item i) {
 		if (i instanceof UpgradeItem) {
-			return new int[] { upgSlotFrom, upgSlotTo };
+			return new int[] {upgSlotFrom, upgSlotTo};
 		}
 		return super.getItemFirstTransferSlot(i);
 	}
@@ -204,11 +205,14 @@ public abstract class CmTileMachine extends CmTileEntity {
 	}
 
 	public boolean isActive() {
-		return getBlockState().hasProperty(Machine.active) ? getBlockState().getValue(Machine.active) : false;
+		return getBlockState().hasProperty(Machine.active)
+				? getBlockState().getValue(Machine.active)
+				: false;
 	}
 
 	protected Direction directionOf() {
-		return getBlockState().hasProperty(Machine.dire) ? getBlockState().getValue(Machine.dire) : Direction.NORTH;
+		return getBlockState().hasProperty(Machine.dire) ? getBlockState().getValue(Machine.dire)
+				: Direction.NORTH;
 	}
 
 	public void rdt(CompoundTag nbt) {
@@ -229,7 +233,8 @@ public abstract class CmTileMachine extends CmTileEntity {
 	double actualEffPercent;
 
 	public MutableComponent getDisplayWith() {
-		return TranslateKeyUtil.translated(TConst.modid + "." + id, TConst.modid + ".level." + levelIn);
+		return TranslateKeyUtil.translated(TConst.modid + "." + id,
+				TConst.modid + ".level." + levelIn);
 	}
 
 	@Override
@@ -366,8 +371,8 @@ public abstract class CmTileMachine extends CmTileEntity {
 		if (getTileAliveTime() % 6 == 0) {
 			qr.offer(qr.remove());
 			for (Direction d : qr) {
-				itr.transferTo(d);
-				itr.transferFrom(d);
+				itr.transferTo(d, false);
+				itr.transferFrom(d, false);
 			}
 		}
 	}
@@ -397,8 +402,7 @@ public abstract class CmTileMachine extends CmTileEntity {
 		if (side == null)
 			return crtItm(null);
 
-		return direCheckItem(side) != FaceOption.OFF && can(StorageType.ITEM, side)
-				? crtItm(side)
+		return direCheckItem(side) != FaceOption.OFF && can(StorageType.ITEM, side) ? crtItm(side)
 				: Optional.empty();
 	}
 

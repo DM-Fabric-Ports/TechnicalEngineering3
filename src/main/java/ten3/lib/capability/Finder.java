@@ -13,11 +13,11 @@ import ten3.util.DireUtil;
 public class Finder {
 
 	@SuppressWarnings("all")
-	public static <T> void find(Map<BlockPos, List<T>> nets, Map<BlockPos, Integer> caps,
+	public static <T> void find(Map<BlockPos, List<T>> nets, Map<BlockPos, Long> caps,
 			GetHandler<T> getter, GetCap capper, IsType isType,
 			BlockEntity start,
 			List<T> init, HashMap<BlockPos, BlockEntity> fouInit,
-			Direction fr, int cap, boolean callFirst) {
+			Direction fr, long cap, boolean callFirst) {
 
 		BlockPos pos = start.getBlockPos();
 
@@ -57,7 +57,7 @@ public class Finder {
 	}
 
 	public interface GetCap {
-		int get(BlockEntity tile);
+		long get(BlockEntity tile);
 	}
 
 	public interface IsType {
