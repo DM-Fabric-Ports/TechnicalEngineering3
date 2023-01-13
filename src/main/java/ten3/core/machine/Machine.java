@@ -37,6 +37,7 @@ import ten3.lib.tile.CmTileEntity;
 import ten3.lib.tile.CmTileMachine;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
@@ -61,14 +62,12 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state)
-    {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return TileInit.getType(tileName).create(pos, state);
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_)
-    {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153212_, BlockState p_153213_, BlockEntityType<T> p_153214_) {
         return (p1, p2, p3, p4) -> ((CmTileEntity) p4).serverTick();
     }
 
@@ -91,15 +90,12 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
     }
 
-    @Override
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player)
-    {
-        return EnergyItemHelper.fromMachine((CmTileMachine) newBlockEntity(pos, state), asItem().getDefaultInstance());
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter level, BlockPos pos, Player player) {
+        return EnergyItemHelper.fromMachine((CmTileMachine) Objects.requireNonNull(newBlockEntity(pos, state)), asItem().getDefaultInstance());
     }
 
     @Override
-    public void setPlacedBy(Level worldIn, BlockPos pos, BlockState p_49849_, @Nullable LivingEntity p_49850_, ItemStack stack)
-    {
+    public void setPlacedBy(Level worldIn, BlockPos pos, BlockState p_49849_, @Nullable LivingEntity p_49850_, ItemStack stack) {
         super.setPlacedBy(worldIn, pos, p_49849_, p_49850_, stack);
         CmTileMachine tile = (CmTileMachine) worldIn.getBlockEntity(pos);
         if(tile != null) {
@@ -108,8 +104,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
-    {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(active);
         builder.add(dire);
@@ -120,16 +115,14 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return defaultBlockState()
                 .setValue(dire, context.getHorizontalDirection().getOpposite())
                 .setValue(active, false);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
-    {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide()) {
             if(MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)) {
                 CmTileMachine tile = (CmTileMachine)worldIn.getBlockEntity(pos);
@@ -147,8 +140,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
     }
 
 
-    public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction)
-    {
+    public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
         return true;
     }
 
