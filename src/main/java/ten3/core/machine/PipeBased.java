@@ -1,5 +1,6 @@
 package ten3.core.machine;
 
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -11,8 +12,6 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import ten3.util.DireUtil;
 
-import javax.annotation.Nonnull;
-
 public class PipeBased extends CableBased {
 
     public PipeBased(Material m, SoundType s, String n) {
@@ -21,7 +20,7 @@ public class PipeBased extends CableBased {
 
     }
 
-    public int connectType(@Nonnull Level world, @Nonnull Direction facing, BlockPos pos) {
+    public int connectType(@NotNull Level world, @NotNull Direction facing, BlockPos pos) {
 
         BlockState sf = world.getBlockState(pos.offset(facing.getNormal()));
 

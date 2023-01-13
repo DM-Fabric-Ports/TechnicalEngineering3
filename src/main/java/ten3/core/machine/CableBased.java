@@ -24,15 +24,15 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.energy.CapabilityEnergy;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ten3.util.DireUtil;
 
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class CableBased extends Machine implements EntityBlock, IHasMachineTile {
+public class CableBased extends Machine {
 
     VoxelShape shape = Block.box(3, 3, 3, 13, 13, 13);;
 
@@ -105,7 +105,7 @@ public class CableBased extends Machine implements EntityBlock, IHasMachineTile 
     }
 
     //0-none, 1-cable-to-cable 2 cable-to-machine
-    public int connectType(@Nonnull Level world, @Nonnull Direction facing, BlockPos pos) {
+    public int connectType(@NotNull Level world, @NotNull Direction facing, BlockPos pos) {
 
         BlockState sf = world.getBlockState(pos.offset(facing.getNormal()));
 

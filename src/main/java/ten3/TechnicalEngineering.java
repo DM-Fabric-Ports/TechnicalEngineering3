@@ -17,6 +17,7 @@ import ten3.init.FluidInit;
 import ten3.init.ItemInit;
 import ten3.init.RecipeInit;
 import ten3.init.TileInit;
+import ten3.init.template.InvisibleItem;
 
 public class TechnicalEngineering implements ModInitializer, ClientModInitializer {
 
@@ -38,12 +39,14 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 		ItemGroupEvents.modifyEntriesEvent(GROUP_BLOCK).register(entries -> BuiltInRegistries.ITEM
 				.stream()
 				.filter(i -> i instanceof BlockItem
-						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid))
+						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid)
+						&& !(i instanceof InvisibleItem))
 				.forEach(entries::accept));
 		ItemGroupEvents.modifyEntriesEvent(GROUP_ITEM).register(entries -> BuiltInRegistries.ITEM
 				.stream()
 				.filter(i -> !(i instanceof BlockItem)
-						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid))
+						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid)
+						&& !(i instanceof InvisibleItem))
 				.forEach(entries::accept));
 	}
 
