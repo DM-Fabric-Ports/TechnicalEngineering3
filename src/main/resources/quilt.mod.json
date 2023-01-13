@@ -1,38 +1,65 @@
 {
-	"schema_version": 1,
-	"quilt_loader": {
-		"group": "ten3",
-		"id": "ten3",
-		"version": "${version}",
-		"metadata": {
-			"name": "Technical Engineering",
-			"description": "~",
-			"contributors": {
-				"Cm": "Owner",
-				"Nova-Committee" : "Dev Team",
-				"DM-Earth" : "Port 1.19.3"
-			},
-			"contact": {
-				"sources": "https://github.com/DM-Fabric-Ports/TechnicalEngineering3"
-			},
-			"icon": "assets/ten3/icon.png"
-		},
-		"entrypoints": {
-			"init": "ten3.TechnicalEngineering"
-		},
-		"depends": [
-			{
-				"id": "quilt_loader",
-				"versions": ">=0.17.6-"
-			},
-			{
-				"id": "quilted_fabric_api",
-				"versions": ">=5.0.0-"
-			},
-			{
-				"id": "minecraft",
-				"versions": ">=1.19.3"
-			}
-		]
-	}
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "ten3",
+    "id": "cabricality",
+    "provides": [
+      {
+        "id": "kubejs",
+        "version": "1802.5.5"
+      }
+    ],
+    "version": "${version}",
+    "metadata": {
+      "name": "Cabricality",
+      "description": "A Create centered challengeable mod inspired by Create: Above and Beyond",
+      "contributors": {
+        "DM Earth": "Owner"
+      },
+      "contact": {
+        "source": "https://github.com/DM-Earth/Cabricality"
+      },
+      "license": "GPL-3.0"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "init": "com.dm.earth.cabricality.Cabricality",
+      "client_init": "com.dm.earth.cabricality.client.CabricalityClient",
+      "server_init": "com.dm.earth.cabricality.server.CabricalityServer",
+      "client_events": [
+        "com.dm.earth.cabricality.client.listener.ClientCommandRegistryListener"
+      ],
+      "events": [
+        "com.dm.earth.cabricality.listener.CommandRegistryListener",
+        "com.dm.earth.cabricality.tweak.RecipeTweaks",
+        "com.dm.earth.cabricality.content.trading.data.recipe.Trading"
+      ],
+      "rei_client": "com.dm.earth.cabricality.client.rei.CabricalityREIClientPlugin",
+      "modmenu": "com.dm.earth.cabricality.config.modmenu.CabfModMenuImpl"
+    },
+    "accessWidener": "cabricality.accesswidener",
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": "*"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.18.2-"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=1.0.0-"
+      },
+      {
+        "id": "fabric-key-binding-api-v1",
+        "versions": "*"
+      },
+      {
+        "id": "equator",
+        "versions": "*"
+      }
+    ]
+  },
+  "mixin": "cabricality.mixins.json"
 }

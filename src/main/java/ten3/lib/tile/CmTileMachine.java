@@ -1,13 +1,7 @@
 package ten3.lib.tile;
 
-import java.util.Optional;
-import java.util.Queue;
-
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
-
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -26,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import ten3.TConst;
 import ten3.core.item.upgrades.UpgradeItem;
@@ -44,6 +39,10 @@ import ten3.util.ExcUtil;
 import ten3.util.StorageType;
 import ten3.util.TranslateKeyUtil;
 
+import java.util.Optional;
+import java.util.Queue;
+
+@SuppressWarnings("UnstableApiUsage")
 public abstract class CmTileMachine extends CmTileEntity {
 
 	public boolean hasRecipe() {
@@ -194,10 +193,12 @@ public abstract class CmTileMachine extends CmTileEntity {
 	}
 
 	public void setActive(boolean a) {
+		assert level != null;
 		level.setBlock(worldPosition, getBlockState().setValue(Machine.active, a), 3);
 	}
 
 	public void setFace(Direction f) {
+		assert level != null;
 		level.setBlock(worldPosition, getBlockState().setValue(Machine.dire, f), 3);
 	}
 
@@ -420,18 +421,16 @@ public abstract class CmTileMachine extends CmTileEntity {
 	}
 
 	public boolean checkCanRun() {
+		assert level != null;
 		boolean power = level.hasNeighborSignal(worldPosition);
 
-		switch (data.get(RED_MODE)) {
-			case RedstoneMode.LOW:
-				return !power;
-			case RedstoneMode.HIGH:
-				return power;
-			case RedstoneMode.OFF:
-				return true;
-		}
+		return switch (data.get(RED_MODE)) {
+			case RedstoneMode.LOW -> !power;
+			case RedstoneMode.HIGH -> power;
+			case RedstoneMode.OFF -> true;
+			default -> false;
+		};
 
-		return false;
 	}
 
 	public boolean energySupportRun() {

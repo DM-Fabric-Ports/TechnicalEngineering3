@@ -15,15 +15,13 @@ import ten3.core.machine.PipeBased;
 
 public class BlockInit {
 
+	//Protects:
+	//$regBlock("state", new State());
     public static void regAll() {
-        // Protects:
-        // regBlock("state", new State());
-
         regBlock("tin_ore", new OreCm(3));
-        // regBlock("copper_ore", new OreCm(2.5));
         regBlock("nickel_ore", new OreCm(4));
-        regBlock("deep_tin_ore", new OreCm(4));
-        regBlock("deep_nickel_ore", new OreCm(5));
+        regBlock("deepslate_tin_ore", new OreCm(4));
+        regBlock("deepslate_nickel_ore", new OreCm(5));
 
         regEngine("engine_extraction");
         regEngine("engine_metal");
