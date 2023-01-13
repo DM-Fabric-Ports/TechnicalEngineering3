@@ -1,22 +1,20 @@
 package ten3.init;
 
-import static ten3.lib.tile.CmTileMachine.kFE;
-
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import ten3.TConst;
 import ten3.core.item.Spanner;
 import ten3.core.item.energy.BlockItemFEStorage;
 import ten3.core.item.energy.ItemFEStorage;
-import ten3.core.item.upgrades.LevelupAnc;
-import ten3.core.item.upgrades.LevelupAug;
-import ten3.core.item.upgrades.LevelupPower;
-import ten3.core.item.upgrades.LevelupRg;
-import ten3.core.item.upgrades.LevelupSyn;
+import ten3.core.item.upgrades.*;
 import ten3.init.template.DefItem;
 import ten3.init.template.DefItemBlock;
 import ten3.init.template.InvisibleItem;
+
+import static net.minecraft.world.item.Items.BUCKET;
+import static ten3.lib.tile.CmTileMachine.kFE;
 
 public class ItemInit {
 
@@ -88,6 +86,9 @@ public class ItemInit {
         regItemBlockDef("pipe");
         regItemBlockDef("cable");
 
+		regBucket("molten_chlorium");
+
+		regBucket("molten_powered_tin");
     }
 
     public static void regPairMetal(String id, boolean vanilla) {
@@ -124,6 +125,10 @@ public class ItemInit {
     public static void regItem(String id, Item im) {
         Registry.register(BuiltInRegistries.ITEM, TConst.asResource(id), im);
     }
+
+	public static void regBucket(String id) {
+		regItem(id + "_bucket", new BucketItem(FluidInit.getFluid(id), new Item.Properties().craftRemainder(BUCKET).stacksTo(1)));
+	}
 
     public static Item getItem(String id) {
         return BuiltInRegistries.ITEM.get(TConst.asResource(id));

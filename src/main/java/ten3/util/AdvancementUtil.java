@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
-public class PlayUtil {
+public class AdvancementUtil {
 
     public static void giveAdvancement(String name, Player player) {
         if(!(player instanceof ServerPlayer)) return;

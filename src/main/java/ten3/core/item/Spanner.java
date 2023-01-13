@@ -1,11 +1,9 @@
 package ten3.core.item;
-;
+
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import ten3.core.machine.IHasMachineTile;
@@ -49,7 +47,8 @@ public class Spanner extends DefItem {
             }
         }
 
-        return InteractionResultHolder.pass(player.getMainHandItem());
+		assert player != null;
+		return InteractionResultHolder.pass(player.getMainHandItem());
     }
 
     public enum Modes {
@@ -57,7 +56,7 @@ public class Spanner extends DefItem {
         ITEM(1),
         REDSTONE(2);
 
-        int index;
+        final int index;
         Modes(int index) {
             this.index = index;
         }
