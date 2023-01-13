@@ -3,8 +3,6 @@ package ten3.lib.wrapper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
-
 public class SlotCustomCm extends SlotCm {
 
     Condition cond;

@@ -32,9 +32,9 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
         RecipeInit.regAll();
     }
 
-	@Override
-	public void onInitializeClient(ModContainer mod) {
+    @Override
+    public void onInitializeClient(ModContainer mod) {
 
-	}
+    }
 
 }

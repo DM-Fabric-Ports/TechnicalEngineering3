@@ -1,6 +1,12 @@
 package ten3.lib.tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -10,13 +16,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.TickingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import ten3.TConst;
-import ten3.core.item.upgrades.UpgradeItem;
 import ten3.core.network.Network;
 import ten3.core.network.check.PTCCheckPack;
 import ten3.core.network.check.PTSCheckPack;
@@ -24,19 +27,15 @@ import ten3.init.BlockInit;
 import ten3.init.ContInit;
 import ten3.init.TileInit;
 import ten3.lib.capability.item.InventoryCm;
-import ten3.lib.wrapper.*;
-import ten3.util.ExcUtil;
+import ten3.lib.wrapper.IntArrayCm;
+import ten3.lib.wrapper.SlotCm;
 import ten3.util.KeyUtil;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
     public static CmTileEntity ofType(BlockEntityType<?> type, BlockPos... pos) {
         return (CmTileEntity) type.create(pos.length > 0 ? pos[0] : BlockPos.ZERO,
-                BlockInit.getBlock(ExcUtil.regNameOf(type)).defaultBlockState());
+                BlockInit.getBlock(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type).getPath()).defaultBlockState());
     }
 
     public IntArrayCm data = ContInit.createDefaultIntArr();
@@ -60,22 +59,25 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
         id = key;
     }
 
-    @Nonnull
+    @NotNull
     public int[] getItemFirstTransferSlot(Item i) {
         return new int[] {};
     }
 
-    public void rdt(CompoundTag nbt) {}
+    public void rdt(CompoundTag nbt) {
+    }
 
-    public void wdt(CompoundTag nbt) {}
+    public void wdt(CompoundTag nbt) {
+    }
 
     public void load(CompoundTag nbt) {
 
         rdt(nbt);
-        for(int i = 0; i < inventory.getContainerSize(); i++) {
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
             inventory.setItem(i, ItemStack.of(nbt.getCompound("item" + i)));
         }
         init = nbt.getBoolean("init");
+        loaded = true;
 
         super.load(nbt);
 
@@ -84,8 +86,8 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
     public void saveAdditional(CompoundTag compound) {
 
         wdt(compound);
-        for(int i = 0; i < inventory.getContainerSize(); i++) {
-            compound.put("item" + i, inventory.getItem(i).copy().serializeNBT());
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            compound.put("item" + i, inventory.getItem(i).copy().save(new CompoundTag()));
         }
         compound.putBoolean("init", init);
 
@@ -95,20 +97,13 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
     boolean loaded;
 
-    @Override
-    public void onLoad() {
-
-        super.onLoad();
-        loaded = true;
-
-    }
-
     public List<ItemStack> drops() {
 
         List<ItemStack> stacks = new ArrayList<>();
 
-        for(int i = 0; i < inventory.getContainerSize(); i++) {
-            if(!canDrop(inventory.getItem(i), i)) continue;
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            if (!canDrop(inventory.getItem(i), i))
+                continue;
             stacks.add(inventory.getItem(i));
         }
 
@@ -141,26 +136,25 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
         world = level;
         pos = worldPosition;
 
-        if(level == null) return;
-        
-        if(!level.isClientSide()) {
+        if (level == null)
+            return;
+
+        if (!level.isClientSide()) {
             globalTimer++;
-            if(!init) {
+            if (!init) {
                 init = true;
                 init();
             }
-            if(!init_rerun) {
-                if(loaded) {
-                    if(PTSCheckPack.GET) {
+            if (!init_rerun) {
+                if (loaded) {
+                    if (PTSCheckPack.GET) {
                         init_rerun = true;
                         packets();
-                    }
-                    else {
+                    } else {
                         sendCheckPack();
                     }
                 }
-            }
-            else {//after init
+            } else {// after init
                 update();
                 endTick();
             }
@@ -170,14 +164,20 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
     }
 
-    public void endTick() {}
+    public void endTick() {
+    }
 
-    public void init() {}
-    public void packets() {}
+    public void init() {
+    }
 
-    public void updateRemote() {}
+    public void packets() {
+    }
 
-    public void update() {}
+    public void updateRemote() {
+    }
+
+    public void update() {
+    }
 
     public Component getDisplayName() {
 

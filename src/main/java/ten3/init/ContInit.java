@@ -85,7 +85,6 @@ public class ContInit {
                     TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
                     inv, pos, createDefaultIntArr());
         }));
-        regs.put(id, reg);
 
     }
 

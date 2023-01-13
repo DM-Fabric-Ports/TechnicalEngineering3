@@ -2,12 +2,7 @@ package ten3.lib.wrapper;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import ten3.util.TagUtil;
-
-import java.util.List;
 
 public class SlotCmTag extends SlotCm {
 
@@ -15,10 +10,10 @@ public class SlotCmTag extends SlotCm {
 
     public SlotCmTag(Container i, int id, int x, int y, String valid, boolean ext, boolean in) {
 
-        //bug fixed
+        // bug fixed
         super(i, id, x, y, null, ext, in);
 
-        tag =valid;
+        tag = valid;
 
         this.ext = ext;
         this.in = in;
@@ -28,7 +23,7 @@ public class SlotCmTag extends SlotCm {
     @Override
     public boolean isItemValidInHandler(ItemStack stack) {
 
-        if(tag == null) {
+        if (tag == null) {
             return true;
         }
 

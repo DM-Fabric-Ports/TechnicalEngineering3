@@ -2,7 +2,6 @@ package ten3.lib.wrapper;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import ten3.core.client.ClientHolder;
 import ten3.core.item.upgrades.UpgradeItem;
 
 public class SlotUpgCm extends SlotCm {
@@ -16,7 +15,7 @@ public class SlotUpgCm extends SlotCm {
     @Override
     public boolean isItemValidInHandler(ItemStack stack) {
 
-        if(stack.getItem() instanceof UpgradeItem) {
+        if (stack.getItem() instanceof UpgradeItem) {
             return true;
         }
 
