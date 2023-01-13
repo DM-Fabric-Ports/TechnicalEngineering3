@@ -1,4 +1,4 @@
-package ten3.core.recipe;
+package ten3.core.recipe.part;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
@@ -6,16 +6,16 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class RecipeTypeCm<T extends Recipe<?>> implements RecipeType<T> {
 
-    ResourceLocation resourceLocation;
+    ResourceLocation reg;
 
     public RecipeTypeCm(ResourceLocation rl) {
-        resourceLocation = rl;
+        reg = rl;
     }
 
     @Override
     public String toString()
     {
-        return resourceLocation.toString();
+        return reg.toString();
     }
 
 }

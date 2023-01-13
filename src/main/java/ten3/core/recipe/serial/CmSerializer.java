@@ -1,4 +1,4 @@
-package ten3.core.recipe;
+package ten3.core.recipe.serial;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;

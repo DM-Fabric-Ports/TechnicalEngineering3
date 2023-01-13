@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MTSRecipe extends SingleRecipe {
-    
+
     public List<CmItemList> ingredients;
 
     public MTSRecipe(ResourceLocation regName, ResourceLocation idIn,
@@ -49,7 +49,7 @@ public class MTSRecipe extends SingleRecipe {
         NonNullList<Ingredient> nonNullList = NonNullList.create();//fucking mojang extends AbstractList
         for(CmItemList lst : ingredients) {
             if(lst != null)
-            nonNullList.add(lst.vanillaIngre());
+				nonNullList.add(lst.vanillaIngre());
         }
         return nonNullList;
     }

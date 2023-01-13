@@ -2,8 +2,7 @@ package ten3.core.recipe;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Map;
+import ten3.core.recipe.inter.IBaseRecipeCm;
 
 public interface OpportunityRecipe<T extends Container> extends IBaseRecipeCm<T> {
 

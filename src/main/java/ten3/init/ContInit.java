@@ -1,13 +1,11 @@
 package ten3.init;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -27,6 +25,9 @@ import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.wrapper.IntArrayCm;
 import ten3.lib.wrapper.SlotCm;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContInit {
 
@@ -56,15 +57,13 @@ public class ContInit {
 		return new InventoryCm(40, slots);
 	}
 
-	public static void regCont(String id) {
-
-		RegistryObject<MenuType<?>> reg =
-				CONS.register(id, () -> IForgeMenuType.create((windowId, inv, data) -> {
-					BlockPos pos = data.readBlockPos();
-					return new CmContainerMachine(windowId, id,
-							TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
-							inv, pos, createDefaultIntArr());
-				}));
+    public static void regCont(String id) {
+		Registry.register(BuiltInRegistries.MENU, id, IForgeMenuType.create((windowId, inv, data) -> {
+			BlockPos pos = data.readBlockPos();
+			return new CmContainerMachine(windowId, id,
+					TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
+					inv, pos, createDefaultIntArr());
+		}));
 	}
 
 	public static MenuType<?> getType(String id) {
@@ -74,12 +73,14 @@ public class ContInit {
 	static List<String> translucent = new ArrayList<>();
 	static List<String> cutout = new ArrayList<>();
 
-	@SuppressWarnings("all")
+
+	@SuppressWarnings("deprecation")
 	public static void doBinding() {
 
 		translucent.add("cable");
 		translucent.add("pipe");
 		translucent.add("cell");
+
 
 		cutout.add("engine_metal");
 		cutout.add("engine_extraction");
@@ -101,19 +102,19 @@ public class ContInit {
 
 		bindScr("cell", CellScreen::new);
 
-		for (String s : translucent) {
-			BlockRenderLayerMap.put(RenderType.translucent(), BlockInit.getBlock(s));
-		}
-		for (String s : cutout) {
-			BlockRenderLayerMap.put(RenderType.cutout(), BlockInit.getBlock(s));
-		}
+        for (String s : translucent) {
+			BlockRenderLayerMap.INSTANCE.putBlock(BlockInit.getBlock(s), RenderType.translucent());
+        }
+        for (String s : cutout) {
+			BlockRenderLayerMap.INSTANCE.putBlock(BlockInit.getBlock(s), RenderType.cutout());
+        }
 
-	}
+    }
 
-	@SuppressWarnings("all")
-	private static <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void bindScr(
-			String s, MenuScreens.ScreenConstructor<M, U> fac) {
-		MenuScreens.register((MenuType<? extends M>) getType(s), fac);
-	}
+
+    @SuppressWarnings("unchecked")
+	private static <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void bindScr(String s, MenuScreens.ScreenConstructor<M, U> fac) {
+        MenuScreens.register((MenuType<? extends M>) getType(s), fac);
+    }
 
 }

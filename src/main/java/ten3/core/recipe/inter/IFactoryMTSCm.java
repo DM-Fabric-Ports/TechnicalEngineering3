@@ -1,7 +1,9 @@
-package ten3.core.recipe;
+package ten3.core.recipe.inter;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import ten3.core.recipe.CmItemList;
+import ten3.core.recipe.SingleRecipe;
 
 import java.util.List;
 

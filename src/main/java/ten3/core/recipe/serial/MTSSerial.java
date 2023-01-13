@@ -1,16 +1,20 @@
-package ten3.core.recipe;
+package ten3.core.recipe.serial;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
 import ten3.TConst;
+import ten3.core.recipe.CmItemList;
+import ten3.core.recipe.inter.IFactoryMTSCm;
+import ten3.core.recipe.part.JsonParser;
+import ten3.core.recipe.MTSRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ten3.core.recipe.SingleSerial.getIngJSON;
-import static ten3.core.recipe.SingleSerial.getStackJSON;
+import static ten3.core.recipe.serial.SingleSerial.getIngJSON;
+import static ten3.core.recipe.serial.SingleSerial.getStackJSON;
 
 public class MTSSerial<T extends MTSRecipe> extends BaseSerial implements CmSerializer<T> {
 

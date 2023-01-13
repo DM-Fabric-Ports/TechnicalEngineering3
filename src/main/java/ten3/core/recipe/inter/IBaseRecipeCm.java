@@ -1,4 +1,4 @@
-package ten3.core.recipe;
+package ten3.core.recipe.inter;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;

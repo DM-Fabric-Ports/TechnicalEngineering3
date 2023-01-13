@@ -6,6 +6,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import ten3.TConst;
 import ten3.core.recipe.*;
+import ten3.core.recipe.serial.CmSerializer;
+import ten3.core.recipe.serial.MTSSerial;
+import ten3.core.recipe.serial.SingleSerial;
+import ten3.core.recipe.part.RecipeTypeCm;
 
 public class RecipeInit {
     public static void regAll() {
