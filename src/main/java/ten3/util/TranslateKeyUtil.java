@@ -6,7 +6,7 @@ import net.minecraft.network.chat.MutableComponent;
 import ten3.TConst;
 
 @OnlyCore
-public class KeyUtil {
+public class TranslateKeyUtil {
 
     @OnlyCore
     public static MutableComponent getKey(String s) {

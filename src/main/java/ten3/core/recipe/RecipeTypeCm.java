@@ -6,16 +6,16 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class RecipeTypeCm<T extends Recipe<?>> implements RecipeType<T> {
 
-    String resourceLocation;
+    ResourceLocation resourceLocation;
 
-    public RecipeTypeCm(String rl) {
+    public RecipeTypeCm(ResourceLocation rl) {
         resourceLocation = rl;
     }
 
     @Override
     public String toString()
     {
-        return resourceLocation;
+        return resourceLocation.toString();
     }
 
 }

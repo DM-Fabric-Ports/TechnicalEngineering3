@@ -1,15 +1,13 @@
 package ten3.init.template;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import ten3.TConst;
 import ten3.init.tab.DefGroup;
 import ten3.util.ExcUtil;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 
 public class DefItemBlock extends BlockItem {
 
@@ -34,7 +32,7 @@ public class DefItemBlock extends BlockItem {
     @Override
     public Component getName(ItemStack p_41458_)
     {
-        return KeyUtil.getKey(ExcUtil.regNameOf(this));
+        return TranslateKeyUtil.getKey(ExcUtil.regNameOf(this));
     }
 
 }

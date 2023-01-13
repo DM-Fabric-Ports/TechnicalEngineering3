@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import ten3.TConst;
@@ -85,7 +86,6 @@ public class ContInit {
                     TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
                     inv, pos, createDefaultIntArr());
         }));
-
     }
 
     public static MenuType<?> getType(String id) {

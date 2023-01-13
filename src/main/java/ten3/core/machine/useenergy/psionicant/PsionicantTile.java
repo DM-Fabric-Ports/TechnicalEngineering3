@@ -6,14 +6,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import ten3.core.recipe.IBaseRecipeCm;
-import ten3.init.RecipeInit;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.recipe.CmTileMachineProcessed;
 import ten3.lib.tile.recipe.SlotInfo;
 import ten3.lib.wrapper.SlotCm;
 import ten3.lib.wrapper.SlotCustomCm;
 import ten3.util.ExcUtil;
-import ten3.util.KeyUtil;
 
 import java.util.Collection;
 import java.util.List;

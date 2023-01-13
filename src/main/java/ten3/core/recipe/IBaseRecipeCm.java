@@ -5,7 +5,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IBaseRecipeCm<T extends Container> extends Recipe<T> {
 
@@ -15,4 +14,8 @@ public interface IBaseRecipeCm<T extends Container> extends Recipe<T> {
 
     int inputLimit(ItemStack stack);
 
+	@Override
+	default boolean isSpecial() {
+		return true;
+	}
 }

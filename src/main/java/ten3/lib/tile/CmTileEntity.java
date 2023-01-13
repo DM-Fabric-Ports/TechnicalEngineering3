@@ -29,7 +29,7 @@ import ten3.init.TileInit;
 import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.wrapper.IntArrayCm;
 import ten3.lib.wrapper.SlotCm;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 
 public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
@@ -55,7 +55,7 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
     public CmTileEntity(String key, BlockPos pos, BlockState state) {
         super(TileInit.getType(key), pos, state);
-        component = KeyUtil.translated(TConst.modid + "." + key);
+        component = TranslateKeyUtil.translated(TConst.modid + "." + key);
         id = key;
     }
 

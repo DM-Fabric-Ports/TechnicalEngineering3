@@ -7,7 +7,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import ten3.core.item.Spanner;
 import ten3.core.item.upgrades.UpgradeItem;
-import ten3.lib.tile.option.Level;
 import ten3.lib.tile.option.RedstoneMode;
 import ten3.lib.tile.option.Type;
 import ten3.lib.tile.recipe.CmTileMachineRadiused;
@@ -17,7 +16,7 @@ import ten3.core.network.packets.PTCInfoClientPack;
 import ten3.init.ItemInit;
 import ten3.lib.tile.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 
 import static ten3.lib.tile.CmTileMachine.RED_MODE;
 
@@ -61,7 +60,7 @@ public class MachinePostEvent {
             boolean giveSuc = tile.itr.selfGive(i.copy(), CmTileMachine.upgSlotFrom, CmTileMachine.upgSlotTo, false);
             if(success && giveSuc) {
                 player.sendMessage(
-                        KeyUtil.translated(KeyUtil.GREEN, i.getDisplayName().getString(), "ten3.info.upgrade_successfully"),
+                        TranslateKeyUtil.translated(TranslateKeyUtil.GREEN, i.getDisplayName().getString(), "ten3.info.upgrade_successfully"),
                         player.getUUID());
                 if(!player.isCreative()) {
                     i.shrink(1);
@@ -69,13 +68,13 @@ public class MachinePostEvent {
             }
             else if(!giveSuc) {
                 player.sendMessage(
-                        KeyUtil.translated(KeyUtil.RED, "ten3.info.too_much_upgrades"),
+                        TranslateKeyUtil.translated(TranslateKeyUtil.RED, "ten3.info.too_much_upgrades"),
                         player.getUUID()
                 );
             }
             else {
                 player.sendMessage(
-                        KeyUtil.translated(KeyUtil.RED, "ten3.info.not_support_upgrade"),
+                        TranslateKeyUtil.translated(TranslateKeyUtil.RED, "ten3.info.not_support_upgrade"),
                         player.getUUID()
                 );
             }

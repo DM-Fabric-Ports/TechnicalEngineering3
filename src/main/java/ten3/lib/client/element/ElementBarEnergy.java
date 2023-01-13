@@ -2,7 +2,7 @@ package ten3.lib.client.element;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,22 +40,22 @@ public class ElementBarEnergy extends ElementImage {
     @Override
     public void addToolTip(List<Component> tooltips) {
 
-        list.add(KeyUtil.translated(KeyUtil.GOLD, "ten3.info.bar_energy"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.GOLD, "ten3.info.bar_energy"));
 
-        list.add(KeyUtil.translated("ten3.info.bar_energy_fact"));
-        list.add(KeyUtil.translated(KeyUtil.RED, Math.abs(mxe) + " FE/t"));
-        list.add(KeyUtil.translated("ten3.info.bar_energy_max"));
-        list.add(KeyUtil.translated(KeyUtil.RED, auc + " FE/t"));
+        list.add(TranslateKeyUtil.translated("ten3.info.bar_energy_fact"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, Math.abs(mxe) + " FE/t"));
+        list.add(TranslateKeyUtil.translated("ten3.info.bar_energy_max"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, auc + " FE/t"));
 
-        list.add(KeyUtil.translated("ten3.info.bar_energy_in_max"));
-        list.add(KeyUtil.translated(KeyUtil.RED, eneI + " FE/t"));
-        list.add(KeyUtil.translated("ten3.info.bar_energy_out_max"));
-        list.add(KeyUtil.translated(KeyUtil.RED, eneO + " FE/t"));
+        list.add(TranslateKeyUtil.translated("ten3.info.bar_energy_in_max"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, eneI + " FE/t"));
+        list.add(TranslateKeyUtil.translated("ten3.info.bar_energy_out_max"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, eneO + " FE/t"));
 
-        list.add(KeyUtil.translated("ten3.info.bar_item_in_max"));
-        list.add(KeyUtil.translated(KeyUtil.RED, itmI + " IS/t"));
-        list.add(KeyUtil.translated("ten3.info.bar_item_out_max"));
-        list.add(KeyUtil.translated(KeyUtil.RED, itmO + " IS/t"));
+        list.add(TranslateKeyUtil.translated("ten3.info.bar_item_in_max"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, itmI + " IS/t"));
+        list.add(TranslateKeyUtil.translated("ten3.info.bar_item_out_max"));
+        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, itmO + " IS/t"));
 
         tooltips.addAll(list);
 

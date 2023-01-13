@@ -3,7 +3,7 @@ package ten3.core.recipe;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -11,10 +11,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.registries.tags.ITag;
 import ten3.util.TagUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 public class CmItemList {
 
@@ -75,7 +77,7 @@ public class CmItemList {
 
     private static CmItemList GET_ITEM(String i, int im) {
         ResourceLocation rl = new ResourceLocation(i);
-        Optional<Item> item = Registry.ITEM.getOptional(rl);
+        Optional<Item> item = BuiltInRegistries.ITEM.getOptional(rl);
         if(item.isPresent() && item.get() != Items.AIR) {
             return new CmItemList(item.get(), im, rl);
         }

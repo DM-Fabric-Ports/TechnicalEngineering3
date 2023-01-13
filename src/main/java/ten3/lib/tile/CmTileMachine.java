@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -24,7 +23,6 @@ import ten3.TConst;
 import ten3.core.machine.Machine;
 import ten3.core.machine.MachinePostEvent;
 import ten3.core.item.upgrades.UpgradeItem;
-import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.capability.item.InventoryWrapperCm;
 import ten3.util.*;
 import ten3.lib.capability.energy.EnergyTransferor;
@@ -223,7 +221,7 @@ public abstract class CmTileMachine extends CmTileEntity {
 
     public MutableComponent getDisplayWith() {
 
-        return KeyUtil.translated(TConst.modid + "." + id, TConst.modid + ".level." + levelIn);
+        return TranslateKeyUtil.translated(TConst.modid + "." + id, TConst.modid + ".level." + levelIn);
 
     }
 

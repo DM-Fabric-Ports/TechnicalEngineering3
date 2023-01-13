@@ -12,7 +12,7 @@ import ten3.core.recipe.OpportunityRecipe;
 import ten3.init.RecipeInit;
 import ten3.lib.tile.CmTileMachine;
 import ten3.lib.tile.option.Type;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 
 public abstract class CmTileMachineProcessed extends CmTileMachine {
 
@@ -70,7 +70,7 @@ public abstract class CmTileMachineProcessed extends CmTileMachine {
     }
 
     public void initialRecipeType() {
-        recipeType = (RecipeType<? extends Recipe<Container>>) RecipeInit.getRcpType(KeyUtil.exceptMachineOrGiveCell(id));
+        recipeType = (RecipeType<? extends Recipe<Container>>) RecipeInit.getRcpType(TranslateKeyUtil.exceptMachineOrGiveCell(id));
     }
 
     @Override

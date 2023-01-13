@@ -1,10 +1,10 @@
 package ten3.core.recipe;
 
 import com.google.gson.JsonObject;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import ten3.TConst;
@@ -22,8 +22,8 @@ public class SingleSerial<T extends SingleRecipe> extends BaseSerial implements 
     }
 
     @Override
-    public String id() {
-        return regName.getPath();
+    public ResourceLocation id() {
+        return regName;
     }
 
     public T fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -74,7 +74,7 @@ public class SingleSerial<T extends SingleRecipe> extends BaseSerial implements 
                 return ShapedRecipe.itemStackFromJson(JsonParser.getJsonObject(json, name));
             } else {
                 String s1 = JsonParser.getString(json, name);
-                return new ItemStack(Registry.ITEM.getOptional(new ResourceLocation(s1)).orElse(Items.AIR));
+                return new ItemStack(BuiltInRegistries.ITEM.getOptional(new ResourceLocation(s1)).orElse(Items.AIR));
             }
         }
 

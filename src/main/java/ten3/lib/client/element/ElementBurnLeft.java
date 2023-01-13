@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import ten3.lib.client.RenderHelper;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 import ten3.util.PatternUtil;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class ElementBurnLeft extends ElementBase {
     public void addToolTip(List<Component> tooltips) {
 
         if(!dv) {
-            tooltips.add(KeyUtil.make((int) (p * 100) + "%"));
+            tooltips.add(TranslateKeyUtil.make((int) (p * 100) + "%"));
         }
         else {
             tooltips.add(PatternUtil.join(val, m_val));

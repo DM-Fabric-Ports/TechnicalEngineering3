@@ -27,8 +27,8 @@ public class MTSSerial<T extends MTSRecipe> extends BaseSerial implements CmSeri
     }
 
     @Override
-    public String id() {
-        return regName.getPath();
+    public ResourceLocation id() {
+        return regName;
     }
 
     public T fromJson(ResourceLocation recipeId, JsonObject json) {

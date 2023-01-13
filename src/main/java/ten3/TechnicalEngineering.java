@@ -16,11 +16,8 @@ import ten3.init.*;
 public class TechnicalEngineering implements ModInitializer, ClientModInitializer {
 
     public TechnicalEngineering() {
-        ContInit.CONS.register(bus);
-
-        RecipeInit.RECIPES_SERIALS.register(bus);
-        RecipeInit.RECIPES_TYPES.register(bus);
-    }
+		ContInit.CONS.register(bus);
+	}
 
     @Override
     public void onInitialize(ModContainer mod) {

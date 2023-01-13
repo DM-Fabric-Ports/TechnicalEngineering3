@@ -3,16 +3,11 @@ package ten3.core.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,7 +19,6 @@ import net.minecraftforge.client.gui.GuiUtils;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import ten3.lib.tile.option.RedstoneMode;
-import ten3.lib.tile.recipe.CmTileMachineRadiused;
 import ten3.util.*;
 import ten3.core.item.Spanner;
 import ten3.lib.tile.CmTileMachine;
@@ -41,7 +35,7 @@ public class HudSpanner extends Screen {
     static int h;
 
     public HudSpanner() {
-        super(KeyUtil.make(""));
+        super(TranslateKeyUtil.make(""));
     }
 
     public void render(boolean catchIt, Player player, PoseStack s, BlockPos pos, BlockEntity t, Direction d) {
@@ -52,26 +46,26 @@ public class HudSpanner extends Screen {
         h = Minecraft.getInstance().getWindow().getGuiScaledHeight();
         init(Minecraft.getInstance(), w, h);//&*&
 
-        Component tc = KeyUtil.translated("ten3.info.spanner.mode", "ten3.info.mode." + ItemUtil.getTag(player.getMainHandItem(), "mode"));
+        Component tc = TranslateKeyUtil.translated("ten3.info.spanner.mode", "ten3.info.mode." + ItemUtil.getTag(player.getMainHandItem(), "mode"));
 
         int hp = player.isCreative() ? (int) (h / 3 * 2.6) : (int) (h / 3 * 2.42);
         //RenderHelper.render(s, w / 2 - 29, hp - 3, 58, 13, 256, 256, 0, 198, TConst.guiHandler);
-        RenderHelper.renderCString(s, w / 2, hp, ExcUtil.safeInt(KeyUtil.GOLD.getColor()), tc);
+        RenderHelper.renderCString(s, w / 2, hp, ExcUtil.safeInt(TranslateKeyUtil.GOLD.getColor()), tc);
 
         if(!catchIt) return;
 
-        MutableComponent c1 = KeyUtil.translated("ten3.info.spanner.dire.energy");
-        MutableComponent c2 = KeyUtil.translated("ten3.info.spanner.dire.item");
-        MutableComponent c3 = KeyUtil.translated("ten3.info.spanner.dire.redstone");
-        MutableComponent c4 = KeyUtil.translated("ten3.info.spanner.work_radius")
-                .append(KeyUtil.make(
+        MutableComponent c1 = TranslateKeyUtil.translated("ten3.info.spanner.dire.energy");
+        MutableComponent c2 = TranslateKeyUtil.translated("ten3.info.spanner.dire.item");
+        MutableComponent c3 = TranslateKeyUtil.translated("ten3.info.spanner.dire.redstone");
+        MutableComponent c4 = TranslateKeyUtil.translated("ten3.info.spanner.work_radius")
+                .append(TranslateKeyUtil.make(
                         String.valueOf(ClientHolder.radius.get(pos))
                 ));
         ((CmTileMachine) t).levelIn = ExcUtil.safeInt(ClientHolder.level.get(pos));
         Component c0 = ((CmTileMachine) t).getDisplayWith()
-                .append(KeyUtil.make(" ("))
-                .append(KeyUtil.translated("dire." + d.getSerializedName()))
-                .append(KeyUtil.make(")"));
+                .append(TranslateKeyUtil.make(" ("))
+                .append(TranslateKeyUtil.translated("dire." + d.getSerializedName()))
+                .append(TranslateKeyUtil.make(")"));
 
         ArrayList<Integer> ene = ClientHolder.energy.get(pos);
         ArrayList<Integer> itm = ClientHolder.item.get(pos);
@@ -80,21 +74,21 @@ public class HudSpanner extends Screen {
         int di = DireUtil.direToInt(d);
 
         if(ene != null && ene.get(di) != null) {
-            c1.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(ene.get(di))));
+            c1.append(TranslateKeyUtil.translated("ten3.info." + FaceOption.toStr(ene.get(di))));
         }
 
         if(itm != null && itm.get(di) != null) {
-            c2.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(itm.get(di))));
+            c2.append(TranslateKeyUtil.translated("ten3.info." + FaceOption.toStr(itm.get(di))));
         }
 
         if(red == RedstoneMode.LOW) {
-            c3.append(KeyUtil.translated("ten3.info.low"));
+            c3.append(TranslateKeyUtil.translated("ten3.info.low"));
         }
         else if(red == RedstoneMode.HIGH) {
-            c3.append(KeyUtil.translated("ten3.info.high"));
+            c3.append(TranslateKeyUtil.translated("ten3.info.high"));
         }
         else {
-            c3.append(KeyUtil.translated("ten3.info.off"));
+            c3.append(TranslateKeyUtil.translated("ten3.info.off"));
         }
 
         int x = w / 2;

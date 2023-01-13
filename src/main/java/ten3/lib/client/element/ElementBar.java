@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import ten3.lib.client.RenderHelper;
-import ten3.util.KeyUtil;
+import ten3.util.TranslateKeyUtil;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class ElementBar extends ElementBase {
 
     public void setTxt(String key) {
 
-        text = KeyUtil.translated(KeyUtil.GOLD, key);
+        text = TranslateKeyUtil.translated(TranslateKeyUtil.GOLD, key);
 
     }
 
