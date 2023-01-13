@@ -90,7 +90,7 @@ public class ContInit {
 
     public static MenuType<?> getType(String id) {
 
-        return regs.get(id).get();
+        return regs.get(id);
 
     }
 

@@ -16,7 +16,6 @@ import ten3.init.template.DefItemBlock;
 import ten3.init.TileInit;
 import ten3.lib.tile.CmTileEntity;
 import ten3.lib.tile.CmTileMachine;
-import ten3.util.ExcUtil;
 import ten3.util.ItemUtil;
 
 import java.util.List;

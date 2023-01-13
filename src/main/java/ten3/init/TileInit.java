@@ -1,12 +1,13 @@
 package ten3.init;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import org.quiltmc.qsl.block.entity.api.QuiltBlockEntityTypeBuilder;
 import ten3.TConst;
 import ten3.TechnicalEngineering;
 import ten3.core.machine.engine.biomass.BiomassTile;
@@ -32,8 +33,7 @@ import java.util.function.Supplier;
 
 public class TileInit {
 
-    static Map<String, RegistryObject<BlockEntityType<? extends CmTileEntity>>> regs = new HashMap<>();
-    public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, TConst.modid);
+    static Map<String, BlockEntityType<? extends CmTileEntity>> regs = new HashMap<>();
 
     public static void regAll() {
         regTile("engine_extraction", ExtractorTile::new);
@@ -58,15 +58,14 @@ public class TileInit {
     @Deprecated
     public static void regTile(String id, BlockEntityType.BlockEntitySupplier<CmTileEntity> im) {
 
-        RegistryObject<BlockEntityType<? extends CmTileEntity>> reg = TILES.register(id, () ->
-                BlockEntityType.Builder.of(im, BlockInit.getBlock(id)).build(null));
+		BlockEntityType<? extends CmTileEntity> reg = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, new ResourceLocation(TConst.modid, id), QuiltBlockEntityTypeBuilder.create(im, BlockInit.getBlock(id)).build());
         regs.put(id, reg);
 
     }
 
     public static BlockEntityType<? extends CmTileEntity> getType(String id) {
 
-        return regs.get(id).get();
+        return regs.get(id);
 
     }
 
