@@ -1,10 +1,9 @@
 {
   "replace": false,
   "values": [
-    "minecraft:iron_ingot",
-    "minecraft:gold_ingot",
     "#c:ingots/tin",
-    "#c:ingots/copper",
+    "#c:ingots/powered_tin",
+    "#c:ingots/chlorium",
     "#c:ingots/nickel"
   ]
 }

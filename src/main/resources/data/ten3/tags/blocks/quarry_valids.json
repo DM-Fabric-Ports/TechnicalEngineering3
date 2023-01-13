@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#forge:ores",
-    "#forge:stone",
-    "#forge:sand",
-    "#forge:gravel",
-    "#forge:netherrack",
-    "#forge:obsidian",
-    "#forge:cobblestone"
+    "#c:ores",
+    "#c:stone",
+    "#c:sand",
+    "#c:gravel",
+    "#c:netherrack",
+    "#c:obsidian",
+    "#c:cobblestone"
   ]
 }
