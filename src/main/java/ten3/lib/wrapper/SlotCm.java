@@ -22,8 +22,8 @@ public class SlotCm extends Slot {
 
     public SlotCm(Container i, int id, int x, int y, List<Item> valid, boolean ext, boolean in) {
 
-        //bug fixed
-        super(i, id, x+1, y+1);
+        // bug fixed
+        super(i, id, x + 1, y + 1);
 
         list = valid;
 
@@ -39,17 +39,17 @@ public class SlotCm extends Slot {
 
     }
 
-    //check player input, vanilla method(I cannot change it)
+    // check player input, vanilla method(I cannot change it)
     @Override
-    public boolean mayPlace(ItemStack stack)
-    {
+    public boolean mayPlace(ItemStack stack) {
         return isItemValidInHandler(stack) && !isRes;
     }
 
-    //check handler input
+    // check handler input
     public boolean isItemValidInHandler(ItemStack stack) {
 
-        if(list == null) return true;
+        if (list == null)
+            return true;
 
         return (list.contains(stack.getItem()));
 
