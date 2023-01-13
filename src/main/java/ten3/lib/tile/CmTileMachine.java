@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import ten3.TConst;
@@ -158,7 +159,7 @@ public abstract class CmTileMachine extends CmTileEntity {
 	}
 
 	@Override
-	public int[] getItemFirstTransferSlot(Item i) {
+	public int @NotNull [] getItemFirstTransferSlot(Item i) {
 		if (i instanceof UpgradeItem) {
 			return new int[] { upgSlotFrom, upgSlotTo };
 		}
