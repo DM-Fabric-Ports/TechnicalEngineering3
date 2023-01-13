@@ -1,10 +1,5 @@
 package ten3.lib.tile;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import ten3.TConst;
 import ten3.core.network.Network;
 import ten3.core.network.check.PTCCheckPack;
@@ -30,6 +26,9 @@ import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.wrapper.IntArrayCm;
 import ten3.lib.wrapper.SlotCm;
 import ten3.util.TranslateKeyUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
@@ -59,8 +58,7 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
         id = key;
     }
 
-    @NotNull
-    public int[] getItemFirstTransferSlot(Item i) {
+    public int @NotNull [] getItemFirstTransferSlot(Item i) {
         return new int[] {};
     }
 
@@ -154,7 +152,7 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
                         sendCheckPack();
                     }
                 }
-            } else {// after init
+            } else {
                 update();
                 endTick();
             }
@@ -164,20 +162,15 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
     }
 
-    public void endTick() {
-    }
+    public void endTick() {}
 
-    public void init() {
-    }
+    public void init() {}
 
-    public void packets() {
-    }
+    public void packets() {}
 
-    public void updateRemote() {
-    }
+    public void updateRemote() {}
 
-    public void update() {
-    }
+    public void update() {}
 
     public Component getDisplayName() {
 
@@ -186,15 +179,11 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
     }
 
     protected IntArrayCm createData() {
-
         return data;
-
     }
 
-    public AbstractContainerMenu createMenu(int p_createMenu_1_, Inventory p_createMenu_2_, Player p_createMenu_3_) {
-
+    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return null;
-
     }
 
 }

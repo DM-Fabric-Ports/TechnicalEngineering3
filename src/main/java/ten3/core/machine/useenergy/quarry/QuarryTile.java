@@ -7,6 +7,7 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.option.Type;
 import ten3.lib.tile.recipe.CmTileMachineRadiused;
@@ -48,7 +49,7 @@ public class QuarryTile extends CmTileMachineRadiused {
     }
 
     @Override
-    public int[] getItemFirstTransferSlot(Item i)
+    public int @NotNull [] getItemFirstTransferSlot(Item i)
     {
         if(i instanceof PickaxeItem) {
             return new int[] {12, 12};
