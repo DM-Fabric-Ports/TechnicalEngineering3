@@ -130,9 +130,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
                     return InteractionResult.FAIL;
                 }
 
-                NetworkHooks.openGui((ServerPlayer) player, tile, (FriendlyByteBuf packerBuffer) -> {
-                    packerBuffer.writeBlockPos(tile.getBlockPos());
-                });
+                NetworkHooks.openGui((ServerPlayer) player, tile, (FriendlyByteBuf packerBuffer) -> packerBuffer.writeBlockPos(tile.getBlockPos()));
             }
         }
 

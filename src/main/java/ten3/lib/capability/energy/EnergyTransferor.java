@@ -42,7 +42,7 @@ public class EnergyTransferor {
 
 		if (FaceOption.isPassive(t.direCheckEnergy(d)))
 			return;
-		if (!FaceOption.isOut(t.direCheckEnergy(d)))
+		if (FaceOption.isOut(t.direCheckEnergy(d)))
 			return;
 
 		BlockEntity tile = checkTile(p);
@@ -65,7 +65,7 @@ public class EnergyTransferor {
 
 		if (FaceOption.isPassive(t.direCheckEnergy(d)))
 			return;
-		if (!FaceOption.isIn(t.direCheckEnergy(d)))
+		if (FaceOption.isIn(t.direCheckEnergy(d)))
 			return;
 
 		BlockEntity tile = checkTile(p);

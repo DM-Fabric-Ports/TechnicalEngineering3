@@ -25,9 +25,7 @@ public class MobRipTile extends CmTileMachineRadiused {
 
         setCap(kFE(20), FaceOption.BE_IN, FaceOption.OFF, 15);
 
-        addSlot(new SlotCustomCm(inventory, 0, 79, 31, (e) -> {
-            return e.getItem() instanceof DiggerItem || e.getItem() instanceof SwordItem;
-        }, false, false));
+        addSlot(new SlotCustomCm(inventory, 0, 79, 31, (e) -> e.getItem() instanceof DiggerItem || e.getItem() instanceof SwordItem, false, false));
 
     }
 
@@ -64,8 +62,7 @@ public class MobRipTile extends CmTileMachineRadiused {
                 LivingEntity entity = ExcUtil.randomInCollection(list);
 
                 if(entity instanceof Player && ((Player) entity).isCreative()) return;
-
-                    float damage = 0.5f;
+				float damage = 0.5f;
                     if(!st1.isEmpty()) {
                         Item iti = st1.getItem();
                         if(iti instanceof DiggerItem) {

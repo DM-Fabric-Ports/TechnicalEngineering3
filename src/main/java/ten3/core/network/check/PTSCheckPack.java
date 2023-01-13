@@ -17,9 +17,7 @@ public class PTSCheckPack {
 
     public void run(Supplier<NetworkEvent.Context> cs) {
 
-        cs.get().enqueueWork(() -> {
-            handler();
-        });
+        cs.get().enqueueWork(() -> handler());
         cs.get().setPacketHandled(true);
 
     }

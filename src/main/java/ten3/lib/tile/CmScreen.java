@@ -92,10 +92,10 @@ public class CmScreen<T extends CmContainer> extends AbstractContainerScreen<T> 
         int j = GuiHelper.getJ(height, getYSize());
 
         ElementBase e;
-        for(int k = 0; k < widgets.size(); k++) {
-            e = widgets.get(k);
-            e.updateLocWhenFrameResize(i, j);
-        }
+		for (ElementBase widget : widgets) {
+			e = widget;
+			e.updateLocWhenFrameResize(i, j);
+		}
 
     }
 
@@ -113,12 +113,11 @@ public class CmScreen<T extends CmContainer> extends AbstractContainerScreen<T> 
 
     public ElementBase getElementFromLocation(int mouseX, int mouseY) {
 
-        for (int i = 0; i < widgets.size(); i++) {
-            ElementBase element = widgets.get(i);
-            if (element.checkInstr(mouseX, mouseY) && element.isVisible()) {
-                return element;
-            }
-        }
+		for (ElementBase element : widgets) {
+			if (element.checkInstr(mouseX, mouseY) && element.isVisible()) {
+				return element;
+			}
+		}
         return null;
 
     }

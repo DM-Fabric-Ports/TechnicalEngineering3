@@ -24,10 +24,10 @@ public class CmContainerMachine extends CmContainer {
 		return slot >= fastMin && slot < fastMax;
 	}
 
-	static int playerMin = 0;
-	static int playerMax = 36;
-	static int fastMin = 0;
-	static int fastMax = 9;
+	protected final static int playerMin = 0;
+	protected final static int playerMax = 36;
+	protected final static int fastMin = 0;
+	protected final static int fastMax = 9;
 
 	public ItemStack quickMoveStack(Player playerIn, int index) {
 

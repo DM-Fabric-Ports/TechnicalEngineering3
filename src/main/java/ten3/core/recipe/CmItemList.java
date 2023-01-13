@@ -76,7 +76,7 @@ public class CmItemList {
         return !isTag ? Ingredient.of(stackLstOf().stream()) : Ingredient.of(tagKey);
     }
 
-    private static CmItemList GET_ITEM(String i, int im) {
+    private static CmItemList getItem(String i, int im) {
         ResourceLocation rl = new ResourceLocation(i);
         Optional<Item> item = BuiltInRegistries.ITEM.getOptional(rl);
         if(item.isPresent() && item.get() != Items.AIR) {
@@ -85,7 +85,7 @@ public class CmItemList {
         return new CmItemList();
     }
 
-    private static CmItemList GET_TAG(String i, int im) {
+    private static CmItemList getTag(String i, int im) {
         ResourceLocation rl = new ResourceLocation(i);
         TagKey<Item> tag = TagUtil.key(rl.toString());
         if (tag == null) {
@@ -100,9 +100,9 @@ public class CmItemList {
         int lm = JsonParser.getIntOr(json, "count", 1);
 
         if (json.has("item")) {
-            return GET_ITEM(JsonParser.getString(json, "item"), lm);
+            return getItem(JsonParser.getString(json, "item"), lm);
         } else if (json.has("tag")) {
-            return GET_TAG(JsonParser.getString(json, "tag"), lm);
+            return getTag(JsonParser.getString(json, "tag"), lm);
         }
 
         return new CmItemList();//cannot check item!
@@ -116,10 +116,10 @@ public class CmItemList {
         int lm = buffer.readInt();
 
         if(type.equals("item")) {
-            return GET_ITEM(rl.toString(), lm);
+            return getItem(rl.toString(), lm);
         }
         else if(type.equals("tag")) {
-            return GET_TAG(rl.toString(), lm);
+            return getTag(rl.toString(), lm);
         }
 
         return new CmItemList();//cannot check item!

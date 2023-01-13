@@ -16,9 +16,7 @@ public class PTCCheckPack {
 
     public void run(Supplier<NetworkEvent.Context> cs) {
 
-        cs.get().enqueueWork(() -> {
-            handler();
-        });
+        cs.get().enqueueWork(() -> handler());
         cs.get().setPacketHandled(true);
 
     }

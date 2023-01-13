@@ -11,7 +11,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,9 +33,9 @@ import java.util.Map;
 
 public class CableBased extends Machine {
 
-    VoxelShape shape = Block.box(3, 3, 3, 13, 13, 13);;
+    protected final VoxelShape shape = Block.box(3, 3, 3, 13, 13, 13);
 
-    public CableBased(Material m, SoundType s, String n) {
+	public CableBased(Material m, SoundType s, String n) {
 
         super(m, s, n, false);
 

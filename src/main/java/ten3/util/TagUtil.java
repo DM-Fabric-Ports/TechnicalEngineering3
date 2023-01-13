@@ -1,8 +1,5 @@
 package ten3.util;
 
-import java.util.Collection;
-import java.util.List;
-
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -10,6 +7,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+
+import java.util.Collection;
+import java.util.List;
 
 public class TagUtil {
 
@@ -23,7 +23,7 @@ public class TagUtil {
 
     public static Collection<Item> getItemsTag(String s) {
         var opt = BuiltInRegistries.ITEM.getTag(key(s));
-        return opt.isPresent() ? opt.get().stream().map(Holder::value).toList() : List.of();
+        return opt.map(holders -> holders.stream().map(Holder::value).toList()).orElseGet(List::of);
     }
 
     public static boolean containsItem(Item t, TagKey<Item> s) {

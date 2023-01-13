@@ -1,46 +1,43 @@
 package ten3.lib.client;
 
-import static net.minecraft.client.gui.GuiComponent.blit;
-import static net.minecraft.client.gui.GuiComponent.drawCenteredString;
-import static net.minecraft.client.gui.GuiComponent.drawString;
-
-import java.util.ArrayList;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import ten3.lib.client.element.ElementBase;
 
+import java.util.ArrayList;
+
+import static net.minecraft.client.gui.GuiComponent.*;
+
 public class RenderHelper {
 
     public static void drawAll(ArrayList<ElementBase> widgets, PoseStack matrixStack) {
 
-        for(int i = 0; i < widgets.size(); i++) {
-            if(widgets.get(i).isVisible())
-                widgets.get(i).draw(matrixStack);
-        }
+		for (ElementBase widget : widgets) {
+			if (widget.isVisible())
+				widget.draw(matrixStack);
+		}
 
     }
 
     public static void updateAll(ArrayList<ElementBase> widgets) {
 
-        for(int i = 0; i < widgets.size(); i++) {
-            if(widgets.get(i).isVisible())
-            widgets.get(i).update();
-        }
+		for (ElementBase widget : widgets) {
+			if (widget.isVisible())
+				widget.update();
+		}
 
     }
 
     public static void hangingAll(ArrayList<ElementBase> widgets, boolean hang, int mouseX, int mouseY) {
 
-        for(int i = 0; i < widgets.size(); i++) {
-            if(widgets.get(i).isVisible())
-            widgets.get(i).hangingEvent(hang, mouseX, mouseY);
-        }
+		for (ElementBase widget : widgets) {
+			if (widget.isVisible())
+				widget.hangingEvent(hang, mouseX, mouseY);
+		}
 
     }
 
@@ -48,8 +45,8 @@ public class RenderHelper {
 
         //ItemStack ret = stack;
 
-        for(int i = 0; i < widgets.size(); i++) {
-            if (widgets.get(i).checkInstr(mouseX, mouseY) && widgets.get(i).isVisible()) {
+		for (ElementBase widget : widgets) {
+			if (widget.checkInstr(mouseX, mouseY) && widget.isVisible()) {
                 /*
                 if(widgets.getRcp(i) instanceof ElementSlot) {
                     ItemStack in = ((ElementSlot) widgets.getRcp(i)).item;
@@ -70,9 +67,9 @@ public class RenderHelper {
                     }
                 }
                  */
-                widgets.get(i).onMouseClicked(mouseX, mouseY);
-            }
-        }
+				widget.onMouseClicked(mouseX, mouseY);
+			}
+		}
 
         //return ret;
 

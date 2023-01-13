@@ -45,7 +45,7 @@ public class ItemTransferor {
 
 		if (FaceOption.isPassive(t.direCheckItem(d)))
 			return;
-		if (!FaceOption.isOut(t.direCheckItem(d)))
+		if (FaceOption.isOut(t.direCheckItem(d)))
 			return;
 
 		BlockEntity tile = checkTile(p);
@@ -66,7 +66,7 @@ public class ItemTransferor {
 
 		if (FaceOption.isPassive(t.direCheckItem(d)))
 			return;
-		if (!FaceOption.isIn(t.direCheckItem(d)))
+		if (FaceOption.isIn(t.direCheckItem(d)))
 			return;
 
 		BlockEntity tile = checkTile(p);

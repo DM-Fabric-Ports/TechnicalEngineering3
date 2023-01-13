@@ -1,6 +1,5 @@
 package ten3.core.machine.pipe;
 
-import java.util.Optional;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
@@ -13,6 +12,8 @@ import ten3.lib.tile.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.option.Type;
 import ten3.util.StorageType;
+
+import java.util.Optional;
 
 public class PipeTile extends CmTileMachine {
 
@@ -34,6 +35,7 @@ public class PipeTile extends CmTileMachine {
 		return Optional.empty();
 	}
 
+	@SuppressWarnings("UnstableApiUsage")
 	@Override
 	public Optional<Storage<ItemVariant>> crtItm(Direction d) {
 		return Optional.of(new ItemStorageWayFinding(d, this));

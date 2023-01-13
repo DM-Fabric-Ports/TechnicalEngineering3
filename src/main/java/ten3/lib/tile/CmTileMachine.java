@@ -229,7 +229,7 @@ public abstract class CmTileMachine extends CmTileEntity {
 		progressor.progressOn(data, getActual());
 	}
 
-	private Queue<Direction> qr = Queues.newArrayDeque(Lists.newArrayList(Direction.values()));
+	private final Queue<Direction> qr = Queues.newArrayDeque(Lists.newArrayList(Direction.values()));
 	double actualEffPercent;
 
 	public MutableComponent getDisplayWith() {

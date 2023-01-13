@@ -46,7 +46,7 @@ public class MTSRecipe extends SingleRecipe {
     @Override
     public NonNullList<Ingredient> getIngredients()
     {
-        NonNullList<Ingredient> nonNullList = NonNullList.create();//fucking mojang extends AbstractList
+        NonNullList<Ingredient> nonNullList = NonNullList.create();
         for(CmItemList lst : ingredients) {
             if(lst != null)
 				nonNullList.add(lst.vanillaIngre());

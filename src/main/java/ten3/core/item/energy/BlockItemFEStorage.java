@@ -33,10 +33,8 @@ public class BlockItemFEStorage extends DefItemBlock implements SimpleEnergyItem
 	public BlockItemFEStorage(Block b) {
 		super(b, 1);
 
-		EnergyStorage.ITEM.registerForItems((stack, ctx) -> {
-			return SimpleEnergyItem.createStorage(ctx, getEnergyCapacity(stack), getEnergyMaxInput(stack),
-					getEnergyMaxOutput(stack));
-		}, this);
+		EnergyStorage.ITEM.registerForItems((stack, ctx) -> SimpleEnergyItem.createStorage(ctx, getEnergyCapacity(stack), getEnergyMaxInput(stack),
+				getEnergyMaxOutput(stack)), this);
 	}
 
 	@Override
