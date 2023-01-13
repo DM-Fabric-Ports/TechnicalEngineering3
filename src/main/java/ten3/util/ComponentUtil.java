@@ -2,7 +2,7 @@ package ten3.util;
 
 import net.minecraft.network.chat.Component;
 
-public class PatternUtil {
+public class ComponentUtil {
 
     public static Component join(double e, double me) {
 

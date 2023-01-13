@@ -59,8 +59,7 @@ public class SingleRecipe implements OpportunityRecipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container p_44001_)
-    {
+    public ItemStack assemble(Container container) {
         ItemStack s = getResultItem().copy();
         s.setCount(count);
 
@@ -68,14 +67,13 @@ public class SingleRecipe implements OpportunityRecipe<Container> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int p_43999_, int p_44000_)
+    public boolean canCraftInDimensions(int i, int i1)
     {
         return true;
     }
 
     @Override
-    public ItemStack getAdditionOutput()
-    {
+    public ItemStack getAdditionOutput() {
         return addition;
     }
 

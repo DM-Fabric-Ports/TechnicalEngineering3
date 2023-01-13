@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import ten3.lib.client.RenderHelper;
 import ten3.util.TranslateKeyUtil;
-import ten3.util.PatternUtil;
+import ten3.util.ComponentUtil;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class ElementBurnLeft extends ElementBase {
             tooltips.add(TranslateKeyUtil.make((int) (p * 100) + "%"));
         }
         else {
-            tooltips.add(PatternUtil.join(val, m_val));
+            tooltips.add(ComponentUtil.join(val, m_val));
         }
 
     }

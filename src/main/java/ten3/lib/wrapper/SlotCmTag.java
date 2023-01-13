@@ -10,7 +10,6 @@ public class SlotCmTag extends SlotCm {
 
     public SlotCmTag(Container i, int id, int x, int y, String valid, boolean ext, boolean in) {
 
-        // bug fixed
         super(i, id, x, y, null, ext, in);
 
         tag = valid;

@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -29,15 +28,11 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 import ten3.core.item.energy.EnergyItemHelper;
-import ten3.init.template.DefBlock;
 import ten3.init.TileInit;
+import ten3.init.template.DefBlock;
 import ten3.lib.tile.CmTileEntity;
 import ten3.lib.tile.CmTileMachine;
 
@@ -151,7 +146,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
         return InteractionResult.SUCCESS;
     }
 
-    @Override
+
     public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction)
     {
         return true;

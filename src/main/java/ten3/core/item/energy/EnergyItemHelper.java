@@ -1,18 +1,19 @@
 package ten3.core.item.energy;
 
-import static ten3.lib.tile.CmTileMachine.ENERGY;
-
-import java.util.List;
-
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import ten3.lib.tile.CmTileMachine;
+import ten3.util.ComponentUtil;
 import ten3.util.ItemUtil;
-import ten3.util.PatternUtil;
 
+import java.util.List;
+
+import static ten3.lib.tile.CmTileMachine.ENERGY;
+
+@SuppressWarnings("ALL")
 public class EnergyItemHelper {
 
 	public static void addTooltip(List<Component> tooltips, ItemStack stack) {
@@ -20,7 +21,7 @@ public class EnergyItemHelper {
 		double e = ItemUtil.getTag(stack, "energy");
 		double me = ItemUtil.getTag(stack, "maxEnergy");
 
-		tooltips.add(PatternUtil.join(e, me));
+        tooltips.add(ComponentUtil.join(e, me));
 
 	}
 

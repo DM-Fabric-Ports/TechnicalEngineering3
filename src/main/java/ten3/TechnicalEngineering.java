@@ -1,16 +1,12 @@
 package ten3;
 
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
+import org.intellij.lang.annotations.Identifier;
 import org.quiltmc.loader.api.ModContainer;
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
-
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.fml.config.ModConfig;
 import ten3.init.*;
 
 public class TechnicalEngineering implements ModInitializer, ClientModInitializer {
@@ -29,9 +25,10 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
         RecipeInit.regAll();
     }
 
+	@ClientOnly
     @Override
     public void onInitializeClient(ModContainer mod) {
-
+		FluidInit.clientInit();
     }
 
 }
