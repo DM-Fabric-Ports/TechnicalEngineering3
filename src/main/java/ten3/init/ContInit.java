@@ -1,10 +1,13 @@
 package ten3.init;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import java.util.ArrayList;
+import java.util.List;
+import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -25,9 +28,6 @@ import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.wrapper.IntArrayCm;
 import ten3.lib.wrapper.SlotCm;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ContInit {
 
@@ -103,10 +103,10 @@ public class ContInit {
 		bindScr("cell", CellScreen::new);
 
         for (String s : translucent) {
-			BlockRenderLayerMap.INSTANCE.putBlock(BlockInit.getBlock(s), RenderType.translucent());
+			BlockRenderLayerMap.put(RenderType.translucent(), BlockInit.getBlock(s));
         }
         for (String s : cutout) {
-			BlockRenderLayerMap.INSTANCE.putBlock(BlockInit.getBlock(s), RenderType.cutout());
+			BlockRenderLayerMap.put(RenderType.cutout(), BlockInit.getBlock(s));
         }
 
     }
