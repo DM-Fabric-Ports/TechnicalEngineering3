@@ -1,15 +1,16 @@
 package ten3.lib.capability.item;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import ten3.lib.tile.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.util.DireUtil;
+import ten3.util.TransferUtil;
 
 import java.util.List;
 
@@ -34,9 +35,9 @@ public class ItemTransferor {
 
     }
 
-    public static IItemHandler handlerOf(BlockEntity t, Direction d) {
+    public static Storage<ItemVariant> handlerOf(BlockEntity t, Direction d) {
 
-        return t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, d).orElse(null);
+        return TransferUtil.getItemStorage(t, d);
 
     }
 
