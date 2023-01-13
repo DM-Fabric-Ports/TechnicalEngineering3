@@ -1,6 +1,7 @@
 package ten3.core.item.energy;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -28,7 +29,7 @@ public class BlockItemFEStorage extends DefItemBlock {
     //in game item do
 
     private CmTileMachine getBind() {
-        return (CmTileMachine) CmTileEntity.ofType(TileInit.getType(ExcUtil.regNameOf(this)));
+        return (CmTileMachine) CmTileEntity.ofType(TileInit.getType(BuiltInRegistries.ITEM.getKey(this).getPath()));
     }
 
     public BlockItemFEStorage(Block b) {
