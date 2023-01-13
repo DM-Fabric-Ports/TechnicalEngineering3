@@ -1,82 +1,63 @@
 package ten3.lib.capability.energy;
 
-import net.minecraftforge.energy.IEnergyStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import team.reborn.energy.api.EnergyStorage;
 
-public class FEStorage implements IEnergyStorage {
+public class FEStorage implements EnergyStorage {
 
-    protected int pro_energy;
-    protected int capacity;
-    protected int maxReceive;
-    protected int maxExtract;
+	protected long pro_energy;
+	protected long capacity;
+	protected long maxReceive;
+	protected long maxExtract;
 
-    public FEStorage(int capacity, int maxReceive, int maxExtract) {
-        this.capacity = capacity;
-        this.maxReceive = maxReceive;
-        this.maxExtract = maxExtract;
-    }
+	public FEStorage(long capacity, long maxReceive, long maxExtract) {
+		this.capacity = capacity;
+		this.maxReceive = maxReceive;
+		this.maxExtract = maxExtract;
+	}
 
-    @Override
-    public int receiveEnergy(int maxReceive, boolean simulate) {
+	public long getMaxReceive() {
+		return maxReceive;
+	}
 
-        if (!canReceive()) {
-            return 0;
-        }
-        int energyReceived = Math.min(getMaxEnergyStored() - getEnergyStored(), Math.min(getMaxReceive(), maxReceive));
-        if (!simulate) {
-            translateEnergy(energyReceived);
-        }
-        return energyReceived;
-    }
+	public long getMaxExtract() {
+		return maxExtract;
+	}
 
-    @Override
-    public int extractEnergy(int maxExtract, boolean simulate) {
+	public void translateEnergy(long diff) {
+		pro_energy += diff;
+	}
 
-        if (!canExtract()) {
-            return 0;
-        }
-        int energyExtracted = Math.min(getEnergyStored(), Math.min(getMaxExtract(), maxExtract));
-        if (!simulate) {
-            translateEnergy(-energyExtracted);
-        }
-        return energyExtracted;
-    }
+	public void setEnergy(long diff) {
+		pro_energy = diff;
+	}
 
-    @Override
-    public int getEnergyStored() {
-        return pro_energy;
-    }
+	@Override
+	public long insert(long maxAmount, TransactionContext transaction) {
+		if (getMaxExtract() <= 0)
+			return 0;
+		long energyReceived = Math.min(getCapacity() - getAmount(), Math.min(getMaxReceive(), maxReceive));
+		translateEnergy(energyReceived);
+		return energyReceived;
+	}
 
-    public int getMaxReceive() {
-        return maxReceive;
-    }
+	@Override
+	public long extract(long maAmount, TransactionContext transaction) {
+		if (getMaxReceive() <= 0)
+			return 0;
+		long energyExtracted = Math.min(getAmount(), Math.min(getMaxExtract(), maxExtract));
+		translateEnergy(-energyExtracted);
+		return energyExtracted;
+	}
 
-    public int getMaxExtract() {
-        return maxExtract;
-    }
+	@Override
+	public long getAmount() {
+		return pro_energy;
+	}
 
-    public void translateEnergy(int diff) {
-        pro_energy += diff;
-    }
-    public void setEnergy(int diff) {
-        pro_energy = diff;
-    }
-
-    @Override
-    public int getMaxEnergyStored() {
-
-        return capacity;
-    }
-
-    @Override
-    public boolean canExtract() {
-
-        return this.maxExtract > 0;
-    }
-
-    @Override
-    public boolean canReceive() {
-
-        return this.maxReceive > 0;
-    }
+	@Override
+	public long getCapacity() {
+		return capacity;
+	}
 
 }

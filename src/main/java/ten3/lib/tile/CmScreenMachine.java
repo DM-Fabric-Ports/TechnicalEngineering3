@@ -1,20 +1,32 @@
 package ten3.lib.tile;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Inventory;
-import ten3.core.client.ClientHolder;
-import ten3.core.network.packets.PTSRedStatePack;
-import ten3.core.network.Network;
-import ten3.lib.client.element.*;
-import ten3.lib.tile.option.Level;
-import ten3.lib.tile.option.RedstoneMode;
+import static ten3.lib.tile.CmTileMachine.EFF;
+import static ten3.lib.tile.CmTileMachine.EFF_AUC;
+import static ten3.lib.tile.CmTileMachine.E_EXT;
+import static ten3.lib.tile.CmTileMachine.E_REC;
+import static ten3.lib.tile.CmTileMachine.I_EXT;
+import static ten3.lib.tile.CmTileMachine.I_REC;
+import static ten3.lib.tile.CmTileMachine.RED_MODE;
+import static ten3.lib.tile.CmTileMachine.UPGSIZE;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ten3.lib.tile.CmTileMachine.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Inventory;
+import ten3.core.client.ClientHolder;
+import ten3.core.network.Network;
+import ten3.core.network.packets.PTSRedStatePack;
+import ten3.lib.client.element.ElementBar;
+import ten3.lib.client.element.ElementBarEnergy;
+import ten3.lib.client.element.ElementBarIdeas;
+import ten3.lib.client.element.ElementBurnLeft;
+import ten3.lib.client.element.ElementButton;
+import ten3.lib.client.element.ElementButtonSlot;
+import ten3.lib.client.element.ElementImage;
+import ten3.lib.tile.option.RedstoneMode;
 
 public class CmScreenMachine extends CmScreen<CmContainerMachine> {
 

@@ -1,14 +1,9 @@
 package ten3.util;
 
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.TransferVariant;
+public record StorageType(String type) {
 
-public class StorageType<T extends TransferVariant<?>> {
-
-    private StorageType() {
-    }
-
-    public static final StorageType<ItemVariant> ITEM = new StorageType<>();
-    public static final StorageType<ItemVariant> FLUID = new StorageType<>();
+	public static final StorageType ITEM = new StorageType("item");
+	public static final StorageType FLUID = new StorageType("fluid");
+	public static final StorageType ENERGY = new StorageType("energy");
 
 }
