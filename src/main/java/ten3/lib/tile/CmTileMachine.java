@@ -395,30 +395,28 @@ public abstract class CmTileMachine extends CmTileEntity {
 
 	public Optional<Storage<ItemVariant>> getItemStorage(Direction side) {
 		if (side == null)
-			return crtLazyItm(null);
+			return crtItm(null);
 
 		return direCheckItem(side) != FaceOption.OFF && can(StorageType.ITEM, side)
-				? crtLazyItm(side)
+				? crtItm(side)
 				: Optional.empty();
 	}
 
 	public Optional<EnergyStorage> getEnergyStorage(Direction side) {
 		if (side == null)
-			return crtLazyEne(null);
+			return crtEne(null);
 
 		return direCheckEnergy(side) != FaceOption.OFF && can(StorageType.ENERGY, side)
-				? crtLazyEne(side)
+				? crtEne(side)
 				: Optional.empty();
 	}
 
-	public Optional<Storage<ItemVariant>> crtLazyItm(Direction d) {
+	public Optional<Storage<ItemVariant>> crtItm(Direction d) {
 		return Optional.of(InventoryStorage.of(this.inventory, d));
 	}
 
-	public Optional<EnergyStorage> crtLazyEne(Direction d) {
-
+	public Optional<EnergyStorage> crtEne(Direction d) {
 		return Optional.of(new FEStorageTile(d, this));
-
 	}
 
 	public boolean checkCanRun() {
