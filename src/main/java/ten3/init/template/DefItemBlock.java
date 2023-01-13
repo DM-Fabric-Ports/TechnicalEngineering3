@@ -25,6 +25,7 @@ public class DefItemBlock extends BlockItem {
     }
 
     public DefItemBlock(Block b, CreativeModeTab g, int size) {
+		//.tab(g)
 
         super(b, new Properties().stacksTo(size));
 
