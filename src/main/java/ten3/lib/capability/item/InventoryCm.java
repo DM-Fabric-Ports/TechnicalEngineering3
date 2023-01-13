@@ -1,13 +1,11 @@
 package ten3.lib.capability.item;
 
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import ten3.lib.tile.CmTileEntity;
-import ten3.lib.wrapper.SlotCm;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import ten3.lib.wrapper.SlotCm;
 
 public class InventoryCm extends SimpleContainer {
 
@@ -21,24 +19,23 @@ public class InventoryCm extends SimpleContainer {
 
     public InventoryCm copy() {
         InventoryCm inv = new InventoryCm(getContainerSize(), slots);
-        for(int i = 0; i < getContainerSize(); i++) {
+        for (int i = 0; i < getContainerSize(); i++) {
             inv.setItem(i, getItem(i));
         }
         return inv;
     }
 
-    //used in InvWrapper, by FORGE.
+    // used in InvWrapper, by FORGE.
     @Override
-    public boolean canPlaceItem(int index, ItemStack stack)
-    {
+    public boolean canPlaceItem(int index, ItemStack stack) {
         SlotCm s = match(index);
-        return s.isItemValidInHandler(stack);//not mayPlace!
+        return s.isItemValidInHandler(stack);// not mayPlace!
     }
 
     public List<ItemStack> getStackInRange(int fr, int to) {
         List<ItemStack> lst = new ArrayList<>();
-        for(int i = fr; i<= to; i++) {
-            if(!getItem(i).isEmpty()) {
+        for (int i = fr; i <= to; i++) {
+            if (!getItem(i).isEmpty()) {
                 lst.add(getItem(i));
             }
         }
@@ -46,9 +43,10 @@ public class InventoryCm extends SimpleContainer {
     }
 
     public SlotCm match(int index) {
-        for(SlotCm c : slots) {
-            if(c == null) continue;
-            if(c.getSlotIndex() == index) {
+        for (SlotCm c : slots) {
+            if (c == null)
+                continue;
+            if (c.index == index) {
                 return c;
             }
         }
@@ -56,9 +54,10 @@ public class InventoryCm extends SimpleContainer {
     }
 
     public boolean isIn(int index) {
-        for(SlotCm c : slots) {
-            if(c == null) continue;
-            if(c.getSlotIndex() == index) {
+        for (SlotCm c : slots) {
+            if (c == null)
+                continue;
+            if (c.index == index) {
                 return c.canHandlerIn();
             }
         }
@@ -66,9 +65,10 @@ public class InventoryCm extends SimpleContainer {
     }
 
     public boolean isExt(int index) {
-        for(SlotCm c : slots) {
-            if(c == null) continue;
-            if(c.getSlotIndex() == index) {
+        for (SlotCm c : slots) {
+            if (c == null)
+                continue;
+            if (c.index == index) {
                 return c.canHandlerExt();
             }
         }
@@ -76,9 +76,10 @@ public class InventoryCm extends SimpleContainer {
     }
 
     public boolean isUsed(int index) {
-        for(SlotCm c : slots) {
-            if(c == null) continue;
-            if(c.getSlotIndex() == index) {
+        for (SlotCm c : slots) {
+            if (c == null)
+                continue;
+            if (c.index == index) {
                 return true;
             }
         }
