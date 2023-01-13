@@ -1,6 +1,10 @@
 package ten3.core.item.energy;
 
-import net.minecraft.core.NonNullList;
+import static ten3.lib.tile.CmTileMachine.ENERGY;
+
+import java.util.List;
+
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -8,10 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import ten3.lib.tile.CmTileMachine;
 import ten3.util.ItemUtil;
 import ten3.util.PatternUtil;
-
-import java.util.List;
-
-import static ten3.lib.tile.CmTileMachine.ENERGY;
 
 public class EnergyItemHelper {
 
@@ -41,18 +41,18 @@ public class EnergyItemHelper {
 
     }
 
-    public static void fillFull(Item i, NonNullList<ItemStack> stacks, int sto, int rec, int ext) {
+    public static void fillFull(Item i, FabricItemGroupEntries stacks, int sto, int rec, int ext) {
 
         ItemStack full = getState(i, sto, rec, ext);
         ItemUtil.setTag(full, "energy", sto);
-        stacks.add(full);
+        stacks.accept(full);
 
     }
 
-    public static void fillEmpty(Item i, NonNullList<ItemStack> stacks, int sto, int rec, int ext) {
+    public static void fillEmpty(Item i, FabricItemGroupEntries stacks, int sto, int rec, int ext) {
 
         ItemStack def = getState(i, sto, rec, ext);
-        stacks.add(def);
+        stacks.accept(def);
 
     }
 
