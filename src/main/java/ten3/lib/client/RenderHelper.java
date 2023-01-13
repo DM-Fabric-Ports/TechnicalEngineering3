@@ -1,24 +1,14 @@
 package ten3.lib.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.client.event.RenderTooltipEvent;
-import net.minecraftforge.client.gui.GuiUtils;
-import net.minecraftforge.common.MinecraftForge;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.resources.ResourceLocation;
 import ten3.lib.client.element.ElementBase;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.List;
 
 import static net.minecraft.client.gui.GuiComponent.*;
 

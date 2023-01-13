@@ -16,7 +16,7 @@ public class SingleSerial<T extends SingleRecipe> extends BaseSerial implements 
 
     public SingleSerial(IFactoryCm<T> factory, String reg) {
 
-        regName = new ResourceLocation(TConst.modid, reg);
+        regName = TConst.asResource(reg);
         this.factory = factory;
 
     }

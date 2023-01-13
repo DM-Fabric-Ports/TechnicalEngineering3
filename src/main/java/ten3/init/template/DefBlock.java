@@ -1,11 +1,8 @@
 package ten3.init.template;
 
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
-import ten3.util.TranslateKeyUtil;
-import ten3.util.ExcUtil;
 
 public class DefBlock extends Block {
 
@@ -33,13 +30,6 @@ public class DefBlock extends Block {
 
     public DefBlock(Properties p) {
         super(p);
-    }
-
-    @Override
-    public MutableComponent getName() {
-
-        return TranslateKeyUtil.getKey(ExcUtil.regNameOf(this));
-
     }
 
 }
