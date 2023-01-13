@@ -1,29 +1,28 @@
 package ten3.util;
 
+import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class ItemUtil {
 
     public static ItemStack[] merge(ItemStack i1, ItemStack i2) {
 
         SimpleContainer inv = new SimpleContainer(2);
-        InvWrapper wrapper = new InvWrapper(inv);
         inv.setItem(0, i1.copy());
-        ItemStack sr = wrapper.insertItem(0, i2.copy(), false);
-        if(sr.isEmpty()) {
-            return new ItemStack[] {inv.getItem(0)};
-        }
-        return new ItemStack[] {inv.getItem(0), sr};
+        InventoryStorage wrapper = InventoryStorage.of(inv, null);
+        TransferUtil.execute(t -> wrapper.insert(ItemVariant.of(i2), i2.getCount(), t));
+        return wrapper.getSlots().stream().filter(s -> s.getAmount() > 0)
+                .map(s -> s.getResource().toStack((int) s.getAmount())).toList().toArray(new ItemStack[0]);
 
     }
 
     public static void damage(ItemStack stack, Level world, int am) {
 
-        if(stack.hurt(am, world.getRandom(), null)) {
+        if (stack.hurt(am, world.getRandom(), null)) {
             stack.setCount(0);
         }
 
@@ -43,17 +42,17 @@ public class ItemUtil {
 
     public static int getTag(ItemStack stack, String name) {
 
-        return (int)getTagD(stack, name);
+        return (int) getTagD(stack, name);
 
     }
 
     public static double getTagD(ItemStack stack, String name) {
 
-        if(!stack.hasTag()) {
+        if (!stack.hasTag()) {
             return 0;
         }
 
-        if(!stack.getTag().contains(name)) {
+        if (!stack.getTag().contains(name)) {
             return 0;
         }
 

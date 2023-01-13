@@ -19,8 +19,9 @@ import ten3.lib.tile.CmTileMachine;
 import ten3.util.ExcUtil;
 import ten3.util.ItemUtil;
 
-import javax.annotation.Nullable;
 import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
 
 public class BlockItemFEStorage extends DefItemBlock {
 
@@ -90,7 +91,7 @@ public class BlockItemFEStorage extends DefItemBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @org.jetbrains.annotations.Nullable Level p_40573_, List<Component> tooltip, TooltipFlag p_40575_)
+    public void appendHoverText(ItemStack stack, @Nullable Level p_40573_, List<Component> tooltip, TooltipFlag p_40575_)
     {
         EnergyItemHelper.addTooltip(tooltip, stack);
     }

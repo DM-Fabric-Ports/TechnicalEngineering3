@@ -10,13 +10,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import ten3.TConst;
 import ten3.TechnicalEngineering;
 import ten3.core.machine.engine.EngineScreen;
@@ -56,11 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ContInit {
-
-    static Map<String, RegistryObject<MenuType<?>>> regs = new HashMap<>();
-    public static final DeferredRegister<MenuType<?>> CONS = DeferredRegister.create(ForgeRegistries.CONTAINERS, TConst.modid);
 
     public static void regAll() {
         regCont("engine_extraction");
@@ -78,7 +67,6 @@ public class ContInit {
         regCont("machine_induction_furnace");
 
         regCont("cell");
-
     }
 
     public static IntArrayCm createDefaultIntArr() {
@@ -91,13 +79,12 @@ public class ContInit {
 
     public static void regCont(String id) {
 
-        RegistryObject<MenuType<?>> reg = CONS.register(id, () ->
-                IForgeMenuType.create((windowId, inv, data) -> {
-                    BlockPos pos = data.readBlockPos();
-                        return new CmContainerMachine(windowId, id,
-                                TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
-                                inv, pos, createDefaultIntArr());
-                        }));
+        RegistryObject<MenuType<?>> reg = CONS.register(id, () -> IForgeMenuType.create((windowId, inv, data) -> {
+            BlockPos pos = data.readBlockPos();
+            return new CmContainerMachine(windowId, id,
+                    TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
+                    inv, pos, createDefaultIntArr());
+        }));
         regs.put(id, reg);
 
     }
@@ -139,17 +126,18 @@ public class ContInit {
 
         bindScr("cell", CellScreen::new);
 
-        for(String s : translucent) {
+        for (String s : translucent) {
             ItemBlockRenderTypes.setRenderLayer(BlockInit.getBlock(s), RenderType.translucent());
         }
-        for(String s : cutout) {
+        for (String s : cutout) {
             ItemBlockRenderTypes.setRenderLayer(BlockInit.getBlock(s), RenderType.cutout());
         }
 
     }
 
     @SuppressWarnings("all")
-    private static<M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void bindScr(String s, MenuScreens.ScreenConstructor<M, U> fac) {
+    private static <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void bindScr(String s,
+            MenuScreens.ScreenConstructor<M, U> fac) {
         MenuScreens.register((MenuType<? extends M>) getType(s), fac);
     }
 

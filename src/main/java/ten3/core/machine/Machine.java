@@ -64,7 +64,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state)
     {
@@ -82,7 +82,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
 
         CmTileMachine tile = ((CmTileMachine) builder.getParameter(LootContextParams.BLOCK_ENTITY));
-        
+
         if(tile == null) {
             return Lists.newArrayList(asItem().getDefaultInstance());
         }

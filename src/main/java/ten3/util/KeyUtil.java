@@ -3,8 +3,6 @@ package ten3.util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import ten3.TConst;
 
 @OnlyCore
@@ -21,7 +19,7 @@ public class KeyUtil {
     @OnlyCore
     public static String exceptMachineOrGiveCell(String s) {
 
-        if(s.startsWith("cell_")) {
+        if (s.startsWith("cell_")) {
             return "cell";
         }
 
@@ -31,14 +29,13 @@ public class KeyUtil {
 
     public static MutableComponent translated(String... ss) {
 
-        TranslatableComponent t1 = null;
+        MutableComponent t1 = null;
 
-        for(String s : ss) {
-            if(t1 == null) {
-                t1 = new TranslatableComponent(s);
-            }
-            else {
-                t1.append(new TranslatableComponent(s));
+        for (String s : ss) {
+            if (t1 == null) {
+                t1 = Component.translatable(s);
+            } else {
+                t1.append(Component.translatable(s));
             }
         }
 
@@ -48,14 +45,13 @@ public class KeyUtil {
 
     public static MutableComponent make(String... ss) {
 
-        TextComponent t1 = null;
+        MutableComponent t1 = null;
 
-        for(String s : ss) {
-            if(t1 == null) {
-                t1 = new TextComponent(s);
-            }
-            else {
-                t1.append(new TextComponent(s));
+        for (String s : ss) {
+            if (t1 == null) {
+                t1 = Component.literal(s);
+            } else {
+                t1.append(Component.literal(s));
             }
         }
 

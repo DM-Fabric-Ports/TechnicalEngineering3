@@ -1,44 +1,38 @@
 package ten3.init;
 
+import static ten3.lib.tile.CmTileMachine.kFE;
+
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import ten3.TConst;
-import ten3.TechnicalEngineering;
+import ten3.core.item.Spanner;
 import ten3.core.item.energy.BlockItemFEStorage;
 import ten3.core.item.energy.ItemFEStorage;
-import ten3.core.item.upgrades.*;
-import ten3.core.item.*;
+import ten3.core.item.upgrades.LevelupAnc;
+import ten3.core.item.upgrades.LevelupAug;
+import ten3.core.item.upgrades.LevelupPower;
+import ten3.core.item.upgrades.LevelupRg;
+import ten3.core.item.upgrades.LevelupSyn;
 import ten3.init.template.DefItem;
 import ten3.init.template.DefItemBlock;
 import ten3.init.template.InvisibleItem;
-import ten3.lib.tile.PacketCapData;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
-import static ten3.lib.tile.CmTileMachine.kFE;
 
 public class ItemInit {
 
-    static Map<String, RegistryObject<Item>> regs = new HashMap<>();
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TConst.modid);
-
     public static void regAll() {
 
-        //Protected:
-        regItem("pedia", InvisibleItem::new);
-        regItem("technical_item", InvisibleItem::new);
-        regItem("technical_block", InvisibleItem::new);
+        // Protected:
+        regItem("pedia", new InvisibleItem());
+        regItem("technical_item", new InvisibleItem());
+        regItem("technical_block", new InvisibleItem());
 
-        regItem("spanner", Spanner::new);
-        regItem("energy_capacity", () -> new ItemFEStorage(kFE(500), kFE(5), kFE(5)));
+        regItem("spanner", new Spanner());
+        regItem("energy_capacity", new ItemFEStorage(kFE(500), kFE(5), kFE(5)));
 
-        //produced things
-        //regItemDef("energy_core");
-       // regItemDef("machine_frame");
+        // produced things
+        // regItemDef("energy_core");
+        // regItemDef("machine_frame");
         regItemDef("redstone_conductor");
         regItemDef("redstone_converter");
         regItemDef("redstone_storer");
@@ -47,10 +41,10 @@ public class ItemInit {
         regItemDef("royal_jelly");
         regItemDef("spicy_jelly");
         regItemDef("bizarrerie");
-        //too imba
-        //regItem("world_bag", new WorldBag());
+        // too imba
+        // regItem("world_bag", new WorldBag());
 
-        //base materials
+        // base materials
         regPairMetal("iron", true);
         regPairMetal("gold", true);
         regPairMetal("copper", true);
@@ -60,23 +54,23 @@ public class ItemInit {
         regPairMetal("chlorium", false);
         regItemDef("starlight_dust");
 
-        //upgrades
-        regItem("augmented_levelup", LevelupAug::new);
-        regItem("powered_levelup", LevelupPower::new);
-        regItem("relic_levelup", LevelupAnc::new);
-        regItem("range_levelup", LevelupRg::new);
-        regItem("photosyn_levelup", LevelupSyn::new);
+        // upgrades
+        regItem("augmented_levelup", new LevelupAug());
+        regItem("powered_levelup", new LevelupPower());
+        regItem("relic_levelup", new LevelupAnc());
+        regItem("range_levelup", new LevelupRg());
+        regItem("photosyn_levelup", new LevelupSyn());
 
-        //ores
+        // ores
         regItemBlockDef("tin_ore");
-        //regItemBlockDef("copper_ore");
+        // regItemBlockDef("copper_ore");
         regItemBlockDef("nickel_ore");
         regItemBlockDef("deep_tin_ore");
         regItemBlockDef("deep_nickel_ore");
         regItemDef("raw_tin");
         regItemDef("raw_nickel");
 
-        //machines
+        // machines
         regItemMachineWithoutID("engine_extraction");
         regItemMachineWithoutID("engine_metal");
         regItemMachineWithoutID("engine_biomass");
@@ -98,7 +92,7 @@ public class ItemInit {
 
     public static void regPairMetal(String id, boolean vanilla) {
 
-        if(!vanilla) {
+        if (!vanilla) {
             regItemDef(id + "_ingot");
         }
 
@@ -110,35 +104,29 @@ public class ItemInit {
 
     public static void regItemBlockDef(String id) {
 
-        regItem(id, () -> new DefItemBlock(BlockInit.getBlock(id)));
+        regItem(id, new DefItemBlock(BlockInit.getBlock(id)));
 
     }
 
     public static void regItemMachine(String id) {
         String idi = "machine_" + id;
-        regItem(idi, () -> new BlockItemFEStorage(BlockInit.getBlock(idi)));
+        regItem(idi, new BlockItemFEStorage(BlockInit.getBlock(idi)));
     }
+
     public static void regItemMachineWithoutID(String id) {
-        regItem(id, () -> new BlockItemFEStorage(BlockInit.getBlock(id)));
+        regItem(id, new BlockItemFEStorage(BlockInit.getBlock(id)));
     }
 
     public static void regItemDef(String id) {
-
-        regItem(id, DefItem::new);
-
+        regItem(id, new DefItem());
     }
 
-    public static void regItem(String id, Supplier<Item> im) {
-
-        RegistryObject<Item> reg = ITEMS.register(id, im);
-        regs.put(id, reg);
-
+    public static void regItem(String id, Item im) {
+        Registry.register(BuiltInRegistries.ITEM, TConst.asResource(id), im);
     }
 
     public static Item getItem(String id) {
-
-        return regs.get(id).get();
-
+        return BuiltInRegistries.ITEM.get(TConst.asResource(id));
     }
 
 }

@@ -1,18 +1,15 @@
 package ten3.util;
 
-import net.minecraft.core.Registry;
+import java.util.Collection;
+import java.util.List;
+
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.tags.ITag;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class TagUtil {
 
@@ -21,15 +18,12 @@ public class TagUtil {
     }
 
     public static TagKey<Item> key(String s) {
-        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(s));
+        return TagKey.create(Registries.ITEM, new ResourceLocation(s));
     }
 
     public static Collection<Item> getItemsTag(String s) {
-        List<Item> lst = new ArrayList<>();
-        for(ItemStack stk : new Ingredient.TagValue(key(s)).getItems()) {
-            lst.add(stk.getItem());
-        }
-        return lst;
+        var opt = BuiltInRegistries.ITEM.getTag(key(s));
+        return opt.isPresent() ? opt.get().stream().map(Holder::value).toList() : List.of();
     }
 
     public static boolean containsItem(Item t, TagKey<Item> s) {
@@ -37,7 +31,7 @@ public class TagUtil {
     }
 
     public static boolean containsBlock(Block t, String s) {
-        return t.defaultBlockState().is(TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(s)));
+        return t.defaultBlockState().is(TagKey.create(Registries.BLOCK, new ResourceLocation(s)));
     }
 
 }

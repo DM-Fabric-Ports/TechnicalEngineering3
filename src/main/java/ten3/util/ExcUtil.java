@@ -1,7 +1,12 @@
 package ten3.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
+
 import net.minecraft.Util;
 import net.minecraft.core.NonNullList;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -9,87 +14,88 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-
-import java.util.*;
 
 public class ExcUtil {
 
-    public static String regNameOf(IForgeRegistryEntry<?> entry) {
+	public static <C extends Container, T extends Recipe<C>> Optional<T> safeGetRecipe(Level world, RecipeType<T> type,
+			C i) {
 
-        return Objects.requireNonNull(entry.getRegistryName()).getPath();
+		if (world == null)
+			return Optional.empty();
 
-    }
+		RecipeManager rm = world.getRecipeManager();
+		return rm.getRecipeFor(type, i, world);
 
-    public static<C extends Container, T extends Recipe<C>> Optional<T> safeGetRecipe(Level world, RecipeType<T> type, C i) {
+	}
 
-        if(world == null) return Optional.empty();
+	public static Collection<? extends Recipe<Container>> safeGetRecipes(Level world,
+			RecipeType<? extends Recipe<Container>> type) {
 
-        RecipeManager rm = world.getRecipeManager();
-        return rm.getRecipeFor(type, i, world);
+		if (world == null)
+			return new ArrayList<>();
 
-    }
+		RecipeManager rm = world.getRecipeManager();
+		return rm.getAllRecipesFor(type);
 
-    public static Collection<? extends Recipe<Container>> safeGetRecipes(Level world, RecipeType<? extends Recipe<Container>> type) {
+	}
 
-        if(world == null) return new ArrayList<>();
+	public static boolean hasRcpUseThisItem(Level world, RecipeType<? extends Recipe<Container>> type,
+			ItemStack stack) {
+		return hasRcpUseThisItem(world, type, safeGetRecipes(world, type), stack);
+	}
 
-        RecipeManager rm = world.getRecipeManager();
-        return rm.getAllRecipesFor(type);
+	public static boolean hasRcpUseThisItem(Level world, RecipeType<? extends Recipe<Container>> type,
+			Collection<? extends Recipe<Container>> recipes, ItemStack stack) {
+		final boolean[] ret = new boolean[1];
+		recipes.forEach((r) -> {
+			NonNullList<Ingredient> ings = r.getIngredients();
+			ings.forEach((i) -> {
+				if (i.test(stack)) {
+					ret[0] = true;
+				}
+			});
+		});
+		return ret[0];
+	}
 
-    }
+	public static Collection<Recipe<Container>> getRcpUseThisItem(Level world,
+			RecipeType<? extends Recipe<Container>> type, ItemStack stack) {
+		Collection<? extends Recipe<Container>> recipes = ExcUtil.safeGetRecipes(world, type);
+		Collection<Recipe<Container>> ret = new ArrayList<>();
+		recipes.forEach((r) -> {
+			NonNullList<Ingredient> ings = r.getIngredients();
+			ings.forEach((i) -> {
+				if (i.test(stack)) {
+					ret.add(r);
+				}
+			});
+		});
+		return ret;
+	}
 
-    public static boolean hasRcpUseThisItem(Level world, RecipeType<? extends Recipe<Container>> type, ItemStack stack) {
-        return hasRcpUseThisItem(world, type, safeGetRecipes(world, type), stack);
-    }
+	static RandomSource random = RandomSource.create();
 
-    public static boolean hasRcpUseThisItem(Level world, RecipeType<? extends Recipe<Container>> type, Collection<? extends Recipe<Container>> recipes, ItemStack stack) {
-        final boolean[] ret = new boolean[1];
-        recipes.forEach((r) -> {
-            NonNullList<Ingredient> ings = r.getIngredients();
-            ings.forEach((i) -> {
-                if(i.test(stack)) {
-                    ret[0] = true;
-                }
-            });
-        });
-        return ret[0];
-    }
+	@SuppressWarnings("all")
+	public static <T> T randomInCollection(Collection<T> col) {
 
-    public static Collection<Recipe<Container>> getRcpUseThisItem(Level world, RecipeType<? extends Recipe<Container>> type, ItemStack stack) {
-        Collection<? extends Recipe<Container>> recipes = ExcUtil.safeGetRecipes(world, type);
-        Collection<Recipe<Container>> ret = new ArrayList<>();
-        recipes.forEach((r) -> {
-            NonNullList<Ingredient> ings = r.getIngredients();
-            ings.forEach((i) -> {
-                if(i.test(stack)) {
-                    ret.add(r);
-                }
-            });
-        });
-        return ret;
-    }
+		if (col == null)
+			return null;
+		if (col.size() == 0)
+			return null;
 
-    static Random random = new Random();
+		Object[] items = col.toArray();
+		Object j = Util.getRandom(items, random);
+		return (T) j;
 
-    @SuppressWarnings("all")
-    public static <T> T randomInCollection(Collection<T> col) {
+	}
 
-        if(col == null) return null;
-        if(col.size() == 0) return null;
+	public static int safeInt(Integer i) {
 
-        Object[] items = col.toArray();
-        Object j = Util.getRandom(items, random);
-        return (T) j;
+		if (i == null)
+			return 0;
 
-    }
+		return i;
 
-    public static int safeInt(Integer i) {
-
-        if(i == null) return 0;
-
-        return i;
-
-    }
+	}
 
 }

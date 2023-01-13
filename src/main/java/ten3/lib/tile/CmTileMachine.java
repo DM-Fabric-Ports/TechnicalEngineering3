@@ -39,7 +39,7 @@ import ten3.lib.tile.option.Type;
 import ten3.lib.wrapper.*;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public abstract class CmTileMachine extends CmTileEntity {

@@ -1,6 +1,5 @@
 package ten3.util;
 
-import com.mojang.math.Vector3d;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -19,12 +18,12 @@ public class WorkUtil {
 
         int rr = radius % 2 == 0 ? radius - 1 : radius;
 
-        for(int i = -rr; i < radius; i++) {
-            for(int j = -rr; j < radius; j++) {
-                for(int k = -rr; k < radius; k++) {
-                    BlockPos pin = new BlockPos(x+i, y+j, z+k);
-                    if(center.closerThan(pin, radius)) {
-                        if(r.run(pin)) {
+        for (int i = -rr; i < radius; i++) {
+            for (int j = -rr; j < radius; j++) {
+                for (int k = -rr; k < radius; k++) {
+                    BlockPos pin = new BlockPos(x + i, y + j, z + k);
+                    if (center.closerThan(pin, radius)) {
+                        if (r.run(pin)) {
                             return;
                         }
                     }
@@ -42,11 +41,11 @@ public class WorkUtil {
 
         int rr = radius % 2 == 0 ? radius - 1 : radius;
 
-        for(int i = -rr; i < radius; i++) {
-            for(int k = -rr; k < radius; k++) {
-                BlockPos pin = new BlockPos(x+i, y, z+k);
-                if(center.closerThan(pin, radius)) {
-                    if(r.run(pin)) {
+        for (int i = -rr; i < radius; i++) {
+            for (int k = -rr; k < radius; k++) {
+                BlockPos pin = new BlockPos(x + i, y, z + k);
+                if (center.closerThan(pin, radius)) {
+                    if (r.run(pin)) {
                         return;
                     }
                 }
@@ -63,7 +62,7 @@ public class WorkUtil {
     }
 
     public interface RunWithPos {
-        //is stopping
+        // is stopping
         boolean run(BlockPos pos);
     }
 

@@ -13,7 +13,7 @@ import ten3.init.tab.DefGroup;
 import ten3.util.KeyUtil;
 import ten3.util.ExcUtil;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
