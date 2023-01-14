@@ -1,5 +1,7 @@
 package ten3.init;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
@@ -30,6 +32,7 @@ import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.wrapper.IntArrayCm;
 import ten3.lib.wrapper.SlotCm;
+import ten3.util.GuiOpenerUtil;
 
 public class ContInit {
 
@@ -60,27 +63,12 @@ public class ContInit {
 	}
 
 	public static void regCont(String id) {
-		Registry.register(BuiltInRegistries.MENU, TConst.asResource(id), create((windowId, inv, data) -> {
+		Registry.register(BuiltInRegistries.MENU, TConst.asResource(id), new ExtendedScreenHandlerType<>((windowId, inv, data) -> {
 			BlockPos pos = data.readBlockPos();
 			return new CmContainerMachine(windowId, id,
 					TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)), inv, pos,
 					createDefaultIntArr());
 		}));
-	}
-
-	private static <T extends AbstractContainerMenu> MenuType<T> create(
-			IContainerFactory<T> factory) {
-		return new MenuType<>(factory);
-	}
-
-	private interface IContainerFactory<T extends AbstractContainerMenu>
-			extends MenuType.MenuSupplier<T> {
-		T create(int windowId, Inventory inv, FriendlyByteBuf data);
-
-		@Override
-		default T create(int p_create_1_, Inventory p_create_2_) {
-			return create(p_create_1_, p_create_2_, null);
-		}
 	}
 
 	public static MenuType<?> getType(String id) {

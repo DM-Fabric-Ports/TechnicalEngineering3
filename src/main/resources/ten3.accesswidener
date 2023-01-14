@@ -1,0 +1,7 @@
+accessWidener v1 named
+
+accessible method net/minecraft/client/gui/screens/MenuScreens getConstructor (Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+accessible method net/minecraft/server/level/ServerPlayer nextContainerCounter ()V
+accessible method net/minecraft/server/level/ServerPlayer initMenu (Lnet/minecraft/world/inventory/AbstractContainerMenu;)V
+
+accessible field net/minecraft/server/level/ServerPlayer containerCounter I

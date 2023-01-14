@@ -76,3 +76,7 @@ publishing {
     repositories {
     }
 }
+
+loom {
+	accessWidenerPath = file("src/main/resources/ten3.accesswidener")
+}

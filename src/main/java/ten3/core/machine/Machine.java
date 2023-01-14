@@ -3,10 +3,14 @@ package ten3.core.machine;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.Nullable;
+import org.quiltmc.qsl.networking.api.PacketByteBufs;
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -36,6 +40,7 @@ import ten3.init.TileInit;
 import ten3.init.template.DefBlock;
 import ten3.lib.tile.CmTileEntity;
 import ten3.lib.tile.CmTileMachine;
+import ten3.util.GuiOpenerUtil;
 
 public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
@@ -127,16 +132,6 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 		}
 	}
 
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		super.createBlockStateDefinition(builder);
-		builder.add(active);
-		builder.add(dire);
-	}
-
-	// with facing on place
-
-
 	@Nullable
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -144,26 +139,39 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 				.setValue(active, false);
 	}
 
+	// with facing on place
 	@Override
 	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
 			InteractionHand handIn, BlockHitResult hit) {
 		if (handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide()) {
-			if (MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)) {
+			if (MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)
+					&& player instanceof ServerPlayer sp) {
 				CmTileMachine tile = (CmTileMachine) worldIn.getBlockEntity(pos);
 				if (tile == null && !worldIn.isClientSide())
 					return InteractionResult.FAIL;
 
-				player.openMenu(tile);
+				FriendlyByteBuf buf = PacketByteBufs.create();
+				assert tile != null;
+				GuiOpenerUtil.openGui((ServerPlayer) player, tile, (FriendlyByteBuf packerBuffer) -> {
+					packerBuffer.writeBlockPos(tile.getBlockPos());
+				});
 			}
 		}
 
 		return InteractionResult.SUCCESS;
 	}
 
-
 	public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos,
 			@Nullable Direction direction) {
 		return true;
+	}
+
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(active);
+		builder.add(dire);
 	}
 
 }
