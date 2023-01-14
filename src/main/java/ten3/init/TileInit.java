@@ -1,10 +1,6 @@
 package ten3.init;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.quiltmc.qsl.block.entity.api.QuiltBlockEntityTypeBuilder;
-
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -29,8 +25,6 @@ import ten3.lib.tile.CmTileEntity;
 
 public class TileInit {
 
-	static Map<String, BlockEntityType<? extends CmTileEntity>> regs = new HashMap<>();
-
 	public static void regAll() {
 		regTile("engine_extraction", ExtractorTile::new);
 		regTile("engine_metal", MetalizerTile::new);
@@ -51,20 +45,21 @@ public class TileInit {
 		regTile("cell", CellTile::new);
 	}
 
-	@Deprecated
+	// @Deprecated
 	public static void regTile(String id, BlockEntityType.BlockEntitySupplier<CmTileEntity> im) {
-
-		BlockEntityType<? extends CmTileEntity> reg = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
 				new ResourceLocation(TConst.modid, id),
 				QuiltBlockEntityTypeBuilder.create(im, BlockInit.getBlock(id)).build());
-		regs.put(id, reg);
+	}
+
+	public static void regTransfer() {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static BlockEntityType<? extends CmTileEntity> getType(String id) {
-
-		return regs.get(id);
-
+		return (BlockEntityType<? extends CmTileEntity>) BuiltInRegistries.BLOCK_ENTITY_TYPE
+				.get(TConst.asResource(id));
 	}
 
 }

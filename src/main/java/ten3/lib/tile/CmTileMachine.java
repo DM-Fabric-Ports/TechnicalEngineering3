@@ -1,5 +1,9 @@
 package ten3.lib.tile;
 
+import java.util.Optional;
+import java.util.Queue;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
@@ -20,8 +24,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import ten3.TConst;
 import ten3.core.item.upgrades.UpgradeItem;
@@ -39,9 +41,6 @@ import ten3.util.DireUtil;
 import ten3.util.ExcUtil;
 import ten3.util.StorageType;
 import ten3.util.TranslateKeyUtil;
-
-import java.util.Optional;
-import java.util.Queue;
 
 @SuppressWarnings("UnstableApiUsage")
 public abstract class CmTileMachine extends CmTileEntity {
@@ -229,7 +228,8 @@ public abstract class CmTileMachine extends CmTileEntity {
 		progressor.progressOn(data, getActual());
 	}
 
-	private final Queue<Direction> qr = Queues.newArrayDeque(Lists.newArrayList(Direction.values()));
+	private final Queue<Direction> qr =
+			Queues.newArrayDeque(Lists.newArrayList(Direction.values()));
 	double actualEffPercent;
 
 	public MutableComponent getDisplayWith() {

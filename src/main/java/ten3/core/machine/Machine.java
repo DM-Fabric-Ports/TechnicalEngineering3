@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Lists;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -29,6 +30,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import team.reborn.energy.api.EnergyStorage;
 import ten3.core.item.energy.EnergyItemHelper;
 import ten3.init.TileInit;
 import ten3.init.template.DefBlock;
@@ -44,10 +46,30 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 	String tileName;
 
 	public Machine(String name) {
-
 		this(Material.METAL, SoundType.STONE, name, true);
 		tileName = name;
 
+		ItemStorage.SIDED.registerForBlocks((world, posT, stateT, be, drT) -> {
+			if (be != null && be instanceof CmTileMachine tt)
+				return tt.getItemStorage(drT).orElse(null);
+			else if (be == null) {
+				var bet = world.getBlockEntity(posT);
+				if (bet != null && bet instanceof CmTileMachine tt)
+					return tt.getItemStorage(drT).orElse(null);
+			}
+			return null;
+		}, this);
+
+		EnergyStorage.SIDED.registerForBlocks((world, posT, stateT, be, drT) -> {
+			if (be != null && be instanceof CmTileMachine tt)
+				return tt.getEnergyStorage(drT).orElse(null);
+			else if (be == null) {
+				var bet = world.getBlockEntity(posT);
+				if (bet != null && bet instanceof CmTileMachine tt)
+					return tt.getEnergyStorage(drT).orElse(null);
+			}
+			return null;
+		}, this);
 	}
 
 	public Machine(Material m, SoundType s, String name, boolean solid) {

@@ -26,8 +26,9 @@ public class ItemFEStorage extends DefItem implements SimpleEnergyItem {
 		rec = r;
 		ext = e;
 
-		EnergyStorage.ITEM.registerForItems((stack, ctx) -> SimpleEnergyItem.createStorage(ctx, getEnergyCapacity(stack), getEnergyMaxInput(stack),
-				getEnergyMaxOutput(stack)), this);
+		EnergyStorage.ITEM.registerForItems((stack, ctx) -> SimpleEnergyItem.createStorage(ctx,
+				getEnergyCapacity(stack), getEnergyMaxInput(stack), getEnergyMaxOutput(stack)),
+				this);
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class ItemFEStorage extends DefItem implements SimpleEnergyItem {
 
 	@Override
 	public void appendHoverText(ItemStack stack, @Nullable Level p_40573_, List<Component> tooltip,
-								TooltipFlag p_40575_) {
+			TooltipFlag p_40575_) {
 		EnergyItemHelper.addTooltip(tooltip, stack);
 	}
 
