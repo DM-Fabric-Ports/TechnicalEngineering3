@@ -15,7 +15,7 @@
 				"sources": "https://github.com/DM-Fabric-Ports/TechnicalEngineering3"
 			},
 			"icon": "assets/ten3/icon.png",
-			"license": "gpl3-only"
+			"license": " GPL-3.0-only"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
