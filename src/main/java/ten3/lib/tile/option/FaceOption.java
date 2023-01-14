@@ -16,24 +16,17 @@ public class FaceOption {
 
     public static String toStr(int v) {
 
-        switch(v) {
-            case OFF:
-                return "off";
-            case IN:
-                return "in";
-            case OUT:
-                return "out";
-            case BE_IN:
-                return "be_in";
-            case BE_OUT:
-                return "be_out";
-            case BOTH:
-                return "both";
-        }
+		return switch (v) {
+			case OFF -> "off";
+			case IN -> "in";
+			case OUT -> "out";
+			case BE_IN -> "be_in";
+			case BE_OUT -> "be_out";
+			case BOTH -> "both";
+			default -> "none";
+		};
 
-        return "none";
-
-    }
+	}
 
     public static boolean isPassive(int v) {
 
@@ -43,13 +36,13 @@ public class FaceOption {
 
     public static boolean isIn(int v) {
 
-        return v == IN || v == BE_IN;
+        return v != IN && v != BE_IN;
 
     }
 
     public static boolean isOut(int v) {
 
-        return v == OUT || v == BE_OUT;
+        return v != OUT && v != BE_OUT;
 
     }
 

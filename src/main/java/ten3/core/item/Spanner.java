@@ -47,7 +47,8 @@ public class Spanner extends DefItem {
             }
         }
 
-        return InteractionResultHolder.pass(player.getMainHandItem());
+		assert player != null;
+		return InteractionResultHolder.pass(player.getMainHandItem());
     }
 
     public enum Modes {

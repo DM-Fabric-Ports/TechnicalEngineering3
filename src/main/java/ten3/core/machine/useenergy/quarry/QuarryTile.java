@@ -1,13 +1,13 @@
 package ten3.core.machine.useenergy.quarry;
 
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.option.Type;
 import ten3.lib.tile.recipe.CmTileMachineRadiused;
@@ -16,8 +16,6 @@ import ten3.lib.wrapper.SlotCustomCm;
 import ten3.util.ItemUtil;
 import ten3.util.TagUtil;
 import ten3.util.WorkUtil;
-
-import java.util.List;
 
 public class QuarryTile extends CmTileMachineRadiused {
 

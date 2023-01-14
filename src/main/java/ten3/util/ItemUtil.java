@@ -52,7 +52,8 @@ public class ItemUtil {
             return 0;
         }
 
-        if (!stack.getTag().contains(name)) {
+		assert stack.getTag() != null;
+		if (!stack.getTag().contains(name)) {
             return 0;
         }
 

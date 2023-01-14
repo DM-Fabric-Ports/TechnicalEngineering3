@@ -9,9 +9,7 @@
 			"from": [5, 5, 0],
 			"to": [11, 11, 5],
 			"faces": {
-				"north": {"uv": [0, 16, 0, 15], "texture": "#0"},
 				"east": {"uv": [7, 8, 13, 13], "rotation": 270, "texture": "#0"},
-				"south": {"uv": [0, 16, 0, 16], "texture": "#0"},
 				"west": {"uv": [7, 8, 13, 13], "rotation": 90, "texture": "#0"},
 				"up": {"uv": [7, 8, 13, 13], "texture": "#0"},
 				"down": {"uv": [7, 8, 13, 13], "texture": "#0"}

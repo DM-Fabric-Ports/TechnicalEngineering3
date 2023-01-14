@@ -76,7 +76,7 @@ public class ElementBar extends ElementBase {
     @Override
     public void addToolTip(List<Component> tooltips) {
         if(text != null)
-        tooltips.add(text);
+        	tooltips.add(text);
     }
 
     @Override

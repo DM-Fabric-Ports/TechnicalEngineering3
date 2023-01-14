@@ -29,12 +29,13 @@ import ten3.util.TranslateKeyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 
     public static CmTileEntity ofType(BlockEntityType<?> type, BlockPos... pos) {
         return (CmTileEntity) type.create(pos.length > 0 ? pos[0] : BlockPos.ZERO,
-                BlockInit.getBlock(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type).getPath()).defaultBlockState());
+                BlockInit.getBlock(Objects.requireNonNull(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type)).getPath()).defaultBlockState());
     }
 
     public IntArrayCm data = ContInit.createDefaultIntArr();

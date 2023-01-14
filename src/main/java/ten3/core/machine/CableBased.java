@@ -1,5 +1,10 @@
 package ten3.core.machine;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,7 +16,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,134 +27,124 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.energy.CapabilityEnergy;
-import org.jetbrains.annotations.Nullable;
+import team.reborn.energy.api.EnergyStorage;
 import ten3.util.DireUtil;
 
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+public class CableBased extends Machine {
 
-public class CableBased extends Machine implements EntityBlock, IHasMachineTile {
+	protected final VoxelShape shape = Block.box(3, 3, 3, 13, 13, 13);
 
-    VoxelShape shape = Block.box(3, 3, 3, 13, 13, 13);;
+	public CableBased(Material m, SoundType s, String n) {
 
-    public CableBased(Material m, SoundType s, String n) {
+		super(m, s, n, false);
 
-        super(m, s, n, false);
+	}
 
-    }
+	public static final Map<Direction, IntegerProperty> PROPERTY_MAP;
 
-    public static final Map<Direction, IntegerProperty> PROPERTY_MAP;
+	static {
+		Map<Direction, IntegerProperty> map = Maps.newEnumMap(Direction.class);
+		map.put(Direction.NORTH, crt("north"));
+		map.put(Direction.EAST, crt("east"));
+		map.put(Direction.SOUTH, crt("south"));
+		map.put(Direction.WEST, crt("west"));
+		map.put(Direction.UP, crt("up"));
+		map.put(Direction.DOWN, crt("down"));
+		PROPERTY_MAP = Collections.unmodifiableMap(map);
+	}
 
-    static {
-        Map<Direction, IntegerProperty> map = Maps.newEnumMap(Direction.class);
-        map.put(Direction.NORTH, crt("north"));
-        map.put(Direction.EAST, crt("east"));
-        map.put(Direction.SOUTH, crt("south"));
-        map.put(Direction.WEST, crt("west"));
-        map.put(Direction.UP, crt("up"));
-        map.put(Direction.DOWN, crt("down"));
-        PROPERTY_MAP = Collections.unmodifiableMap(map);
-    }
+	private static IntegerProperty crt(String name) {
+		return IntegerProperty.create(name, 0, 2);
+	}
 
-    private static IntegerProperty crt(String name) {
-        return IntegerProperty.create(name, 0, 2);
-    }
+	@Override
+	public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_,
+			CollisionContext p_60558_) {
+		return shape;
+	}
 
-    @Override
-    public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_)
-    {
-        return shape;
-    }
+	@Override
+	public VoxelShape getCollisionShape(BlockState p_60572_, BlockGetter p_60573_,
+			BlockPos p_60574_, CollisionContext p_60575_) {
+		return shape;
+	}
 
-    @Override
-    public VoxelShape getCollisionShape(BlockState p_60572_, BlockGetter p_60573_, BlockPos p_60574_, CollisionContext p_60575_)
-    {
-        return shape;
-    }
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(PROPERTY_MAP.values().toArray(new Property<?>[0]));
+		builder.add(Machine.active);
+	}
 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder)
-    {
-        builder.add(PROPERTY_MAP.values().toArray(new Property<?>[0]));
-        builder.add(Machine.active);
-    }
+	public void update(Level world, BlockPos pos) {
 
-    public void update(Level world, BlockPos pos) {
+		BlockState state = world.getBlockState(pos);
 
-        BlockState state = world.getBlockState(pos);
+		for (Direction facing : Direction.values()) {
+			state = state.setValue(PROPERTY_MAP.get(facing), connectType(world, facing, pos));
+			// state = state.with!!
+		}
 
-        for(Direction facing : Direction.values()) {
-            state = state.setValue(PROPERTY_MAP.get(facing), connectType(world, facing, pos));
-            //state = state.with!!
-        }
+		world.setBlock(pos, state, 3);
 
-        world.setBlock(pos, state, 3);
+	}
 
-    }
+	@Nullable
+	@Override
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		BlockState state = defaultBlockState();
 
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        BlockState state = defaultBlockState();
+		for (Direction facing : Direction.values()) {
+			state = state.setValue(PROPERTY_MAP.get(facing),
+					connectType(context.getLevel(), facing, context.getClickedPos()));
+		}
 
-        for(Direction facing : Direction.values()) {
-            state = state.setValue(PROPERTY_MAP.get(facing), connectType(context.getLevel(), facing, context.getClickedPos()));
-        }
+		return state.setValue(Machine.active, false);
+	}
 
-        return state.setValue(Machine.active, false);
-    }
+	// 0-none, 1-cable-to-cable 2 cable-to-machine
+	public int connectType(@NotNull Level world, @NotNull Direction facing, BlockPos pos) {
 
-    //0-none, 1-cable-to-cable 2 cable-to-machine
-    public int connectType(@Nonnull Level world, @Nonnull Direction facing, BlockPos pos) {
+		BlockState sf = world.getBlockState(pos.offset(facing.getNormal()));
 
-        BlockState sf = world.getBlockState(pos.offset(facing.getNormal()));
+		BlockEntity t = world.getBlockEntity(pos);
+		BlockEntity tf = world.getBlockEntity(pos.offset(facing.getNormal()));
 
-        BlockEntity t = world.getBlockEntity(pos);
-        BlockEntity tf = world.getBlockEntity(pos.offset(facing.getNormal()));
+		if (tf == null)
+			return 0;
+		if (t == null)
+			return 0;
 
-        if(tf == null) return 0;
-        if(t == null) return 0;
+		boolean k = EnergyStorage.SIDED.find(tf.getLevel(), tf.getBlockPos(), tf.getBlockState(),
+				tf, DireUtil.safeOps(facing)) != null
+				&& EnergyStorage.SIDED.find(t.getLevel(), t.getBlockPos(), t.getBlockState(), t,
+						DireUtil.safeOps(facing)) != null;
 
-        //pos<
-        //t tf
-        //->facing
+		if (k) {
+			if (sf.getBlock() != this)
+				return 2;
+			else
+				return 1;
+		}
 
-        boolean k = tf.getCapability(CapabilityEnergy.ENERGY, DireUtil.safeOps(facing)).isPresent()
-                && t.getCapability(CapabilityEnergy.ENERGY, facing).isPresent();
+		return 0;
 
-        if(k) {
-            if(sf.getBlock() != this) {
-                return 2;
-            }
-            else {
-                return 1;
-            }
-        }
+	}
 
-        return 0;
+	@Override
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
+			InteractionHand handIn, BlockHitResult hit) {
+		if (handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide()) {
+			if (MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)) {
+				return InteractionResult.PASS;
+			}
+		}
 
-    }
+		return InteractionResult.SUCCESS;
+	}
 
-    @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit)
-    {
-        if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide()) {
-            if(MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)) {
-                return InteractionResult.PASS;
-            }
-        }
-
-        return InteractionResult.SUCCESS;
-    }
-
-    @Override
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder)
-    {
-        return List.of(asItem().getDefaultInstance());
-    }
+	@Override
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+		return List.of(asItem().getDefaultInstance());
+	}
 
 }

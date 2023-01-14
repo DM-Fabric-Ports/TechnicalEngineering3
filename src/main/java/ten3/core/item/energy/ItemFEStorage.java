@@ -1,9 +1,5 @@
 package ten3.core.item.energy;
 
-import java.util.List;
-
-import org.jetbrains.annotations.Nullable;
-
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -11,11 +7,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 import ten3.init.template.DefItem;
 import ten3.util.ItemUtil;
 
+import java.util.List;
+
+@SuppressWarnings("UnstableApiUsage")
 public class ItemFEStorage extends DefItem implements SimpleEnergyItem {
 
 	int sto, rec, ext;
@@ -26,10 +26,8 @@ public class ItemFEStorage extends DefItem implements SimpleEnergyItem {
 		rec = r;
 		ext = e;
 
-		EnergyStorage.ITEM.registerForItems((stack, ctx) -> {
-			return SimpleEnergyItem.createStorage(ctx, getEnergyCapacity(stack), getEnergyMaxInput(stack),
-					getEnergyMaxOutput(stack));
-		}, this);
+		EnergyStorage.ITEM.registerForItems((stack, ctx) -> SimpleEnergyItem.createStorage(ctx, getEnergyCapacity(stack), getEnergyMaxInput(stack),
+				getEnergyMaxOutput(stack)), this);
 	}
 
 	@Override

@@ -37,9 +37,7 @@ public class ServerIntSetterPacket {
 
     public final void run(Supplier<NetworkEvent.Context> cs) {
 
-        cs.get().enqueueWork(() -> {
-            handler(cs.get().getSender());
-        });
+        cs.get().enqueueWork(() -> handler(cs.get().getSender()));
         cs.get().setPacketHandled(true);
 
     }
