@@ -6,19 +6,21 @@
 		"version": "${version}",
 		"metadata": {
 			"name": "Technical Engineering",
-			"description": "~",
 			"contributors": {
 				"Cm": "Owner",
 				"Nova-Committee": "Dev Team",
-				"DM-Earth": "Port 1.19.3"
+				"DM-Earth": "Port 1.19.3 Quilt"
 			},
 			"contact": {
 				"sources": "https://github.com/DM-Fabric-Ports/TechnicalEngineering3"
 			},
-			"icon": "assets/ten3/icon.png"
+			"icon": "assets/ten3/icon.png",
+			"license": "gpl3-only"
 		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "ten3.TechnicalEngineering"
+			"init": "ten3.TechnicalEngineering",
+			"client_init": "ten3.TechnicalEngineering"
 		},
 		"depends": [
 			{
