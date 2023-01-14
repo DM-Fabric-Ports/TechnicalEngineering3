@@ -16,35 +16,37 @@ public class PTCInfoClientPackReceiver implements ClientPlayNetworking.ChannelRe
 	@Override
 	public void receive(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf,
 			PacketSender responseSender) {
-		BlockPos pos = buf.readBlockPos();
-		ArrayList<Integer> energy = ClientHolder.energy.get(pos);
-		ArrayList<Integer> item = ClientHolder.item.get(pos);
-		IntList ls = buf.readIntIdList();
-		int redstone;
-		int lev;
+		client.execute(() -> {
+			BlockPos pos = buf.readBlockPos();
+			ArrayList<Integer> energy = ClientHolder.energy.get(pos);
+			ArrayList<Integer> item = ClientHolder.item.get(pos);
+			IntList ls = buf.readIntIdList();
+			int redstone;
+			int lev;
 
-		if (energy == null) {
-			energy = new ArrayList<>();
-			for (int i = 0; i < Direction.values().length; i++)
-				energy.add(0);
-		}
-		if (item == null) {
-			item = new ArrayList<>();
-			for (int i = 0; i < Direction.values().length; i++)
-				item.add(0);
-		}
+			if (energy == null) {
+				energy = new ArrayList<>();
+				for (int i = 0; i < Direction.values().length; i++)
+					energy.add(0);
+			}
+			if (item == null) {
+				item = new ArrayList<>();
+				for (int i = 0; i < Direction.values().length; i++)
+					item.add(0);
+			}
 
-		int i = ls.getInt(5);
-		energy.set(i, ls.getInt(0));
-		item.set(i, ls.getInt(1));
-		redstone = ls.getInt(2);
-		lev = ls.getInt(3);
+			int i = ls.getInt(5);
+			energy.set(i, ls.getInt(0));
+			item.set(i, ls.getInt(1));
+			redstone = ls.getInt(2);
+			lev = ls.getInt(3);
 
-		ClientHolder.energy.put(pos, energy);
-		ClientHolder.item.put(pos, item);
-		ClientHolder.redstone.put(pos, redstone);
-		ClientHolder.level.put(pos, lev);
-		ClientHolder.radius.put(pos, ls.getInt(4));
+			ClientHolder.energy.put(pos, energy);
+			ClientHolder.item.put(pos, item);
+			ClientHolder.redstone.put(pos, redstone);
+			ClientHolder.level.put(pos, lev);
+			ClientHolder.radius.put(pos, ls.getInt(4));
+		});
 	}
 
 }

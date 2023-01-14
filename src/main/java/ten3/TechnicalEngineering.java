@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import ten3.core.client.HudSpanner;
+import ten3.core.network.Network;
 import ten3.init.BlockInit;
 import ten3.init.ContInit;
 import ten3.init.FluidInit;
@@ -48,6 +49,8 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid)
 						&& !(i instanceof InvisibleItem))
 				.forEach(entries::accept));
+
+		Network.register();
 	}
 
 	@ClientOnly
@@ -56,6 +59,7 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 		ContInit.doBinding();
 		FluidInit.clientInit();
 		HudRenderCallback.EVENT.register(new HudSpanner.RenderCallback());
+		Network.registerClient();
 	}
 
 }

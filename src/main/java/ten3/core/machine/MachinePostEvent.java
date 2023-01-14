@@ -2,15 +2,16 @@ package ten3.core.machine;
 
 import static ten3.lib.tile.CmTileMachine.RED_MODE;
 import org.quiltmc.qsl.networking.api.PacketByteBufs;
+import org.quiltmc.qsl.networking.api.PlayerLookup;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import ten3.core.item.Spanner;
 import ten3.core.item.upgrades.UpgradeItem;
@@ -39,67 +40,65 @@ public class MachinePostEvent {
 		}
 		ItemStack i = player.getMainHandItem();
 
-		if (player instanceof ServerPlayer serverPlayer)
-			if (!player.isShiftKeyDown() && i.getItem() == ItemInit.getItem("spanner")) {
-				int ene = tile.direCheckEnergy(d);
-				int itm = tile.direCheckItem(d);
-				int res = tile.data.get(RED_MODE);
-				itm++;
-				ene++;
-				res++;
-				if (itm >= FaceOption.size())
-					itm = 0;
-				if (ene >= FaceOption.size())
-					ene = 0;
-				if (res >= RedstoneMode.size())
-					res = 0;
+		if (!player.isShiftKeyDown() && i.getItem() == ItemInit.getItem("spanner")) {
+			int ene = tile.direCheckEnergy(d);
+			int itm = tile.direCheckItem(d);
+			int res = tile.data.get(RED_MODE);
+			itm++;
+			ene++;
+			res++;
+			if (itm >= FaceOption.size())
+				itm = 0;
+			if (ene >= FaceOption.size())
+				ene = 0;
+			if (res >= RedstoneMode.size())
+				res = 0;
 
-				if (ItemUtil.getTag(i, "mode") == Spanner.Modes.ENERGY.getIndex()) {
-					tile.setOpenEnergy(d, ene);
-				} else if (ItemUtil.getTag(i, "mode") == Spanner.Modes.ITEM.getIndex()) {
-					tile.setOpenItem(d, itm);
-				} else if (ItemUtil.getTag(i, "mode") == Spanner.Modes.REDSTONE.getIndex()) {
-					tile.data.set(RED_MODE, res);
-				}
-				updateToClient(serverPlayer, tile, d, pos);
-				return false;
-			} else if (i.getItem() instanceof UpgradeItem && tile.typeOf() != Type.CABLE) {
-				boolean success = ((UpgradeItem) i.getItem()).effect(tile);
-				boolean giveSuc = tile.itr.selfGive(i.copy(), CmTileMachine.upgSlotFrom,
-						CmTileMachine.upgSlotTo, false);
-				if (success && giveSuc) {
-					player.sendSystemMessage(TranslateKeyUtil.translated(TranslateKeyUtil.GREEN,
-							i.getDisplayName().getString(), "ten3.info.upgrade_successfully"));
-					if (!player.isCreative()) {
-						i.shrink(1);
-					}
-				} else if (!giveSuc) {
-					player.sendSystemMessage(TranslateKeyUtil.translated(TranslateKeyUtil.RED,
-							"ten3.info.too_much_upgrades"));
-				} else {
-					player.sendSystemMessage(TranslateKeyUtil.translated(TranslateKeyUtil.RED,
-							"ten3.info.not_support_upgrade"));
-				}
-				updateToClient(serverPlayer, tile, d, pos);
-				return false;
+			if (ItemUtil.getTag(i, "mode") == Spanner.Modes.ENERGY.getIndex()) {
+				tile.setOpenEnergy(d, ene);
+			} else if (ItemUtil.getTag(i, "mode") == Spanner.Modes.ITEM.getIndex()) {
+				tile.setOpenItem(d, itm);
+			} else if (ItemUtil.getTag(i, "mode") == Spanner.Modes.REDSTONE.getIndex()) {
+				tile.data.set(RED_MODE, res);
 			}
+			updateToClient(tile, d, pos);
+			return false;
+		} else if (i.getItem() instanceof UpgradeItem && tile.typeOf() != Type.CABLE) {
+			boolean success = ((UpgradeItem) i.getItem()).effect(tile);
+			boolean giveSuc = tile.itr.selfGive(i.copy(), CmTileMachine.upgSlotFrom,
+					CmTileMachine.upgSlotTo, false);
+			if (success && giveSuc) {
+				player.sendSystemMessage(TranslateKeyUtil.translated(TranslateKeyUtil.GREEN,
+						i.getDisplayName().getString(), "ten3.info.upgrade_successfully"));
+				if (!player.isCreative()) {
+					i.shrink(1);
+				}
+			} else if (!giveSuc) {
+				player.sendSystemMessage(TranslateKeyUtil.translated(TranslateKeyUtil.RED,
+						"ten3.info.too_much_upgrades"));
+			} else {
+				player.sendSystemMessage(TranslateKeyUtil.translated(TranslateKeyUtil.RED,
+						"ten3.info.not_support_upgrade"));
+			}
+			updateToClient(tile, d, pos);
+			return false;
+		}
 
 		return true;
 
 	}
 
-	public static void updateToClient(ServerPlayer player, int ene, int itm, int res, int lv,
-			int rd, BlockPos pos, Direction d) {
+	public static void updateToClient(BlockEntity be, int ene, int itm, int res, int lv, int rd,
+			BlockPos pos, Direction d) {
 		FriendlyByteBuf buf = PacketByteBufs.create();
 		buf.writeIntIdList(IntList.of(ene, itm, res, lv, rd, d.get3DDataValue()));
 		buf.writeBlockPos(pos);
 
-		ServerPlayNetworking.send(player, Network.PTC_INFO_CLIENT, buf);
+		ServerPlayNetworking.send(PlayerLookup.tracking(be), Network.PTC_INFO_CLIENT, buf);
 	}
 
-	public static void updateToClient(ServerPlayer player, CmTileMachine tile, Direction d,
-			BlockPos pos) {
-		updateToClient(player, tile.direCheckEnergy(d), tile.direCheckItem(d),
+	public static void updateToClient(CmTileMachine tile, Direction d, BlockPos pos) {
+		updateToClient(tile, tile.direCheckEnergy(d), tile.direCheckItem(d),
 				tile.data.get(RED_MODE), tile.levelIn,
 				tile instanceof CmTileMachineRadiused ? ((CmTileMachineRadiused) tile).radius : 0,
 				pos, d);

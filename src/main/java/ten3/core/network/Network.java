@@ -1,59 +1,32 @@
 package ten3.core.network;
 
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
+import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import net.minecraft.resources.ResourceLocation;
 import ten3.TConst;
+import ten3.core.network.receivers.PTCCheckPackReceiver;
+import ten3.core.network.receivers.PTCInfoClientPackReceiver;
+import ten3.core.network.receivers.PTSCheckPackReceiver;
 import ten3.core.network.receivers.PTSRedStatePackReceiver;
 
 public class Network {
 
 	public static final ResourceLocation PTS_RED_STATE = TConst.asResource("pts_red_state");
 	public static final ResourceLocation PTC_INFO_CLIENT = TConst.asResource("ptc_info_client");
+	public static final ResourceLocation PTC_CHECK = TConst.asResource("ptc_check");
+	public static final ResourceLocation PTS_CHECK = TConst.asResource("pts_check");
 
 	public static void register() {
-
 		ServerPlayNetworking.registerGlobalReceiver(PTS_RED_STATE, new PTSRedStatePackReceiver());
+		ServerPlayNetworking.registerGlobalReceiver(PTS_CHECK, new PTSCheckPackReceiver());
+	}
 
-		// instance = NetworkRegistry.newSimpleChannel
-		// (
-		// new ResourceLocation(TConst.modid, "ten3_network_handler"),
-		// () -> "1.0",
-		// (v) -> true,
-		// (v) -> true
-		// );
-		// instance.registerMessage
-		// (
-		// id++,
-		// PTSRedStatePack.class,
-		// PTSRedStatePack::writeBuffer,
-		// PTSRedStatePack::new,
-		// PTSRedStatePack::run
-		// );
-		// instance.registerMessage
-		// (
-		// id++,
-		// PTSCheckPack.class,
-		// PTSCheckPack::writeBuffer,
-		// PTSCheckPack::new,
-		// PTSCheckPack::run
-		// );
-		// instance.registerMessage
-		// (
-		// id++,
-		// PTCCheckPack.class,
-		// PTCCheckPack::writeBuffer,
-		// PTCCheckPack::new,
-		// PTCCheckPack::run
-		// );
-		// instance.registerMessage
-		// (
-		// id++,
-		// PTCInfoClientPack.class,
-		// PTCInfoClientPack::writeBuffer,
-		// PTCInfoClientPack::new,
-		// PTCInfoClientPack::run
-		// );
-
+	@ClientOnly
+	public static void registerClient() {
+		ClientPlayNetworking.registerGlobalReceiver(PTC_INFO_CLIENT,
+				new PTCInfoClientPackReceiver());
+		ClientPlayNetworking.registerGlobalReceiver(PTC_CHECK, new PTCCheckPackReceiver());
 	}
 
 }
