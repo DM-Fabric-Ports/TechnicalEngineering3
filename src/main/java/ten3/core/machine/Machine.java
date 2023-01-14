@@ -147,14 +147,13 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 	@Override
 	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
 			InteractionHand handIn, BlockHitResult hit) {
-		if (handIn == InteractionHand.MAIN_HAND) {
+		if (handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide()) {
 			if (MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)) {
 				CmTileMachine tile = (CmTileMachine) worldIn.getBlockEntity(pos);
 				if (tile == null && !worldIn.isClientSide())
 					return InteractionResult.FAIL;
 
-				if (worldIn.isClientSide())
-					player.openMenu(tile);
+				player.openMenu(tile);
 			}
 		}
 
