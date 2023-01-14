@@ -15,8 +15,6 @@ public class DefItemBlock extends BlockItem {
 
 	public DefItemBlock(Block b, int size) {
 		super(b, new Properties().stacksTo(size));
-		//TODO
-		System.out.println(BuiltInRegistries.BLOCK.getKey(b).toString());
 	}
 
 	@Override
