@@ -16,11 +16,11 @@ public class PTCInfoClientPackReceiver implements ClientPlayNetworking.ChannelRe
 	@Override
 	public void receive(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf,
 			PacketSender responseSender) {
+		BlockPos pos = buf.readBlockPos();
+		IntList ls = buf.readIntIdList();
 		client.execute(() -> {
-			BlockPos pos = buf.readBlockPos();
 			ArrayList<Integer> energy = ClientHolder.energy.get(pos);
 			ArrayList<Integer> item = ClientHolder.item.get(pos);
-			IntList ls = buf.readIntIdList();
 			int redstone;
 			int lev;
 

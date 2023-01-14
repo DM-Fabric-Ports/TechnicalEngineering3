@@ -91,8 +91,8 @@ public class MachinePostEvent {
 	public static void updateToClient(BlockEntity be, int ene, int itm, int res, int lv, int rd,
 			BlockPos pos, Direction d) {
 		FriendlyByteBuf buf = PacketByteBufs.create();
-		buf.writeIntIdList(IntList.of(ene, itm, res, lv, rd, d.get3DDataValue()));
 		buf.writeBlockPos(pos);
+		buf.writeIntIdList(IntList.of(ene, itm, res, lv, rd, d.get3DDataValue()));
 
 		ServerPlayNetworking.send(PlayerLookup.tracking(be), Network.PTC_INFO_CLIENT, buf);
 	}

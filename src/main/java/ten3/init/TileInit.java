@@ -3,7 +3,6 @@ package ten3.init;
 import org.quiltmc.qsl.block.entity.api.QuiltBlockEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import ten3.TConst;
 import ten3.core.machine.cable.CableTile;
@@ -46,10 +45,10 @@ public class TileInit {
 	}
 
 	// @Deprecated
-	public static void regTile(String id, BlockEntityType.BlockEntitySupplier<CmTileEntity> im) {
-		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
-				new ResourceLocation(TConst.modid, id),
-				QuiltBlockEntityTypeBuilder.create(im, BlockInit.getBlock(id)).build());
+	public static <T extends CmTileEntity> void regTile(String id,
+			BlockEntityType.BlockEntitySupplier<T> im) {
+		Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, TConst.asResource(id),
+				QuiltBlockEntityTypeBuilder.<T>create(im, BlockInit.getBlock(id)).build());
 	}
 
 	public static void regTransfer() {

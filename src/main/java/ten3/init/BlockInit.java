@@ -49,7 +49,7 @@ public class BlockInit {
 
 	public static void regMachine(String id_out) {
 		String id = "machine_" + id_out;
-		regBlock(id_out, new Machine(id));
+		regBlock(id, new Machine(id));
 	}
 
 	public static void regFluid(String id, FlowingFluid fluid, int light) {
