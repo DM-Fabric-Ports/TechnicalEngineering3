@@ -86,9 +86,9 @@ public class ItemInit {
         regItemBlockDef("pipe");
         regItemBlockDef("cable");
 
-		regBucket("molten_chlorium");
-
-		regBucket("molten_powered_tin");
+		//TODO
+		// regBucket("molten_chlorium");
+		// regBucket("molten_powered_tin");
     }
 
     public static void regPairMetal(String id, boolean vanilla) {

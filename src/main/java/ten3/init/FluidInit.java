@@ -1,5 +1,7 @@
 package ten3.init;
 
+import java.awt.Color;
+import org.quiltmc.loader.api.minecraft.ClientOnly;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.minecraft.core.Registry;
@@ -8,12 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
-
-import org.quiltmc.loader.api.minecraft.ClientOnly;
 import ten3.TConst;
 import ten3.core.fluid.FluidCm;
-
-import java.awt.*;
 
 public class FluidInit {
 
@@ -33,7 +31,8 @@ public class FluidInit {
 	}
 
 	public static void quickRegFluid(String id, Block block, Item bucket) {
-		regFluid("flowing_" + id, new FluidCm.Flowing(block, bucket, getFluid(id), getFluid("flowing_" + id)));
+		regFluid("flowing_" + id,
+				new FluidCm.Flowing(block, bucket, getFluid(id), getFluid("flowing_" + id)));
 		regFluid(id, new FluidCm.Source(block, bucket, getFluid(id), getFluid("flowing_" + id)));
 	}
 
@@ -47,11 +46,9 @@ public class FluidInit {
 
 	@ClientOnly
 	public static void fluidRenderer(String id, Color color) {
-		FluidRenderHandlerRegistry.INSTANCE.register(getFluid(id), getFluid("flowing_" + id), new SimpleFluidRenderHandler(
-				new ResourceLocation("block/lava_still"),
-				new ResourceLocation("block/lava_flow"),
-				color.getRGB()
-		));
+		FluidRenderHandlerRegistry.INSTANCE.register(getFluid(id), getFluid("flowing_" + id),
+				new SimpleFluidRenderHandler(new ResourceLocation("block/lava_still"),
+						new ResourceLocation("block/lava_flow"), color.getRGB()));
 	}
 
 	@ClientOnly

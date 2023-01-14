@@ -14,7 +14,6 @@ import ten3.core.client.HudSpanner;
 import ten3.core.network.Network;
 import ten3.init.BlockInit;
 import ten3.init.ContInit;
-import ten3.init.FluidInit;
 import ten3.init.ItemInit;
 import ten3.init.RecipeInit;
 import ten3.init.TileInit;
@@ -57,7 +56,8 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 	@Override
 	public void onInitializeClient(ModContainer mod) {
 		ContInit.doBinding();
-		FluidInit.clientInit();
+		// TODO
+		// FluidInit.clientInit();
 		HudRenderCallback.EVENT.register(new HudSpanner.RenderCallback());
 		Network.registerClient();
 	}

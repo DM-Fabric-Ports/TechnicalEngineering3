@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "ten3:machine/pipe",
-		"particle": "ten3:machine/pipe"
+		"0": "ten3:block/machine/pipe",
+		"particle": "ten3:block/machine/pipe"
 	},
 	"elements": [
 		{

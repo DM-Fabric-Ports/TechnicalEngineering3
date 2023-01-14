@@ -1,10 +1,10 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "ten3:machine/engine/engine_biomass",
-		"1": "ten3:machine/engine/engine_biomass_bottom",
-		"2": "ten3:machine/engine/engine_biomass_head",
-		"particle": "ten3:machine/engine/engine_biomass"
+		"0": "ten3:block/machine/engine/engine_biomass",
+		"1": "ten3:block/machine/engine/engine_biomass_bottom",
+		"2": "ten3:block/machine/engine/engine_biomass_head",
+		"particle": "ten3:block/machine/engine/engine_biomass"
 	},
 	"elements": [
 		{

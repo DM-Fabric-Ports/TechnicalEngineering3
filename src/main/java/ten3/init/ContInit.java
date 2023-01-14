@@ -60,7 +60,7 @@ public class ContInit {
 	}
 
 	public static void regCont(String id) {
-		Registry.register(BuiltInRegistries.MENU, id, create((windowId, inv, data) -> {
+		Registry.register(BuiltInRegistries.MENU, TConst.asResource(id), create((windowId, inv, data) -> {
 			BlockPos pos = data.readBlockPos();
 			return new CmContainerMachine(windowId, id,
 					TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)), inv, pos,

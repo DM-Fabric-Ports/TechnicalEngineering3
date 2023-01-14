@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "ten3:machine/cable",
-		"particle": "ten3:machine/cable"
+		"0": "ten3:block/machine/cable",
+		"particle": "ten3:block/machine/cable"
 	},
 	"elements": [
 		{
