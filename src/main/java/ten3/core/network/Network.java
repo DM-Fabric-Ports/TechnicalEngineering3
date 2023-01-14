@@ -1,80 +1,59 @@
 package ten3.core.network;
 
+import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
 import ten3.TConst;
-import ten3.core.network.check.PTCCheckPack;
-import ten3.core.network.check.PTSCheckPack;
-import ten3.core.network.packets.*;
+import ten3.core.network.receivers.PTSRedStatePackReceiver;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Network {
 
-    public static SimpleChannel instance;
-    static int id;
+	public static final ResourceLocation PTS_RED_STATE = TConst.asResource("pts_red_state");
+	public static final ResourceLocation PTC_INFO_CLIENT = TConst.asResource("ptc_info_client");
 
-    public static void register() {
+	public static void register() {
 
-        instance = NetworkRegistry.newSimpleChannel
-                (
-                        new ResourceLocation(TConst.modid, "ten3_network_handler"),
-                        () -> "1.0",
-                        (v) -> true,
-                        (v) -> true
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTSRedStatePack.class,
-                        PTSRedStatePack::writeBuffer,
-                        PTSRedStatePack::new,
-                        PTSRedStatePack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTSCheckPack.class,
-                        PTSCheckPack::writeBuffer,
-                        PTSCheckPack::new,
-                        PTSCheckPack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTCCheckPack.class,
-                        PTCCheckPack::writeBuffer,
-                        PTCCheckPack::new,
-                        PTCCheckPack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTCInfoClientPack.class,
-                        PTCInfoClientPack::writeBuffer,
-                        PTCInfoClientPack::new,
-                        PTCInfoClientPack::run
-                );
+		ServerPlayNetworking.registerGlobalReceiver(PTS_RED_STATE, new PTSRedStatePackReceiver());
 
-    }
+		// instance = NetworkRegistry.newSimpleChannel
+		// (
+		// new ResourceLocation(TConst.modid, "ten3_network_handler"),
+		// () -> "1.0",
+		// (v) -> true,
+		// (v) -> true
+		// );
+		// instance.registerMessage
+		// (
+		// id++,
+		// PTSRedStatePack.class,
+		// PTSRedStatePack::writeBuffer,
+		// PTSRedStatePack::new,
+		// PTSRedStatePack::run
+		// );
+		// instance.registerMessage
+		// (
+		// id++,
+		// PTSCheckPack.class,
+		// PTSCheckPack::writeBuffer,
+		// PTSCheckPack::new,
+		// PTSCheckPack::run
+		// );
+		// instance.registerMessage
+		// (
+		// id++,
+		// PTCCheckPack.class,
+		// PTCCheckPack::writeBuffer,
+		// PTCCheckPack::new,
+		// PTCCheckPack::run
+		// );
+		// instance.registerMessage
+		// (
+		// id++,
+		// PTCInfoClientPack.class,
+		// PTCInfoClientPack::writeBuffer,
+		// PTCInfoClientPack::new,
+		// PTCInfoClientPack::run
+		// );
 
-    public static void sendToServer(Object o) {
-        instance.sendToServer(o);
-    }
-
-    public static void sendToClient(Object o) {
-        instance.send(PacketDistributor.ALL.noArg(), o);
-    }
-
-    @SubscribeEvent
-    public static void doReg(FMLCommonSetupEvent e) {
-
-        register();
-
-    }
+	}
 
 }
