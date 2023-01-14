@@ -7,16 +7,16 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:plates/chlorium"
+      "tag": "c:chlorium_plates"
     },
     "B": {
-      "tag": "forge:gears/chlorium"
+      "tag": "c:chlorium_gears"
     },
     "C": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "D": {
-      "tag": "forge:dusts/chlorium"
+      "tag": "c:chlorium_dusts"
     }
   },
   "result": {

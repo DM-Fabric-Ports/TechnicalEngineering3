@@ -4,7 +4,7 @@
     "item": "minecraft:clay"
   },
   "ingredient1": {
-    "tag": "forge:dyes/lime"
+    "tag": "c:lime_dyes"
   },
   "output": "minecraft:slime_ball",
   "time": 400

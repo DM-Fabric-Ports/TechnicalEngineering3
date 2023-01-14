@@ -7,16 +7,16 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:stone"
+      "item": "minecraft:stone"
     },
     "B": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:copper_ingots"
     },
     "C": {
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "tag": "forge:gears/copper"
+      "tag": "c:copper_gears"
     },
     "D": {
       "item": "ten3:redstone_converter"

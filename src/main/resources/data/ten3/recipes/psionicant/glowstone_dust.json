@@ -4,7 +4,7 @@
     "item": "minecraft:sugar"
   },
   "ingredient1": {
-    "tag": "forge:dyes/yellow"
+    "tag": "c:yellow_dyes"
   },
   "output": "minecraft:glowstone_dust",
   "time": 300

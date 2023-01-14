@@ -13,7 +13,7 @@
       "item": "minecraft:redstone"
     },
     "D": {
-      "tag": "forge:plates/tin"
+      "tag": "c:tin_plates"
     }
   },
   "result": {

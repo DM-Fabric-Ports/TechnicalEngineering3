@@ -7,13 +7,13 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:plates/gold"
+      "tag": "c:gold_plates"
     },
     "B": {
-      "tag": "forge:gears/gold"
+      "tag": "c:gold_gears"
     },
     "C": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "D": {
       "item": "minecraft:gunpowder"

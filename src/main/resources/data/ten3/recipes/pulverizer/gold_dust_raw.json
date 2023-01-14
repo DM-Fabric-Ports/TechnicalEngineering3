@@ -1,7 +1,7 @@
 {
   "type": "ten3:pulverizer",
   "ingredient": {
-    "tag": "forge:raw_materials/gold"
+    "tag": "c:raw_gold_ores"
   },
   "output": "ten3:gold_dust",
   "count": 1,

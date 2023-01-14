@@ -1,7 +1,7 @@
 {
   "type": "ten3:psionicant",
   "ingredient0": {
-    "tag": "forge:dusts"
+    "tag": "c:dusts"
   },
   "ingredient1": {
     "item": "ten3:bizarrerie",

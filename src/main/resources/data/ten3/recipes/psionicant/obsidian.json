@@ -1,10 +1,10 @@
 {
   "type": "ten3:psionicant",
   "ingredient0": {
-    "tag": "forge:stone"
+    "item": "minecraft:stone"
   },
   "ingredient1": {
-    "tag": "forge:dyes/black"
+    "tag": "c:black_dyes"
   },
   "output": "minecraft:obsidian",
   "time": 200

@@ -10,7 +10,7 @@
       "item": "minecraft:iron_pickaxe"
     },
     "B": {
-      "tag": "forge:plates/gold"
+      "tag": "c:gold_plates"
     },
     "C": {
       "item": "ten3:redstone_storer"

@@ -1,7 +1,7 @@
 {
   "type": "ten3:pulverizer",
   "ingredient": {
-    "tag": "forge:ingots/copper"
+    "tag": "c:copper_ingots"
   },
   "output": "ten3:copper_dust",
   "time": 150

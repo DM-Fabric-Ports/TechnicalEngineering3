@@ -10,7 +10,7 @@
       "item": "minecraft:cactus"
     },
     "B": {
-      "tag": "forge:plates/tin"
+      "tag": "c:tin_plates"
     },
     "C": {
       "item": "ten3:redstone_storer"

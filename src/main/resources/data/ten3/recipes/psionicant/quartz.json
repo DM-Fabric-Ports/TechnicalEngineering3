@@ -4,7 +4,7 @@
     "item": "minecraft:clay"
   },
   "ingredient1": {
-    "tag": "forge:dyes/white"
+    "tag": "c:white_dyes"
   },
   "output": "minecraft:quartz",
   "time": 100

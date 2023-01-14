@@ -4,7 +4,7 @@
     "item": "minecraft:sugar"
   },
   "ingredient1": {
-    "tag": "forge:dyes/red"
+    "tag": "c:red_dyes"
   },
   "output": "minecraft:redstone",
   "time": 100

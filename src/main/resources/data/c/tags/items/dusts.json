@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#c:dusts/tin",
-    "#c:dusts/powered_tin",
-    "#c:dusts/chlorium",
-    "#c:dusts/gold",
-    "#c:dusts/iron",
-    "#c:dusts/copper",
-    "#c:dusts/nickel"
+    "#c:chlorium_dusts",
+    "#c:copper_dusts",
+    "#c:gold_dusts",
+    "#c:iron_dusts",
+    "#c:nickel_dusts",
+    "#c:powered_tin_dusts",
+    "#c:tin_dusts"
   ]
 }

@@ -7,13 +7,13 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:plates/powered_tin"
+      "tag": "c:powered_tin_plates"
     },
     "B": {
-      "tag": "forge:gears/powered_tin"
+      "tag": "c:powered_tin_gears"
     },
     "C": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "D": {
       "item": "minecraft:glowstone_dust"

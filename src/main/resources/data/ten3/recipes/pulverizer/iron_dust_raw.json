@@ -1,7 +1,7 @@
 {
   "type": "ten3:pulverizer",
   "ingredient": {
-    "tag": "forge:raw_materials/iron"
+    "tag": "c:raw_iron_ores"
   },
   "output": "ten3:iron_dust",
   "count": 1,

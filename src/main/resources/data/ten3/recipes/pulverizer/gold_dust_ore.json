@@ -1,7 +1,7 @@
 {
   "type": "ten3:pulverizer",
   "ingredient": {
-    "tag": "forge:ores/gold"
+    "tag": "minecraft:gold_ores"
   },
   "output": "ten3:gold_dust",
   "count": 2,

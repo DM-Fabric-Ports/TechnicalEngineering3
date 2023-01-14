@@ -82,8 +82,6 @@ public class MatchFuel {
 
 		int time = 0;
 
-		// ITag<Item> ig = ItemTags.getCollection().getTagByID(new
-		// ResourceLocation("forge:ingots"));
 		boolean cn = TagUtil.containsItem(i.getItem(), "ten3:common_ingots");
 		boolean uc = TagUtil.containsItem(i.getItem(), ("ten3:uncommon_ingots"));
 		boolean vc = TagUtil.containsItem(i.getItem(), ("ten3:valuable_ingots"));

@@ -1,7 +1,7 @@
 {
   "type": "ten3:pulverizer",
   "ingredient": {
-    "tag": "forge:raw_materials/copper"
+    "tag": "c:raw_copper_ores"
   },
   "output": "ten3:copper_dust",
   "count": 1,

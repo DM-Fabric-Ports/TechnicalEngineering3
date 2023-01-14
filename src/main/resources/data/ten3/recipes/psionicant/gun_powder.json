@@ -4,7 +4,7 @@
     "item": "minecraft:sugar"
   },
   "ingredient1": {
-    "tag": "forge:dyes/gray"
+    "tag": "c:gray_dyes"
   },
   "output": "minecraft:gunpowder",
   "time": 400
