@@ -71,7 +71,6 @@ public abstract class CmTileMachineProcessed extends CmTileMachine {
 
 	@Override
 	public void update() {
-
 		super.update();
 
 		if (!checkCanRun())
@@ -120,7 +119,6 @@ public abstract class CmTileMachineProcessed extends CmTileMachine {
 		} else {
 			setActive(false);
 		}
-
 	}
 
 	protected boolean canUseRecipeNow() {

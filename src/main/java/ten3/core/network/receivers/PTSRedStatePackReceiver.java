@@ -14,9 +14,10 @@ public class PTSRedStatePackReceiver implements ServerPlayNetworking.ChannelRece
 	public void receive(MinecraftServer server, ServerPlayer player,
 			ServerGamePacketListenerImpl handler, FriendlyByteBuf buf,
 			PacketSender responseSender) {
+		var i = buf.readInt();
+		var p = buf.readBlockPos();
 		server.execute(() -> {
-			var i = buf.readInt();
-			if (player.getLevel().getBlockEntity(buf.readBlockPos()) instanceof CmTileMachine tile)
+			if (player.getLevel().getBlockEntity(p) instanceof CmTileMachine tile)
 				tile.data.set(CmTileMachine.RED_MODE, i);
 		});
 	}

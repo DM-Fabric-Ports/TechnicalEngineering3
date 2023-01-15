@@ -141,8 +141,10 @@ public abstract class CmTileEntity extends BlockEntity implements MenuProvider {
 			}
 			if (!init_rerun) {
 				if (loaded) {
+					// TODO
+					init_rerun = true;
 					if (PTSCheckPackReceiver.GET) {
-						init_rerun = true;
+						// init_rerun = true;
 						packets();
 					} else {
 						ServerPlayNetworking.send(PlayerLookup.tracking(this), Network.PTC_CHECK,

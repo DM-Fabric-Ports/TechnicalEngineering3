@@ -1,5 +1,6 @@
 package ten3.core.network.receivers;
 
+import org.quiltmc.qsl.networking.api.PacketByteBufs;
 import org.quiltmc.qsl.networking.api.PacketSender;
 import org.quiltmc.qsl.networking.api.client.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
@@ -12,7 +13,7 @@ public class PTCCheckPackReceiver implements ClientPlayNetworking.ChannelReceive
 	@Override
 	public void receive(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf,
 			PacketSender responseSender) {
-		client.execute(() -> ClientPlayNetworking.send(Network.PTS_CHECK, buf));
+		client.execute(() -> ClientPlayNetworking.send(Network.PTS_CHECK, PacketByteBufs.empty()));
 	}
 
 }

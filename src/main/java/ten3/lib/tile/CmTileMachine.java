@@ -301,6 +301,7 @@ public abstract class CmTileMachine extends CmTileEntity {
 
 	@Override
 	public void update() {
+		super.update();
 
 		upgradeUpdate(false);
 		upgradeUpdate(true);

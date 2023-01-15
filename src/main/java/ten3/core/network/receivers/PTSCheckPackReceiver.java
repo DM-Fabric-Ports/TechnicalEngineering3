@@ -15,7 +15,7 @@ public class PTSCheckPackReceiver implements ServerPlayNetworking.ChannelReceive
 	public void receive(MinecraftServer server, ServerPlayer player,
 			ServerGamePacketListenerImpl handler, FriendlyByteBuf buf,
 			PacketSender responseSender) {
-		server.execute(() -> GET = true);
+		GET = true;
 	}
 
 }

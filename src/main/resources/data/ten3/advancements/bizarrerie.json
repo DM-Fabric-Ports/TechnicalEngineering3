@@ -17,7 +17,7 @@
   },
   "criteria": {
     "change": {
-      "trigger": "minecraft:inventory;_changed",
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
