@@ -63,6 +63,7 @@ public abstract class CmTileMachineProcessed extends CmTileMachine {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void initialRecipeType() {
 		recipeType = (RecipeType<? extends Recipe<Container>>) RecipeInit
 				.getRcpType(TranslateKeyUtil.exceptMachineOrGiveCell(id));

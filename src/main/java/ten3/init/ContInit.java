@@ -1,10 +1,9 @@
 package ten3.init;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
-
 import java.util.ArrayList;
 import java.util.List;
 import org.quiltmc.qsl.block.extensions.api.client.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
@@ -12,8 +11,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import ten3.TConst;
@@ -32,7 +29,6 @@ import ten3.lib.capability.item.InventoryCm;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.wrapper.IntArrayCm;
 import ten3.lib.wrapper.SlotCm;
-import ten3.util.GuiOpenerUtil;
 
 public class ContInit {
 
@@ -63,12 +59,13 @@ public class ContInit {
 	}
 
 	public static void regCont(String id) {
-		Registry.register(BuiltInRegistries.MENU, TConst.asResource(id), new ExtendedScreenHandlerType<>((windowId, inv, data) -> {
-			BlockPos pos = data.readBlockPos();
-			return new CmContainerMachine(windowId, id,
-					TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)), inv, pos,
-					createDefaultIntArr());
-		}));
+		Registry.register(BuiltInRegistries.MENU, TConst.asResource(id),
+				new ExtendedScreenHandlerType<>((windowId, inv, data) -> {
+					BlockPos pos = data.readBlockPos();
+					return new CmContainerMachine(windowId, id,
+							TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
+							inv, pos, createDefaultIntArr());
+				}));
 	}
 
 	public static MenuType<?> getType(String id) {

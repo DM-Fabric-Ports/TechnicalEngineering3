@@ -34,6 +34,7 @@ public class PTCOpenGuiReceiver implements ClientPlayNetworking.ChannelReceiver 
 		client.execute(() -> openScreen(typeId, syncId, title, extraData));
 	}
 
+	@SuppressWarnings("all")
 	private void openScreen(int typeId, int syncId, Component title, FriendlyByteBuf buf) {
 		try {
 			MenuType<?> type = BuiltInRegistries.MENU.byId(typeId);

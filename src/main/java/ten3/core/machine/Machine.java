@@ -3,8 +3,6 @@ package ten3.core.machine;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.Nullable;
-import org.quiltmc.qsl.networking.api.PacketByteBufs;
-import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
 import com.google.common.collect.Lists;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
@@ -150,11 +148,11 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 				if (tile == null && !worldIn.isClientSide())
 					return InteractionResult.FAIL;
 
-				FriendlyByteBuf buf = PacketByteBufs.create();
 				assert tile != null;
-				GuiOpenerUtil.openGui((ServerPlayer) player, tile, (FriendlyByteBuf packerBuffer) -> {
-					packerBuffer.writeBlockPos(tile.getBlockPos());
-				});
+				GuiOpenerUtil.openGui((ServerPlayer) player, tile,
+						(FriendlyByteBuf packerBuffer) -> {
+							packerBuffer.writeBlockPos(tile.getBlockPos());
+						});
 			}
 		}
 
