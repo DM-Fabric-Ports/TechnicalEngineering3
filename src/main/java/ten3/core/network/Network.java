@@ -46,7 +46,8 @@ public class Network {
 	}
 
 	public static void sendToClient(PTCPack o, MinecraftServer server) {
-		o.send(PlayerLookup.all(server));
+		if (server != null)
+			o.send(PlayerLookup.all(server));
 	}
 
 	private static void registerPTCPacket(ResourceLocation id, Function<FriendlyByteBuf, PTCPack> factory) {

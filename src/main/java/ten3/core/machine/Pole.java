@@ -67,9 +67,9 @@ public class Pole extends Machine {
 						poses.put(uuid, pos);
 					} else {
 						tile.bind = lastPos;// this tile
-						Network.sendToClient(new PTCBindPack(lastPos, pos));
+						Network.sendToClient(new PTCBindPack(lastPos, pos), worldIn.getServer());
 						poles.get(uuid).bind = pos;// last tile
-						Network.sendToClient(new PTCBindPack(pos, lastPos));
+						Network.sendToClient(new PTCBindPack(pos, lastPos), worldIn.getServer());
 						poles.remove(uuid);
 						poses.remove(uuid);
 					}

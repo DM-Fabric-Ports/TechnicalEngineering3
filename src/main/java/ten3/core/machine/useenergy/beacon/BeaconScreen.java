@@ -3,6 +3,7 @@ package ten3.core.machine.useenergy.beacon;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import ten3.lib.client.element.ElementBurnLeft;
+import ten3.lib.client.element.ElementProgress;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.tile.CmScreenMachine;
 
