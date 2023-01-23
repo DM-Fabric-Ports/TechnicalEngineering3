@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "ten3:block/machine/machine_bottom",
-		"1": "ten3:block/machine/machine_side",
-		"2": "ten3:block/machine/machine_top"
+		"0": "ten3:machine/machine_bottom",
+		"1": "ten3:machine/machine_side",
+		"2": "ten3:machine/machine_top"
 	},
 	"elements": [
 		{

@@ -1,6 +1,7 @@
 package ten3.core.machine.useenergy.beacon;
 
 import java.util.List;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
@@ -10,64 +11,57 @@ import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import ten3.lib.tile.option.FaceOption;
+import ten3.core.item.upgrades.LevelupPotion;
+import ten3.lib.tile.extension.CmTileMachineRadiused;
 import ten3.lib.tile.option.Type;
-import ten3.lib.tile.recipe.CmTileMachineRadiused;
 import ten3.lib.wrapper.SlotCustomCm;
 
 public class BeaconTile extends CmTileMachineRadiused {
 
-    public BeaconTile(BlockPos pos, BlockState state) {
+	public BeaconTile(BlockPos pos, BlockState state) {
 
-        super(pos, state);
+		super(pos, state);
 
-        setCap(kFE(20), FaceOption.BE_IN, FaceOption.OFF, 300);
-        initialRadius = 32;
+		info.setCap(kFE(20));
+		setEfficiency(300);
+		initialRadius = 32;
 
-        addSlot(new SlotCustomCm(inventory, 0, 79, 31, PotionBrewing::isIngredient, false, false));
-    }
+		addSlot(new SlotCustomCm(inventory, 0, 79, 31, PotionBrewing::isIngredient, false, false));
+	}
 
-    @Override
-    public Type typeOf() {
-        return Type.MACHINE_EFFECT;
-    }
+	@Override
+	public Type typeOf() {
+		return Type.MACHINE_EFFECT;
+	}
 
-    @Override
-    public boolean isInWorkRadius(BlockPos pos)
-    {
-        return pos.closerThan(this.pos, radius);
-    }
+	public void effect() {
+		AABB axisalignedbb = (new AABB(worldPosition)).inflate(radius).expandTowards(0, level.getHeight(), 0);
+		List<Player> list = level.getEntitiesOfClass(Player.class, axisalignedbb);
 
-    public void update() {
+		ItemStack its = inventory.getItem(0);
+		Potion pt = PotionUtils.getPotion(its);
 
-        super.update();
+		if (its.isEmpty())
+			return;
 
-        if(!checkCanRun()) {
-            return;
-        }
+		for (Player Player : list) {
+			Player.addEffect(new MobEffectInstance(pt.getEffects().get(0).getEffect(), 40 * 10, match(), true, true));
+		}
+	}
 
-        if(energySupportRun()) {
-            data.translate(ENERGY, -getActual());
+	public boolean conditionStart() {
+		return !inventory.getItem(0).isEmpty();
+	}
 
-            if(effectApplyTickOnScd(5, 60)) {
+	public double seconds() {
+		return 10;
+	}
 
-                AABB axisalignedbb = (new AABB(pos)).inflate(radius).expandTowards(0, world.getHeight(), 0);
-                List<Player> list = world.getEntitiesOfClass(Player.class, axisalignedbb);
-
-                ItemStack its = inventory.getItem(0);
-                Potion pt = PotionUtils.getPotion(its);
-
-                if(its.isEmpty()) return;
-
-                for(Player Player : list) {
-                    Player.addEffect(new MobEffectInstance(pt.getEffects().get(0).getEffect(), 40 * 10, levelIn, true, true));
-                }
-            }
-        }
-        else {
-            setActive(false);
-        }
-
-    }
+	private int match() {
+		if (upgradeSlots.countUpgrade(LevelupPotion.class) > 0) {
+			return 1;
+		}
+		return 0;
+	}
 
 }

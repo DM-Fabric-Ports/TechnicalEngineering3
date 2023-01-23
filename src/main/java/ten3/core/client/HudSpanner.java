@@ -1,7 +1,10 @@
 package ten3.core.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
@@ -14,15 +17,17 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import ten3.lib.tile.option.RedstoneMode;
-import ten3.util.*;
 import ten3.core.item.Spanner;
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.option.FaceOption;
+import ten3.core.machine.pole.PoleTile;
 import ten3.lib.client.RenderHelper;
-
-import java.util.ArrayList;
-import java.util.List;
+import ten3.lib.tile.extension.CmTileMachineRadiused;
+import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.option.FaceOption;
+import ten3.lib.tile.option.RedstoneMode;
+import ten3.util.DireUtil;
+import ten3.util.ExcUtil;
+import ten3.util.ItemUtil;
+import ten3.util.KeyUtil;
 
 public class HudSpanner extends Screen {
 
@@ -30,99 +35,116 @@ public class HudSpanner extends Screen {
 	static int h;
 
 	public HudSpanner() {
-		super(TranslateKeyUtil.make(""));
+		super(KeyUtil.make(""));
 	}
 
-	public void render(boolean catchIt, Player player, PoseStack s, BlockPos pos, BlockEntity t,
-			Direction d) {
-
+	public void render(boolean catchIt, Player player, PoseStack s, BlockPos pos, BlockEntity t, Direction d) {
 		s.pushPose();
 
 		w = Minecraft.getInstance().getWindow().getGuiScaledWidth();
 		h = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 		init(Minecraft.getInstance(), w, h);// &*&
 
-		Component tc = TranslateKeyUtil.translated("ten3.info.spanner.mode",
+		Component tc = KeyUtil.translated("ten3.info.spanner.mode",
 				"ten3.info.mode." + ItemUtil.getTag(player.getMainHandItem(), "mode"));
 
 		int hp = player.isCreative() ? (int) (h / 3 * 2.6) : (int) (h / 3 * 2.42);
-		// RenderHelper.render(s, w / 2 - 29, hp - 3, 58, 13, 256, 256, 0, 198, TConst.guiHandler);
-		RenderHelper.renderCString(s, w / 2, hp, ExcUtil.safeInt(TranslateKeyUtil.GOLD.getColor()),
-				tc);
+		// RenderHelper.render(s, w / 2 - 29, hp - 3, 58, 13, 256, 256, 0, 198,
+		// TConst.guiHandler);
+		RenderHelper.renderCString(s, w / 2, hp, ExcUtil.safeInt(KeyUtil.GOLD.getColor()), tc);
 
 		if (!catchIt)
 			return;
 
-		MutableComponent c1 = TranslateKeyUtil.translated("ten3.info.spanner.dire.energy");
-		MutableComponent c2 = TranslateKeyUtil.translated("ten3.info.spanner.dire.item");
-		MutableComponent c3 = TranslateKeyUtil.translated("ten3.info.spanner.dire.redstone");
-		MutableComponent c4 = TranslateKeyUtil.translated("ten3.info.spanner.work_radius")
-				.append(TranslateKeyUtil.make(String.valueOf(ClientHolder.radius.get(pos))));
-		((CmTileMachine) t).levelIn = ExcUtil.safeInt(ClientHolder.level.get(pos));
-		Component c0 = ((CmTileMachine) t).getDisplayWith().append(TranslateKeyUtil.make(" ("))
-				.append(TranslateKeyUtil.translated("dire." + d.getSerializedName()))
-				.append(TranslateKeyUtil.make(")"));
+		MutableComponent c1 = KeyUtil.translated("ten3.info.spanner.dire.energy");
+		MutableComponent c2 = KeyUtil.translated("ten3.info.spanner.dire.item");
+		MutableComponent c25 = KeyUtil.translated("ten3.info.spanner.dire.fluid");
+		MutableComponent c3 = KeyUtil.translated("ten3.info.spanner.dire.redstone");
+		MutableComponent c4 = KeyUtil.translated("ten3.info.spanner.work_radius")
+				.append(KeyUtil.make(
+						String.valueOf(ExcUtil.safeInt(ClientHolder.radius.get(pos)))));
+		MutableComponent c5 = KeyUtil.translated("ten3.info.spanner.bind_pos")
+				.append(KeyUtil.make(
+						String.valueOf(ClientHolder.binds.get(pos))));
+		MutableComponent c0 = ((CmTileMachine) t).getDisplayWith()
+				.append(KeyUtil.make(" ("))
+				.append(KeyUtil.translated("dire." + d.getSerializedName()))
+				.append(KeyUtil.make(")"));
 
 		ArrayList<Integer> ene = ClientHolder.energy.get(pos);
 		ArrayList<Integer> itm = ClientHolder.item.get(pos);
+		ArrayList<Integer> fld = ClientHolder.fluid.get(pos);
 		int red = ExcUtil.safeInt(ClientHolder.redstone.get(pos));
 
 		int di = DireUtil.direToInt(d);
 
 		if (ene != null && ene.get(di) != null) {
-			c1.append(TranslateKeyUtil.translated("ten3.info." + FaceOption.toStr(ene.get(di))));
+			c1.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(ene.get(di))));
 		}
 
 		if (itm != null && itm.get(di) != null) {
-			c2.append(TranslateKeyUtil.translated("ten3.info." + FaceOption.toStr(itm.get(di))));
+			c2.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(itm.get(di))));
+		}
+
+		if (itm != null && itm.get(di) != null) {
+			c25.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(fld.get(di))));
 		}
 
 		if (red == RedstoneMode.LOW) {
-			c3.append(TranslateKeyUtil.translated("ten3.info.low"));
+			c3.append(KeyUtil.translated("ten3.info.low"));
 		} else if (red == RedstoneMode.HIGH) {
-			c3.append(TranslateKeyUtil.translated("ten3.info.high"));
+			c3.append(KeyUtil.translated("ten3.info.high"));
 		} else {
-			c3.append(TranslateKeyUtil.translated("ten3.info.off"));
+			c3.append(KeyUtil.translated("ten3.info.off"));
 		}
 
 		int x = w / 2;
 		int y = h / 2 + h / 10;
 
-		renderComponentTooltip(s, List.of(c0, c1, c2, c3, c4), x, y);
-
-		s.popPose();
-
-	}
-
-	public static class RenderCallback implements HudRenderCallback {
-
-		@Override
-		@SuppressWarnings("all")
-		public void onHudRender(PoseStack matrixStack, float tickDelta) {
-			Player player = Minecraft.getInstance().player;
-			if (player == null)
-				return;
-
-			ItemStack i = player.getMainHandItem();
-			if (!(i.getItem() instanceof Spanner))
-				return;
-
-			Level world = player.level;
-			if (world == null)
-				return;
-			HitResult result = Minecraft.getInstance().hitResult;
-			if (result instanceof BlockHitResult r) {
-				Direction d = r.getDirection();
-				BlockPos hitPos = r.getBlockPos();
-				BlockEntity t = world.getBlockEntity(hitPos);
-				new HudSpanner().render(t instanceof CmTileMachine, player, matrixStack, hitPos, t,
-						d);
-				ParticleSpawner.spawnClt(ParticleSpawner.RANGE, hitPos.getX() + Math.random(),
-						hitPos.getY() + Math.random(), hitPos.getZ() + Math.random(), 1);
-
-			}
+		List<Component> components = new ArrayList<>();
+		components.add(c0);
+		components.add(c1);
+		components.add(c2);
+		components.add(c3);
+		if (t instanceof CmTileMachineRadiused) {
+			components.add(c4);
+		}
+		if (t instanceof PoleTile && ClientHolder.binds.get(pos) != null) {
+			components.add(c5);
 		}
 
+		renderComponentTooltip(s, components, x, y);
+
+		s.popPose();
+	}
+
+	@SuppressWarnings("all")
+	public static void onRender(PoseStack matrixStack, float tickDelta) {
+		Player player = Minecraft.getInstance().player;
+		if (player == null)
+			return;
+
+		ItemStack i = player.getMainHandItem();
+		if (!(i.getItem() instanceof Spanner))
+			return;
+
+		Level world = player.level;
+		if (world == null)
+			return;
+		HitResult result = Minecraft.getInstance().hitResult;
+		if (result instanceof BlockHitResult r) {
+			Direction d = r.getDirection();
+			BlockPos hitPos = r.getBlockPos();
+			BlockEntity t = world.getBlockEntity(hitPos);
+			new HudSpanner().render(t instanceof CmTileMachine, player, matrixStack, hitPos, t, d);
+			if (Minecraft.getInstance().isPaused())
+				return;
+			ParticleSpawner.spawnClt(ParticleSpawner.RANGE,
+					hitPos.getX() + Math.random(),
+					hitPos.getY() + Math.random(),
+					hitPos.getZ() + Math.random(),
+					1);
+		}
 	}
 
 }

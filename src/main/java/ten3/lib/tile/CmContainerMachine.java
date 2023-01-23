@@ -1,19 +1,64 @@
 package ten3.lib.tile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import ten3.init.ContInit;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.wrapper.IntArrayCm;
 
-public class CmContainerMachine extends CmContainer {
+public class CmContainerMachine extends AbstractContainerMenu {
 
-	public CmContainerMachine(int cid, String id, CmTileEntity ti, Inventory pi, BlockPos pos, IntArrayCm data) {
+	public final IntArrayCm data;
+	public final IntArrayCm fluidData;
+	public final IntArrayCm fluidAmount;
 
-		super(ContInit.getType(id), cid, id, ti, pi, pos, data);
+	public String name;
+	public BlockPos pos;
+	public CmTileMachine tile;
 
+	public CmContainerMachine(int cid, String id, CmTileMachine ti, Inventory pi, BlockPos pos, IntArrayCm data,
+			IntArrayCm f1, IntArrayCm f2) {
+
+		super(ContInit.getType(id), cid);
+
+		this.data = data;
+		this.pos = pos;
+		fluidData = f1;
+		fluidAmount = f2;
+
+		layoutInventorySlots(pi, 141, 0);
+		layoutInventorySlots(pi, 83, 9);
+		layoutInventorySlots(pi, 101, 18);
+		layoutInventorySlots(pi, 119, 27);
+
+		// after player, care!
+		this.tile = ti;
+		for (Slot slot : tile.slots) {
+			addSlot(slot);
+		}
+
+		if (data != null) {
+			addDataSlots(data);
+		}
+		if (fluidData != null) {
+			addDataSlots(fluidData);
+		}
+		if (fluidAmount != null) {
+			addDataSlots(fluidAmount);
+		}
+
+		this.name = id;
+	}
+
+	public void layoutInventorySlots(Container ct, int y, int from) {
+		for (int k = 0; k < 9; ++k) {
+			this.addSlot(new Slot(ct, k + from, 7 + 1 + k * 18, y + 1));
+		}
 	}
 
 	public static boolean isInBackpack(int slot) {
@@ -24,10 +69,10 @@ public class CmContainerMachine extends CmContainer {
 		return slot >= fastMin && slot < fastMax;
 	}
 
-	protected final static int playerMin = 0;
-	protected final static int playerMax = 36;
-	protected final static int fastMin = 0;
-	protected final static int fastMax = 9;
+	static int playerMin = 0;
+	static int playerMax = 36;
+	static int fastMin = 0;
+	static int fastMax = 9;
 
 	public ItemStack quickMoveStack(Player playerIn, int index) {
 
@@ -39,14 +84,6 @@ public class CmContainerMachine extends CmContainer {
 			itemstack = itemstack1.copy();
 			// from: crafting table menu
 			if (isInBackpack(index)) {
-				int[] iarr = tile.getItemFirstTransferSlot(itemstack1.getItem());
-				if (iarr.length == 2) {
-					int p1 = slots.indexOf(tileInv.match(iarr[0]));
-					int p2 = slots.indexOf(tileInv.match(iarr[1] + 1));
-					if (!moveItemStackTo(itemstack1, p1, p2, false)) {
-						return ItemStack.EMPTY;
-					}
-				}
 				if (!this.moveItemStackTo(itemstack1, playerMax, slots.size(), false)) {
 					if (!isInFastBar(index)) {
 						if (!this.moveItemStackTo(itemstack1, fastMin, fastMax, false)) {

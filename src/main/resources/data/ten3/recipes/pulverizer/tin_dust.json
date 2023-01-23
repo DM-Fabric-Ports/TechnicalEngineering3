@@ -1,8 +1,0 @@
-{
-  "type": "ten3:pulverizer",
-  "ingredient": {
-    "tag": "c:tin_ingots"
-  },
-  "output": "ten3:tin_dust",
-  "time": 150
-}

@@ -1,8 +1,22 @@
 {
   "type": "ten3:compressor",
-  "ingredient": {
-    "tag": "c:chlorium_ingots"
-  },
-  "output": "ten3:chlorium_plate",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "c:chlorium_ingots"
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "ten3:mould_plate"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:chlorium_plate"
+    }
+  ],
   "time": 100
 }

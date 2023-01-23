@@ -1,53 +1,65 @@
 package ten3.core.machine.useenergy.psionicant;
 
+import static ten3.util.ExcUtil.hasRcpUseThisItem;
+
+import java.util.Collection;
+import java.util.List;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
-import ten3.core.recipe.inter.IBaseRecipeCm;
-import ten3.lib.tile.option.FaceOption;
-import ten3.lib.tile.recipe.CmTileMachineProcessed;
-import ten3.lib.tile.recipe.SlotInfo;
+import ten3.lib.recipe.IBaseRecipeCm;
+import ten3.lib.tile.extension.CmTileMachineRecipe;
+import ten3.lib.tile.extension.SlotInfo;
 import ten3.lib.wrapper.SlotCm;
 import ten3.lib.wrapper.SlotCustomCm;
 import ten3.util.ExcUtil;
 
-import java.util.Collection;
-import java.util.List;
+public class PsionicantTile extends CmTileMachineRecipe {
 
-import static ten3.util.ExcUtil.hasRcpUseThisItem;
+	public PsionicantTile(BlockPos pos, BlockState state) {
 
-public class PsionicantTile extends CmTileMachineProcessed {
+		super(pos, state, new SlotInfo(0, 1, 2, 2));
 
-    public PsionicantTile(BlockPos pos, BlockState state) {
+		info.setCap(kFE(20));
+		setEfficiency(50);
 
-        super(pos, state, false, new SlotInfo(0, 1, 2, 2));
+		addSlot(new SlotCustomCm(inventory, 0, 34, 20, (s) -> true, false, true));
+		addSlot(new SlotCustomCm(inventory, 1, 52, 20, (s) -> true, false, true));
+		addSlot(new SlotCm(inventory, 2, 115, 34, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
+	}
 
-        setCap(kFE(20), FaceOption.BE_IN, FaceOption.OFF, 50);
+	public RecipeCheckType slotType(int slot) {
+		if (slot == 0 || slot == 1)
+			return RecipeCheckType.INPUT;
+		if (slot == 2)
+			return RecipeCheckType.OUTPUT;
+		return RecipeCheckType.IGNORE;
+	}
 
-        addSlot(new SlotCustomCm(inventory, 0, 33, 20, (s) -> true, false, true));
-        addSlot(new SlotCustomCm(inventory, 1, 51, 20, (s) -> true, false, true));
-        addSlot(new SlotCm(inventory, 2, 115, 34, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
-    }
+	public RecipeCheckType tankType(int tank) {
+		return RecipeCheckType.IGNORE;
+	}
 
-    @Override
-    public boolean customFitStackIn(ItemStack s, int slot)
-    {
-        List<ItemStack> lst = inventory.getStackInRange(0, 1);
-        for(ItemStack s2 : lst) {
-            if(s2.getItem() == s.getItem()) return false;
-        }
-        if(lst.size() == 0) {
-            return hasRcpUseThisItem(world, recipeType, s);
-        }
-        Collection<Recipe<Container>> recs = ExcUtil.getRcpUseThisItem(world, recipeType, lst.get(0));
-        return ExcUtil.hasRcpUseThisItem(world, recipeType, recs, s);
-    }
+	@Override
+	public boolean customFitStackIn(ItemStack s, int slot) {
+		List<ItemStack> lst = inventory.getStackInRange(0, 1);
+		for (ItemStack s2 : lst) {
+			if (s2.getItem() == s.getItem())
+				return false;
+		}
+		if (lst.size() == 0) {
+			return hasRcpUseThisItem(level, recipeType, s);
+		}
+		Collection<Recipe<Container>> recs = ExcUtil.getRcpUseThisItem(level, recipeType, lst.get(0));
+		return ExcUtil.hasRcpUseThisItem(level, recipeType, recs, s);
+	}
 
-    @Override
-    public int getTimeCook() {
-        return ((IBaseRecipeCm<?>) recipeNow).time();
-    }
+	@Override
+	public int ticks() {
+		return ((IBaseRecipeCm<?>) recipeNow).time();
+	}
 
 }

@@ -1,8 +1,0 @@
-{
-  "type": "ten3:pulverizer",
-  "ingredient": {
-    "tag": "c:chlorium_ingots"
-  },
-  "output": "ten3:chlorium_dust",
-  "time": 150
-}

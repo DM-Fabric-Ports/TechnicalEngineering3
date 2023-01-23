@@ -55,10 +55,10 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 	@ClientOnly
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		ContInit.doBinding();
+		ContInit.regClient();
 		// TODO
 		// FluidInit.clientInit();
-		HudRenderCallback.EVENT.register(new HudSpanner.RenderCallback());
+		HudRenderCallback.EVENT.register(HudSpanner::onRender);
 		Network.registerClient();
 	}
 

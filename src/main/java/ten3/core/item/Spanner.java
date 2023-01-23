@@ -12,62 +12,62 @@ import ten3.util.ItemUtil;
 
 public class Spanner extends DefItem {
 
-    public Spanner() {
+	public Spanner() {
 
-        super(1);
+		super(build(1));
 
-    }
+	}
 
-    @Override
-    public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return (state.getBlock() instanceof IHasMachineTile) ? 16 : 1;
-    }
+	@Override
+	public float getDestroySpeed(ItemStack stack, BlockState state) {
+		return (state.getBlock() instanceof IHasMachineTile) ? 16 : 1;
+	}
 
-    @Override
-    public boolean isCorrectToolForDrops(BlockState state)
-    {
-        return state.getBlock() instanceof IHasMachineTile;
-    }
+	@Override
+	public boolean isCorrectToolForDrops(BlockState state) {
+		return state.getBlock() instanceof IHasMachineTile;
+	}
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player player, InteractionHand hand)
-    {
-        if(player != null) {
-            if(hand == InteractionHand.MAIN_HAND && !player.level.isClientSide()) {
-                if(player.isShiftKeyDown()) {
-                    ItemStack stack = player.getMainHandItem();
-                    int i = ItemUtil.getTag(stack, "mode");
-                    i++;
-                    if(i >= Modes.size()) {
-                        i = 0;
-                    }
-                    ItemUtil.setTag(stack, "mode", i);
-                    return InteractionResultHolder.success(stack);
-                }
-            }
-        }
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level p_41432_, Player player, InteractionHand hand) {
+		if (player != null) {
+			if (hand == InteractionHand.MAIN_HAND && !player.level.isClientSide()) {
+				if (player.isShiftKeyDown()) {
+					ItemStack stack = player.getMainHandItem();
+					int i = ItemUtil.getTag(stack, "mode");
+					i++;
+					if (i >= Modes.size()) {
+						i = 0;
+					}
+					ItemUtil.setTag(stack, "mode", i);
+					return InteractionResultHolder.success(stack);
+				}
+			}
+		}
 
 		assert player != null;
 		return InteractionResultHolder.pass(player.getMainHandItem());
-    }
+	}
 
-    public enum Modes {
-        ENERGY(0),
-        ITEM(1),
-        REDSTONE(2);
+	public enum Modes {
+		ENERGY(0),
+		ITEM(1),
+		REDSTONE(2);
+		// BIND(3);
 
-        final int index;
-        Modes(int index) {
-            this.index = index;
-        }
+		final int index;
 
-        public int getIndex() {
-            return index;
-        }
+		Modes(int index) {
+			this.index = index;
+		}
 
-        public static int size() {
-            return 3;
-        }
-    }
+		public int getIndex() {
+			return index;
+		}
+
+		public static int size() {
+			return 3;
+		}
+	}
 
 }

@@ -2,7 +2,7 @@ package ten3.lib.client.element;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import ten3.util.TranslateKeyUtil;
+import ten3.util.KeyUtil;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class ElementButtonSlot extends ElementButton {
     @Override
     public void addToolTip(List<Component> tooltips) {
         if(!state) {
-            tooltips.add(TranslateKeyUtil.translated(TranslateKeyUtil.RED, "ten3.locked_slot"));
+            tooltips.add(KeyUtil.translated(KeyUtil.RED, "ten3.locked_slot"));
         }
     }
 

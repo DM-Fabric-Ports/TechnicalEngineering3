@@ -1,18 +1,12 @@
+
 package ten3.core.machine.cable;
 
-import java.util.Optional;
-
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
-import team.reborn.energy.api.EnergyStorage;
 import ten3.core.machine.CableBased;
-import ten3.lib.capability.energy.EnergyTransferor;
-import ten3.lib.capability.energy.FEStorageWayFinding;
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.option.FaceOption;
+import ten3.lib.capability.net.BatteryWayFinding;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.Type;
 import ten3.util.StorageType;
 
@@ -22,8 +16,6 @@ public class CableTile extends CmTileMachine {
 
 		super(pos, state);
 
-		setCap(getCapacity(), FaceOption.BOTH, FaceOption.OFF, getCapacity());
-
 	}
 
 	@Override
@@ -31,46 +23,46 @@ public class CableTile extends CmTileMachine {
 		return Type.CABLE;
 	}
 
-	@Override
-	public Optional<EnergyStorage> crtEne(Direction d) {
-		return Optional.of(new FEStorageWayFinding(d, this));
-	}
-
-	@Override
-	public Optional<Storage<ItemVariant>> crtItm(Direction d) {
-		return Optional.empty();
-	}
-
 	public int getCapacity() {
-
-		return kFE(10);
-
+		return kFE(1);
 	}
 
 	boolean eneWFS;
+	int hangtime;
 
 	@Override
 	public void update() {
 
-		if (getTileAliveTime() % 5 == 0) {
-			((CableBased) getBlockState().getBlock()).update(world, pos);
-			FEStorageWayFinding.updateNet(this);
+		if (getTileAliveTime() % 10 == 0) {
+			((CableBased) getBlockState().getBlock()).update(level, worldPosition);
+			BatteryWayFinding.updateNet(this);
 		}
 
-		if (getTileAliveTime() % 15 == 0) {
-			eneWFS = EnergyTransferor.handlerOf(this, null).getAmount() > 0;
-		}
+		eneWFS = hangtime > 0;
+		hangtime--;
 
-		setActive(eneWFS && checkCanRun());
+		reflection.setActive(eneWFS && signalAllowRun());
 
 	}
 
+	public void hangUp() {
+		hangtime = 15;
+	}
+
 	@Override
-	protected boolean can(StorageType cap, Direction d) {
-		if (cap.equals(StorageType.ITEM)) {
+	public void initHandlers() {
+		handlerEnergyNull = new BatteryWayFinding(null, this);
+		for (Direction d : Direction.values()) {
+			handlerEnergy.put(d, new BatteryWayFinding(d, this));
+		}
+	}
+
+	@Override
+	protected boolean hasFaceCapability(StorageType cap, Direction d) {
+		if (cap == StorageType.ITEM) {
 			return false;
 		}
-		return super.can(cap, d);
+		return super.hasFaceCapability(cap, d);
 	}
 
 }

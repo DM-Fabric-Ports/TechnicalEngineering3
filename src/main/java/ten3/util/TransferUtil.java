@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,6 +27,14 @@ public class TransferUtil {
 	public static <T> T execute(Function<Transaction, T> func) {
 		try (Transaction t = getTransaction()) {
 			return func.apply(t);
+		}
+	}
+
+	public static <T> T simulateExecute(Function<Transaction, T> func) {
+		try (Transaction t = getTransaction()) {
+			try (Transaction sim = Transaction.openNested(t)) {
+				return func.apply(sim);
+			}
 		}
 	}
 

@@ -9,28 +9,21 @@ import ten3.lib.tile.CmScreenMachine;
 public class CellScreen extends CmScreenMachine {
 
 	public CellScreen(CmContainerMachine screenContainer, Inventory inv, Component titleIn) {
-
 		super(screenContainer, inv, titleIn, "textures/gui/energy_cell.png", 256, 256);
 		xSize = 176;
 		ySize = 166;
-
 	}
 
 	ElementBurnLeft energy;
 
 	public void addWidgets() {
-
 		super.addWidgets();
-
 		widgets.add(energy = new ElementBurnLeft(81, 18, 14, 46, 0, 0, handler, true));
-
 	}
 
 	public void update() {
-
 		energy.setPer(pEnergy());
 		energy.setValue(energy(), maxEnergy());
-
 	}
 
 }

@@ -17,12 +17,14 @@ public class BeaconScreen extends CmScreenMachine {
     }
 
     ElementBurnLeft energy;
+    ElementProgress progress;
 
     public void addWidgets() {
 
         super.addWidgets();
 
         widgets.add(energy = getDefaultEne());
+        widgets.add(progress = new ElementProgress(48, 65, 80, 5, 97, 0, handler, true));
 
     }
 
@@ -30,7 +32,7 @@ public class BeaconScreen extends CmScreenMachine {
 
         energy.setPer(pEnergy());
         energy.setValue(energy(), maxEnergy());
-
+        progress.setPer(pProgress());
     }
 
 }

@@ -1,18 +1,20 @@
 package ten3.lib.capability.item;
 
 import java.util.List;
+import java.util.Queue;
 
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.util.DireUtil;
-import ten3.util.TransferUtil;
 
 @SuppressWarnings("all")
 public class ItemTransferor {
@@ -23,9 +25,22 @@ public class ItemTransferor {
 		this.t = t;
 	}
 
+	public final Queue<Direction> itemQR = DireUtil.newQueueOffer();
+
+	public void transferItem(TransactionContext transaction) {
+		// if(getTileAliveTime() % 10 == 0) {
+		itemQR.offer(itemQR.remove());
+		for (Direction d : itemQR) {
+			transferTo(d, transaction);
+			transferFrom(d, transaction);
+			break;
+		}
+		// }
+	}
+
 	private BlockEntity checkTile(Direction d) {
 
-		return checkTile(t.pos.offset(d.getNormal()));
+		return checkTile(t.getBlockPos().offset(d.getNormal()));
 
 	}
 
@@ -36,16 +51,14 @@ public class ItemTransferor {
 	}
 
 	public static Storage<ItemVariant> handlerOf(BlockEntity t, Direction d) {
-
-		return TransferUtil.getItemStorage(t, d);
-
+		return ItemStorage.SIDED.find(t.getLevel(), t.getBlockPos(), t.getLevel().getBlockState(t.getBlockPos()), t, d);
 	}
 
-	public void transferTo(BlockPos p, Direction d, boolean sim) {
+	public void transferTo(BlockPos p, Direction d, TransactionContext transaction) {
 
-		if (FaceOption.isPassive(t.direCheckItem(d)))
+		if (FaceOption.isPassive(t.info.direCheckItem(d)))
 			return;
-		if (FaceOption.isOut(t.direCheckItem(d)))
+		if (!FaceOption.isOut(t.info.direCheckItem(d)))
 			return;
 
 		BlockEntity tile = checkTile(p);
@@ -57,16 +70,16 @@ public class ItemTransferor {
 			if (dest == null)
 				return;
 
-			srcToDest(src, dest, false, sim);
+			srcToDest(src, dest, false, transaction);
 		}
 
 	}
 
-	public void transferFrom(BlockPos p, Direction d, boolean sim) {
+	public void transferFrom(BlockPos p, Direction d, TransactionContext transaction) {
 
-		if (FaceOption.isPassive(t.direCheckItem(d)))
+		if (FaceOption.isPassive(t.info.direCheckItem(d)))
 			return;
-		if (FaceOption.isIn(t.direCheckItem(d)))
+		if (!FaceOption.isIn(t.info.direCheckItem(d)))
 			return;
 
 		BlockEntity tile = checkTile(p);
@@ -78,178 +91,141 @@ public class ItemTransferor {
 			if (dest == null)
 				return;
 
-			srcToDest(src, dest, true, sim);
+			srcToDest(src, dest, true, transaction);
 		}
 
 	}
 
-	public void transferTo(Direction d, boolean sim) {
+	public void transferTo(Direction d, TransactionContext transaction) {
 
-		transferTo(t.pos.offset(d.getNormal()), d, sim);
-
-	}
-
-	public void transferFrom(Direction d, boolean sim) {
-
-		transferFrom(t.pos.offset(d.getNormal()), d, sim);
+		transferTo(t.getBlockPos().offset(d.getNormal()), d, transaction);
 
 	}
 
-	public static long getRemainSize(InventoryStorage src, ItemVariant variant, long amount) {
-		long a = amount;
+	public void transferFrom(Direction d, TransactionContext transaction) {
 
+		transferFrom(t.getBlockPos().offset(d.getNormal()), d, transaction);
+
+	}
+
+	// s - the extract item from src
+	// return - src's max cap for <s>
+	public static int getFirstSlotFit(InventoryStorage src, ItemStack s, TransactionContext transaction) {
+		long sin = s.getCount();
+		long orid = sin;
 		for (int i = 0; i < src.getSlots().size(); i++) {
-			var ia = a;
-			a -= TransferUtil.execute(tr -> src.simulateInsert(variant, ia, tr));
-			if (a <= 0)
-				break;
+			sin = src.getSlot(i).simulateInsert(ItemVariant.of(s), sin, transaction);
+			if (orid > sin) {
+				return i;
+			}
 		}
-
-		return amount - a;
-
+		return -1;
 	}
 
-	public void srcToDest(Storage<ItemVariant> srcs, Storage<ItemVariant> dests, boolean into,
-			boolean sim) {
-		if (srcs instanceof InventoryStorage src && dests instanceof InventoryStorage dest) {
+	public void srcToDest(Storage<ItemVariant> src, Storage<ItemVariant> dest, boolean into,
+			TransactionContext transaction) {
+		srcToDest(-1, src, dest, into, transaction);
+	}
 
-			ItemStack s = ItemStack.EMPTY;
-			int i = -1;
-			while (s.isEmpty()) {
-				i++;
-				if (i >= src.getSlots().size())
-					break;
+	public void srcToDest(int init, Storage<ItemVariant> src, Storage<ItemVariant> dest, boolean into,
+			TransactionContext transaction) {
+		int iniSlot = init == -1 ? 0 : init;
 
-				var ti = i;
-				s = src.getSlot(i).getResource()
-						.toStack(
-								TransferUtil
-										.execute(tr -> sim
-												? src.getSlot(ti).simulateExtract(
-														src.getSlot(ti).getResource(),
-														Math.min(
-																into ? t.maxReceiveItem
-																		: t.maxExtractItem,
-																getRemainSize(dest,
-																		src.getSlot(
-																				ti).getResource(),
-																		src.getSlot(ti)
-																				.getAmount())),
-														tr)
-												: src.getSlot(ti).extract(
-														src.getSlot(ti).getResource(),
-														Math.min(
-																into ? t.maxReceiveItem
-																		: t.maxExtractItem,
-																getRemainSize(dest,
-																		src.getSlot(ti)
-																				.getResource(),
-																		src.getSlot(ti)
-																				.getAmount())),
-														tr))
-										.intValue());
-			}
-
-			int k = -1;
-			while (true) {
-				k++;
-				if (k >= dest.getSlots().size())
-					break;
-
-				var kt = k;
-				ItemVariant v = ItemVariant.of(s);
-				var c = s.getCount();
-				s.shrink(TransferUtil.execute(tr -> sim ? dest.getSlot(kt).simulateInsert(v, c, tr)
-						: dest.getSlot(kt).insert(v, c, tr)).intValue());
-				if (s.isEmpty())
-					break;
+		ItemStack stack = ItemStack.EMPTY;
+		{
+			var iter = src.iterator();
+			while (iter.hasNext()) {
+				var s = iter.next();
+				if (stack.isEmpty())
+					stack = s.getResource().toStack((int) src.simulateExtract(s.getResource(),
+							into ? t.info.maxReceiveItem : t.info.maxExtractItem, transaction));
 			}
 		}
+
+		int cache = stack.getCount();
+
+		if (!stack.isEmpty())
+			stack.shrink((int) dest.simulateInsert(ItemVariant.of(stack), stack.getCount(), transaction));
+
+		int ins = cache - stack.getCount();
+		if (ins == 0) {
+			srcToDest(iniSlot + 1, src, dest, into, transaction);
+		}
+
+		ItemStack s2 = ItemStack.EMPTY;
+		{
+			var iter = src.iterator();
+			while (iter.hasNext()) {
+				var s = iter.next();
+				if (s2.isEmpty())
+					s2 = s.getResource().toStack((int) src.simulateExtract(s.getResource(), ins, transaction));
+			}
+		}
+
+		if (!s2.isEmpty())
+			s2.shrink((int) dest.insert(ItemVariant.of(s2), s2.getCount(), transaction));
 
 	}
 
 	// return : stack is completely given.
-	public boolean selfGive(ItemStack stack, int from, int to, boolean sim) {
-		if (handlerOf(t, null) instanceof InventoryStorage dest) {
+	public boolean selfGive(ItemStack stack, int from, int to, TransactionContext transaction) {
+		if (stack.isEmpty() || !(handlerOf(t, null) instanceof InventoryStorage dest))
+			return true;
+
+		if (dest == null)
+			return false;
+
+		int k = from - 1;
+		while (true) {
+			k++;
+			if (k > to)
+				break;
+
+			stack.shrink((int) dest.getSlot(k).insert(ItemVariant.of(stack), stack.getCount(), transaction));
 			if (stack.isEmpty())
-				return true;
-
-			if (dest == null)
-				return false;
-
-			int k = from - 1;
-			while (true) {
-				k++;
-				if (k > to)
-					break;
-
-				var slot = dest.getSlot(k);
-				stack.shrink(
-						TransferUtil
-								.execute(tr -> sim
-										? slot.simulateInsert(ItemVariant.of(stack),
-												stack.getCount(), tr)
-										: slot.insert(ItemVariant.of(stack), stack.getCount(), tr))
-								.intValue());
-				if (stack.isEmpty())
-					break;
-			}
-
-			return stack.isEmpty();
+				break;
 		}
 
-		return false;
+		return stack.isEmpty();
 	}
 
-	public boolean selfGive(ItemStack stack, boolean sim) {
-
-		return selfGive(stack, 0, t.inventory.getContainerSize() - 1, sim);
-
+	public boolean selfGive(ItemStack stack, TransactionContext transaction) {
+		return selfGive(stack, 0, t.inventory.getContainerSize() - 1, transaction);
 	}
 
-	public boolean selfGiveList(List<ItemStack> ss, boolean sim) {
-
+	public boolean selfGiveList(List<ItemStack> ss, TransactionContext transaction) {
 		boolean allReceive = true;
 
 		for (ItemStack stack : ss) {
-			if (!selfGive(stack, sim)) {
+			if (!selfGive(stack, transaction)) {
 				allReceive = false;
 			}
 		}
 
 		return allReceive;
-
 	}
 
-	public ItemStack selfGet(int max, int from, int to, boolean sim) {
-		if (handlerOf(t, null) instanceof InventoryStorage src) {
-			if (src == null)
-				return ItemStack.EMPTY;
+	public ItemStack selfGet(int max, int from, int to, TransactionContext transaction) {
+		var temp = handlerOf(t, null);
+		if (temp == null || !(temp instanceof InventoryStorage src))
+			return ItemStack.EMPTY;
 
-			ItemStack s = ItemStack.EMPTY;
-			int i = from - 1;
-			while (s.getCount() < max || s.isEmpty()) {
-				i++;
-				if (i > to)
-					break;
+		ItemStack s = ItemStack.EMPTY;
+		int i = from - 1;
+		while (s.getCount() < max || s.isEmpty()) {
+			i++;
+			if (i > to)
+				break;
 
-				var it = i;
-				s.shrink(TransferUtil
-						.execute(tr -> sim
-								? src.getSlot(it).simulateExtract(src.getSlot(it).getResource(),
-										max, tr)
-								: src.getSlot(it).extract(src.getSlot(it).getResource(), max, tr))
-						.intValue());
-			}
-
-			return s;
+			var resource = src.getSlot(i).getResource();
+			s = resource.toStack((int) src.getSlot(i).extract(resource, max, transaction));
 		}
 
-		return ItemStack.EMPTY;
+		return s;
 	}
 
-	public ItemStack selfGet(int max, boolean sim) {
-		return selfGet(max, 0, t.inventory.getContainerSize() - 1, sim);
+	public ItemStack selfGet(int max, TransactionContext transaction) {
+		return selfGet(max, 0, t.inventory.getContainerSize() - 1, transaction);
 	}
 
 }

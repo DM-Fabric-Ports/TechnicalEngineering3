@@ -3,32 +3,46 @@ package ten3.core.machine.useenergy.pulverizer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.block.state.BlockState;
-import ten3.core.recipe.inter.IBaseRecipeCm;
-import ten3.lib.tile.recipe.CmTileMachineProcessed;
-import ten3.lib.tile.option.FaceOption;
-import ten3.lib.tile.recipe.SlotInfo;
+import ten3.lib.capability.fluid.Tank;
+import ten3.lib.recipe.IBaseRecipeCm;
+import ten3.lib.tile.extension.CmTileMachineRecipe;
+import ten3.lib.tile.extension.SlotInfo;
 import ten3.lib.wrapper.SlotCm;
 import ten3.lib.wrapper.SlotCustomCm;
 
-public class PulverizerTile extends CmTileMachineProcessed {
+public class PulverizerTile extends CmTileMachineRecipe {
 
-    @SuppressWarnings("all")
-    public PulverizerTile(BlockPos pos, BlockState state) {
+	@SuppressWarnings("all")
+	public PulverizerTile(BlockPos pos, BlockState state) {
 
-        super(pos, state, true, new SlotInfo(0, 0, 1, 4));
+		super(pos, state, new SlotInfo(0, 0, 1, 4));
 
-        setCap(kFE(20), FaceOption.BE_IN, FaceOption.OFF, 20);
+		info.setCap(kFE(20));
+		setEfficiency(20);
 
-        addSlot(new SlotCustomCm(inventory, 0, 42, 20, (s) -> true, false, true));
-        addSlot(new SlotCm(inventory, 1, 112, 25, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
-        addSlot(new SlotCm(inventory, 2, 130, 25, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
-        addSlot(new SlotCm(inventory, 3, 112, 43, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
-        addSlot(new SlotCm(inventory, 4, 130, 43, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
-    }
+		addTank(new Tank(1000, (s) -> true, false, true));
+		addSlot(new SlotCustomCm(inventory, 0, 43, 20, (s) -> true, false, true));
+		addSlot(new SlotCm(inventory, 1, 112, 25, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
+		addSlot(new SlotCm(inventory, 2, 130, 25, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
+		addSlot(new SlotCm(inventory, 3, 112, 43, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
+		addSlot(new SlotCm(inventory, 4, 130, 43, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
+	}
 
-    @Override
-    public int getTimeCook() {
-        return ((IBaseRecipeCm<Container>) recipeNow).time();
-    }
+	public RecipeCheckType slotType(int slot) {
+		if (slot == 0)
+			return RecipeCheckType.INPUT;
+		if (slot == 1 || slot == 2 || slot == 3 || slot == 4)
+			return RecipeCheckType.OUTPUT;
+		return RecipeCheckType.IGNORE;
+	}
+
+	public RecipeCheckType tankType(int tank) {
+		return RecipeCheckType.IGNORE;
+	}
+
+	@Override
+	public int ticks() {
+		return ((IBaseRecipeCm<Container>) recipeNow).time();
+	}
 
 }

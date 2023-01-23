@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DBD",
-    "CAC",
-    "DBD"
+    " B ",
+    "DAD",
+    " C "
   ],
   "key": {
     "A": {
-      "tag": "c:chlorium_plates"
+      "tag": "minecraft:leaves"
     },
     "B": {
       "tag": "c:chlorium_gears"
@@ -16,7 +16,7 @@
       "tag": "c:glass_blocks"
     },
     "D": {
-      "tag": "c:chlorium_dusts"
+      "item": "minecraft:glowstone_dust"
     }
   },
   "result": {

@@ -2,7 +2,7 @@ package ten3.lib.client.element;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import ten3.util.TranslateKeyUtil;
+import ten3.util.KeyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,11 @@ public class ElementBarIdeas extends ElementImage {
 
         super(xr, y, w, h, xOff, yOff, resourceLocation);
 
-        list.add(TranslateKeyUtil.translated(TranslateKeyUtil.GOLD, "ten3.info.bar_ideas"));
+        list.add(KeyUtil.translated(KeyUtil.GOLD, "ten3.info.bar_ideas"));
 
         for(int i = 0; true; i++) {
-            String k = "ten3.info." + TranslateKeyUtil.exceptMachineOrGiveCell(key) + "."+i;
-            Component ttc = TranslateKeyUtil.translated(k);
+            String k = "ten3.info." + KeyUtil.exceptMachineOrGiveCell(key) + "."+i;
+            Component ttc = KeyUtil.translated(k);
             if(ttc.getString().equals(k)) break;
 
             list.add(ttc);

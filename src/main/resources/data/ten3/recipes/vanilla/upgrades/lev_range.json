@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "DBD",
-    "CAC",
-    "DBD"
+    " B ",
+    "DAD",
+    " C "
   ],
   "key": {
     "A": {
-      "tag": "c:gold_plates"
+      "item": "minecraft:iron_bars"
     },
     "B": {
       "tag": "c:gold_gears"
     },
     "C": {
-      "tag": "c:glass_blocks"
+      "item": "minecraft:slime_ball"
     },
     "D": {
       "item": "minecraft:gunpowder"

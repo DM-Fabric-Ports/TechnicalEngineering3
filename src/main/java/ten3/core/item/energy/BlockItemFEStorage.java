@@ -1,8 +1,8 @@
 package ten3.core.item.energy;
 
-import java.util.List;
+import static ten3.init.template.DefItem.build;
 
-import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,8 +18,8 @@ import team.reborn.energy.api.base.SimpleEnergyItem;
 import ten3.core.machine.Cell;
 import ten3.init.TileInit;
 import ten3.init.template.DefItemBlock;
-import ten3.lib.tile.CmTileEntity;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileEntity;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.util.ItemUtil;
 
 public class BlockItemFEStorage extends DefItemBlock implements SimpleEnergyItem {
@@ -31,24 +31,22 @@ public class BlockItemFEStorage extends DefItemBlock implements SimpleEnergyItem
 	}
 
 	public BlockItemFEStorage(Block b) {
-		super(b, 1);
-
-		EnergyStorage.ITEM.registerForItems((stack, ctx) -> SimpleEnergyItem.createStorage(ctx, getEnergyCapacity(stack), getEnergyMaxInput(stack),
-				getEnergyMaxOutput(stack)), this);
+		super(b, build(1));
+		EnergyStorage.ITEM.registerForItems((stack, ctx) -> SimpleEnergyItem.createStorage(ctx,
+				getEnergyCapacity(stack), getEnergyMaxInput(stack), getEnergyMaxOutput(stack)), this);
 	}
 
 	@Override
 	public Component getName(ItemStack stack) {
-		int level = ItemUtil.getTag(stack, "level");
 		CmTileMachine t = getBind();
-		t.levelIn = level;
 		return t.getDisplayWith();
 	}
 
 	@Override
 	public ItemStack getDefaultInstance() {
 		CmTileMachine t = getBind();
-		return EnergyItemHelper.getState(this, t.maxStorage, t.maxReceive, t.maxExtract);
+		return EnergyItemHelper.getState(this, t.info.maxStorageEnergy, t.info.maxReceiveEnergy,
+				t.info.maxExtractEnergy);
 	}
 
 	@Override
@@ -68,41 +66,42 @@ public class BlockItemFEStorage extends DefItemBlock implements SimpleEnergyItem
 		return Mth.color(1f, 0.1f, 0.1f);
 	}
 
-	public void fillItemCategory(FabricItemGroupEntries entry) {
+	public void fillItemCategory(FabricItemGroupEntries entries) {
 		CmTileMachine t = getBind();
-		EnergyItemHelper.fillEmpty(this, entry, t.maxStorage, t.maxReceive, t.maxExtract);
+		EnergyItemHelper.fillEmpty(this, entries, t.info.maxStorageEnergy, t.info.maxReceiveEnergy,
+				t.info.maxExtractEnergy);
 
 		if (getBlock() instanceof Cell) {
-			EnergyItemHelper.fillFull(this, entry, t.maxStorage, t.maxReceive, t.maxExtract);
+			EnergyItemHelper.fillFull(this, entries, t.info.maxStorageEnergy, t.info.maxReceiveEnergy,
+					t.info.maxExtractEnergy);
 		}
-
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level p_40573_, List<Component> tooltip,
-								TooltipFlag p_40575_) {
+	public void appendHoverText(ItemStack stack, @org.jetbrains.annotations.Nullable Level p_40573_,
+			List<Component> tooltip, TooltipFlag p_40575_) {
 		EnergyItemHelper.addTooltip(tooltip, stack);
 	}
 
 	@Override
 	public void onCraftedBy(ItemStack stack, Level p_41448_, Player p_41449_) {
 		CmTileMachine t = getBind();
-		EnergyItemHelper.setState(stack, t.maxStorage, t.maxReceive, t.maxExtract);
+		EnergyItemHelper.setState(stack, t.info.maxStorageEnergy, t.info.maxReceiveEnergy, t.info.maxExtractEnergy);
 	}
 
 	@Override
 	public long getEnergyCapacity(ItemStack stack) {
-		return ItemUtil.getTag(stack, "maxEnergy");
+		return stack.getTag().getInt("maxEnergy");
 	}
 
 	@Override
 	public long getEnergyMaxInput(ItemStack stack) {
-		return ItemUtil.getTag(stack, "receive");
+		return stack.getTag().getInt("receive");
 	}
 
 	@Override
 	public long getEnergyMaxOutput(ItemStack stack) {
-		return ItemUtil.getTag(stack, "extract");
+		return stack.getTag().getInt("extract");
 	}
 
 }

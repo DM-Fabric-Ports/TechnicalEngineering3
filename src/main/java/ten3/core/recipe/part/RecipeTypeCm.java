@@ -1,6 +1,9 @@
+<<<<<<<< HEAD:src/main/java/ten3/core/recipe/part/RecipeTypeCm.java
 package ten3.core.recipe.part;
+========
+package ten3.lib.recipe;
+>>>>>>>> forge:src/main/java/ten3/lib/recipe/RecipeTypeCm.java
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 

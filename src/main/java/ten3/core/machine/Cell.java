@@ -3,11 +3,23 @@ package ten3.core.machine;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 
-public class Cell extends Machine {
+public class Cell extends MatedMac {
 
-	public Cell(Material m, SoundType s, String name) {
+	public Cell(String name) {
 
-		super(m, s, name, false);
+		this(false, name);
+
+	}
+
+	public Cell(boolean solid, String name) {
+
+		this(Material.METAL, SoundType.METAL, name, solid);
+
+	}
+
+	public Cell(Material m, SoundType s, String name, boolean solid) {
+
+		super(m, s, name, solid);
 
 	}
 

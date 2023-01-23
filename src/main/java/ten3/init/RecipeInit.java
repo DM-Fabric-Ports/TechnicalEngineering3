@@ -5,35 +5,36 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import ten3.TConst;
-import ten3.core.recipe.*;
-import ten3.core.recipe.serial.CmSerializer;
-import ten3.core.recipe.serial.MTSSerial;
-import ten3.core.recipe.serial.SingleSerial;
-import ten3.core.recipe.part.RecipeTypeCm;
+import ten3.lib.recipe.CmSerializer;
+import ten3.lib.recipe.FormsCombinedRecipe;
+import ten3.lib.recipe.FormsCombinedRecipeSerializer;
+import ten3.lib.recipe.RecipeTypeCm;
 
 public class RecipeInit {
-    public static void regAll() {
-        regRcp(new SingleSerial<>(SingleRecipe::new, "pulverizer"));
-        regRcp(new SingleSerial<>(SingleRecipe::new, "compressor"));
-        regRcp(new MTSSerial<>(MTSRecipe::new, "psionicant", 2));
-        regRcp(new MTSSerial<>(MTSRecipe::new, "induction_furnace", 3));
-    }
 
-    public static void regRcp(CmSerializer<?> s) {
-		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, s.id(), s);
+	public static void regAll() {
+		regFormsCombined("pulverizer", 1, 4);
+		regFormsCombined("compressor", 2, 1);
+		regFormsCombined("psionicant", 2, 1);
+		regFormsCombined("induction_furnace", 3, 1);
+	}
 
-        RecipeTypeCm<?> type = new RecipeTypeCm<>(s.id());
-		Registry.register(BuiltInRegistries.RECIPE_TYPE, s.id() , type);
-    }
+	public static void regFormsCombined(String id, int i, int o) {
+		regRcp((new FormsCombinedRecipeSerializer<>(FormsCombinedRecipe::new, id, i, o)));
+	}
 
-    public static RecipeSerializer<?> getRcp(String id) {
-        return BuiltInRegistries.RECIPE_SERIALIZER.get(TConst.asResource(id));
-    }
+	public static void regRcp(CmSerializer<?> s) {
+		String id = s.id();
+		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, TConst.asResource(id), s);
+		Registry.register(BuiltInRegistries.RECIPE_TYPE, TConst.asResource(id), new RecipeTypeCm<>(id));
+	}
 
-    public static RecipeType<?> getRcpType(String id) {
+	public static RecipeSerializer<?> getRcp(String id) {
+		return BuiltInRegistries.RECIPE_SERIALIZER.get(TConst.asResource(id));
+	}
 
-        return BuiltInRegistries.RECIPE_TYPE.get(TConst.asResource(id));
-
-    }
+	public static RecipeType<?> getRcpType(String id) {
+		return BuiltInRegistries.RECIPE_TYPE.get(TConst.asResource(id));
+	}
 
 }
