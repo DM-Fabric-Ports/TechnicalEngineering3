@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:ingots/gold"
+      "key": "c:gold_ingots"
     }
   ],
   "outputs": [

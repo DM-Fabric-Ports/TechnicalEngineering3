@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:ingots/copper"
+      "key": "c:copper_ingots"
     },
     {
       "form": "item",

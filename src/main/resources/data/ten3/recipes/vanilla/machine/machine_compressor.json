@@ -10,7 +10,7 @@
       "tag": "c:stone"
     },
     "B": {
-      "tag": "c:ingots/copper"
+      "tag": "c:copper_ingots"
     },
     "C": {
       "item": "ten3:redstone_storer"

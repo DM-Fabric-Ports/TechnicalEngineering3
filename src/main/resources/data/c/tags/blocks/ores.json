@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "#c:tin_ores",
-    "#c:ores/copper",
+    "#minecraft:copper_ores",
     "#c:nickel_ores"
   ]
 }

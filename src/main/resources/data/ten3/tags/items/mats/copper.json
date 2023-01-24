@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/copper",
+    "#c:copper_ingots",
     "#c:copper_dusts"
   ]
 }

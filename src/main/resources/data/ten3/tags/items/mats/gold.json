@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/gold",
+    "#c:gold_ingots",
     "#c:gold_dusts"
   ]
 }

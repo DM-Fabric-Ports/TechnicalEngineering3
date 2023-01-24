@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:ingots/iron",
+      "key": "c:iron_ingots",
       "count": 4
     },
     {

@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:raw_materials/copper"
+      "key": "c:raw_copper_ores"
     }
   ],
   "outputs": [

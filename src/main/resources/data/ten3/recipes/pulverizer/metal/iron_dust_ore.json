@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:ores/iron"
+      "key": "minecraft:iron_ores"
     }
   ],
   "outputs": [

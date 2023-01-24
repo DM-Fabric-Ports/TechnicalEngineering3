@@ -4,7 +4,7 @@
     "minecraft:iron_ingot",
     "minecraft:gold_ingot",
     "#c:tin_ingots",
-    "#c:ingots/copper",
+    "#c:copper_ingots",
     "#c:nickel_ingots"
   ]
 }
