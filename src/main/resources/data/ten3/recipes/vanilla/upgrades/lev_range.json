@@ -10,7 +10,7 @@
       "item": "minecraft:iron_bars"
     },
     "B": {
-      "tag": "forge:gears/gold"
+      "tag": "c:gears/gold"
     },
     "C": {
       "item": "minecraft:slime_ball"

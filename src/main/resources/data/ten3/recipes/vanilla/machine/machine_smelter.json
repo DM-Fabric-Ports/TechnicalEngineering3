@@ -10,7 +10,7 @@
       "item": "minecraft:bricks"
     },
     "B": {
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     },
     "C": {
       "item": "ten3:redstone_storer"

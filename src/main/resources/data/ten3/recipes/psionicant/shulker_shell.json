@@ -10,7 +10,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:plates/powered_tin",
+      "key": "c:plates/powered_tin",
       "count": 3
     }
   ],

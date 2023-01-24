@@ -10,13 +10,13 @@
       "item": "minecraft:iron_hoe"
     },
     "B": {
-      "tag": "forge:plates/chlorium"
+      "tag": "c:plates/chlorium"
     },
     "C": {
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "tag": "forge:chests/wooden"
+      "tag": "c:chests/wooden"
     },
     "D": {
       "item": "ten3:redstone_conductor"

@@ -4,13 +4,13 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:stone",
+      "key": "c:stone",
       "count": 1
     },
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:dyes/black",
+      "key": "c:dyes/black",
       "count": 1
     }
   ],

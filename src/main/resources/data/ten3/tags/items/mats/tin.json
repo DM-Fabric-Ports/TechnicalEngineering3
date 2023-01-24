@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:ingots/tin",
-    "#forge:dusts/tin"
+    "#c:ingots/tin",
+    "#c:dusts/tin"
   ]
 }

@@ -10,10 +10,10 @@
       "item": "ten3:powered_levelup"
     },
     "B": {
-      "tag": "forge:gears/powered_tin"
+      "tag": "c:gears/powered_tin"
     },
     "D": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     },
     "E": {
       "item": "minecraft:shulker_shell"

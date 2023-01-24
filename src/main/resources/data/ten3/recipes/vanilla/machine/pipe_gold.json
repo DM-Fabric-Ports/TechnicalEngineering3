@@ -5,10 +5,10 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     },
     "B": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "result": {

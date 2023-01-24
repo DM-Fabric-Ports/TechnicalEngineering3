@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:ingots/gold"
+      "key": "c:ingots/gold"
     }
   ],
   "outputs": [

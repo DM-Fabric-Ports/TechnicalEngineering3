@@ -10,7 +10,7 @@
       "item": "minecraft:daylight_detector"
     },
     "B": {
-      "tag": "forge:ingots/chlorium"
+      "tag": "c:ingots/chlorium"
     },
     "C": {
       "item": "ten3:redstone_storer"

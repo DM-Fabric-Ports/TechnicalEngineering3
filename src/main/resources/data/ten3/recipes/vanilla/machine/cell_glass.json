@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     },
     "B": {
       "item": "minecraft:redstone"

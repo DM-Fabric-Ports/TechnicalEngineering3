@@ -10,7 +10,7 @@
       "item": "minecraft:emerald"
     },
     "B": {
-      "tag": "forge:gears/chlorium"
+      "tag": "c:gears/chlorium"
     },
     "C": {
       "item": "minecraft:hopper"

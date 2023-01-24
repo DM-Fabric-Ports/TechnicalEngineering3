@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:stone"
+      "key": "c:stone"
     }
   ],
   "outputs": [

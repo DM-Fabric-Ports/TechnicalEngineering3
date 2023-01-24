@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:ingots/iron",
+      "key": "c:ingots/iron",
       "count": 4
     },
     {

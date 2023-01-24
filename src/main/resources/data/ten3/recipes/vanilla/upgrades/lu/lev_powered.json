@@ -10,10 +10,10 @@
       "item": "ten3:augmented_levelup"
     },
     "B": {
-      "tag": "forge:gears/tin"
+      "tag": "c:gears/tin"
     },
     "D": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     },
     "E": {
       "item": "ten3:azure_glass"

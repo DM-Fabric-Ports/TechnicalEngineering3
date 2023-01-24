@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:ingots/powered_tin",
-    "#forge:dusts/powered_tin"
+    "#c:ingots/powered_tin",
+    "#c:dusts/powered_tin"
   ]
 }

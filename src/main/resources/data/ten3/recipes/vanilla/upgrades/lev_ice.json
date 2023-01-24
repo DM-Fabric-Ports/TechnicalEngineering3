@@ -10,7 +10,7 @@
       "item": "minecraft:packed_ice"
     },
     "B": {
-      "tag": "forge:gears/gold"
+      "tag": "c:gears/gold"
     },
     "C": {
       "item": "minecraft:glass_bottle"

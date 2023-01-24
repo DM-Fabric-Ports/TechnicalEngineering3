@@ -10,7 +10,7 @@
       "item": "minecraft:furnace"
     },
     "B": {
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     },
     "C": {
       "item": "ten3:redstone_storer"

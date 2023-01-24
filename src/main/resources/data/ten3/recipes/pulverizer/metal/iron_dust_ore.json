@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "forge:ores/iron"
+      "key": "c:ores/iron"
     }
   ],
   "outputs": [

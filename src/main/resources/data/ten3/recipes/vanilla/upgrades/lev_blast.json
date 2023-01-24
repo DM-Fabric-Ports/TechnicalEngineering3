@@ -10,13 +10,13 @@
       "item": "minecraft:lava_bucket"
     },
     "B": {
-      "tag": "forge:gears/copper"
+      "tag": "c:gears/copper"
     },
     "C": {
       "item": "minecraft:blaze_rod"
     },
     "D": {
-      "tag": "forge:stone"
+      "tag": "c:stone"
     }
   },
   "result": {

@@ -10,13 +10,13 @@
       "item": "minecraft:redstone"
     },
     "B": {
-      "tag": "forge:gears/copper"
+      "tag": "c:gears/copper"
     },
     "D": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     },
     "E": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     }
   },
   "result": {
