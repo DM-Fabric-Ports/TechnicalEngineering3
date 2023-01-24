@@ -58,7 +58,7 @@ public class SlotCm extends Slot {
 	}
 
 	public int getSlotIndex() {
-		return this.index;
+		return this.getContainerSlot();
 	}
 
 }
