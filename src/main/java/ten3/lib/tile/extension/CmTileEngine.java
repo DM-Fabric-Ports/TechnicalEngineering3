@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.option.Type;
+import ten3.util.StorageType;
 
 public abstract class CmTileEngine extends CmTileMachine {
 
@@ -25,8 +26,8 @@ public abstract class CmTileEngine extends CmTileMachine {
 	}
 
 	@Override
-	public int initialFaceMode(Capability<?> cap) {
-		if (cap == CapabilityEnergy.ENERGY) {
+	public int initialFaceMode(StorageType cap) {
+		if (cap == StorageType.ENERGY) {
 			return FaceOption.OUT;
 		}
 		return FaceOption.BOTH;
@@ -56,8 +57,8 @@ public abstract class CmTileEngine extends CmTileMachine {
 	}
 
 	@Override
-	protected boolean hasFaceCapability(Capability<?> cap, Direction d) {
-		if (cap == CapabilityEnergy.ENERGY) {
+	protected boolean hasFaceCapability(StorageType cap, Direction d) {
+		if (cap == StorageType.ENERGY) {
 			return d == null || d == Direction.UP;
 		}
 		return d != Direction.UP;

@@ -1,18 +1,14 @@
 package ten3.util;
 
-import org.quiltmc.qsl.networking.api.ServerPlayNetworking;
+import java.util.function.Consumer;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-
-import io.netty.buffer.Unpooled;
-import ten3.core.network.Network;
-
-import java.util.function.Consumer;
 
 public class GuiOpenerUtil {
 	public static void openGui(ServerPlayer player, MenuProvider containerProvider, BlockPos pos) {
@@ -36,7 +32,8 @@ public class GuiOpenerUtil {
 		buf.writeVarInt(extraData.readableBytes());
 		buf.writeBytes(extraData);
 
-		ServerPlayNetworking.send(player, Network.PTC_OPEN_GUI, buf);
+		//TODO
+		// ServerPlayNetworking.send(player, Network.PTC_OPEN_GUI, buf);
 
 		player.containerMenu = menu;
 		player.initMenu(menu);

@@ -1,88 +1,77 @@
 package ten3.lib.client.element;
 
+import java.util.List;
+
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.Registry;
+
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.ResourceAmount<FluidVariant>;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import ten3.lib.client.RenderHelper;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.util.KeyUtil;
 import ten3.util.PatternUtil;
 
-import java.util.List;
-
 public class ElementFluid extends ElementBase {
 
-    double p;
-    boolean dv;
-    int id;
-    ResourceAmount<FluidVariant> stack;
+	double p;
+	boolean dv;
+	int id;
+	FluidVariant variant;
+	long amount = 0;
 
-    public ElementFluid(int id, int x, int y, int width, int height, int xOff, int yOff, ResourceLocation resourceLocation) {
+	public ElementFluid(int id, int x, int y, int width, int height, int xOff, int yOff,
+			ResourceLocation resourceLocation) {
+		super(x, y, width, height, xOff, yOff, resourceLocation);
+		this.id = id;
+	}
 
-        super(x, y, width, height, xOff, yOff, resourceLocation);
-        this.id = id;
-    }
+	public ElementFluid(int id, int x, int y, int width, int height, int xOff, int yOff,
+			ResourceLocation resourceLocation, boolean displayValue) {
+		super(x, y, width, height, xOff, yOff, resourceLocation);
+		dv = displayValue;
+		this.id = id;
+	}
 
-    public ElementFluid(int id, int x, int y, int width, int height, int xOff, int yOff, ResourceLocation resourceLocation, boolean displayValue) {
+	public void update(CmContainerMachine ct) {
+		Fluid fid = BuiltInRegistries.FLUID.byId(ct.fluidData.get(id));
+		amount = ct.fluidAmount.get(id);
+		variant = FluidVariant.of(fid);
+		setValue(amount, ct.tile.tanks.get(id).getCapacity());
+		setPer(val / (double) m_val);
+	}
 
-        super(x, y, width, height, xOff, yOff, resourceLocation);
-        dv = displayValue;
-        this.id = id;
-    }
+	@Override
+	public void draw(PoseStack matrixStack) {
+		int h = (int) ((height - 2) * (1 - p));
+		RenderHelper.render(matrixStack, x, y, width, height, textureW, textureH, xOff, yOff, resourceLocation);
 
-    public void update(CmContainerMachine ct)
-    {
-        Fluid fid = Registry.FLUID.byId(ct.fluidData.get(id));
-        int amt = ct.fluidAmount.get(id);
-        stack = new ResourceAmount<FluidVariant>(fid, amt);
-        setValue(amt, ct.tile.tanks.get(id).getCapacity());
-        setPer(val / (double)m_val);
-    }
+		if (variant == null || variant.isBlank() || amount <= 0)
+			return;
+		RenderHelper.drawFlTil(matrixStack, variant.getFluid(), x + 1, y + 1 + h, width - 2, height - h - 2);
+	}
 
-    @Override
-    public void draw(PoseStack matrixStack) {
+	@Override
+	public void addToolTip(List<Component> tooltips) {
+		if (!dv) {
+			tooltips.add(KeyUtil.make((int) (p * 100) + "%"));
+		} else {
+			tooltips.add(PatternUtil.joinmB(val, m_val));
+		}
+	}
 
-        int h = (int) ((height - 2) * (1 - p));
-        RenderHelper.render(matrixStack, x, y, width, height, textureW, textureH, xOff, yOff, resourceLocation);
+	int val;
+	int m_val;
 
-        if(stack == null || stack.isEmpty()) return;
-        RenderHelper.drawFlTil(matrixStack, stack.getFluid(), x + 1, y + 1 + h, width - 2, height - h - 2);
-    }
+	public void setValue(long v, long mv) {
+		val = (int) v;
+		m_val = (int) mv;
+	}
 
-    @Override
-    public void addToolTip(List<Component> tooltips) {
-
-        if(!dv) {
-            tooltips.add(KeyUtil.make((int) (p * 100) + "%"));
-        }
-        else {
-            tooltips.add(PatternUtil.joinmB(val, m_val));
-        }
-
-    }
-
-    int val;
-    int m_val;
-
-    public void setValue(int v, int mv) {
-
-        val = v;
-        m_val = mv;
-
-    }
-
-    public void setPer(double per) {
-
-        p = per;
-
-    }
+	public void setPer(double per) {
+		p = per;
+	}
 
 }

@@ -2,6 +2,7 @@ package ten3.lib.capability.fluid;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
+import net.minecraft.nbt.CompoundTag;
 
 public class Tank extends SingleVariantStorage<FluidVariant> {
 
@@ -43,6 +44,11 @@ public class Tank extends SingleVariantStorage<FluidVariant> {
 	@Override
 	public boolean supportsInsertion() {
 		return in;
+	}
+
+	public void readFromNBT(CompoundTag compound) {
+		this.variant = FluidVariant.fromNbt(compound.getCompound("variant"));
+		this.amount = compound.getLong("amount");
 	}
 
 }

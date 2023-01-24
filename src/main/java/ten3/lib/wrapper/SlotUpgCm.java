@@ -3,25 +3,24 @@ package ten3.lib.wrapper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import ten3.core.item.upgrades.UpgradeItem;
-import ten3.core.network.packets.PTCInfoClientPack;
 
 public class SlotUpgCm extends SlotCm {
 
-    public SlotUpgCm(Container i, int id, int x, int y) {
+	public SlotUpgCm(Container i, int id, int x, int y) {
 
-        super(i, id, x, y, SlotCm.RECEIVE_ALL_INPUT, false, false);
+		super(i, id, x, y, SlotCm.RECEIVE_ALL_INPUT, false, false);
 
-    }
+	}
 
-    @Override
-    public boolean isItemValidInHandler(ItemStack stack) {
+	@Override
+	public boolean isItemValidInHandler(ItemStack stack) {
 
-        if (stack.getItem() instanceof UpgradeItem) {
-            return true;
-        }
+		if (stack.getItem() instanceof UpgradeItem) {
+			return true;
+		}
 
-        return false;
+		return false;
 
-    }
+	}
 
 }

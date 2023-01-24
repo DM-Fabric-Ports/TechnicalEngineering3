@@ -36,9 +36,12 @@ public class Network {
 	public static void register() {
 		registerPTSPacket(PTS_RED_STATE_PACK, PTSRedStatePack::new);
 		registerPTSPacket(PTS_CHECK_PACK, PTSCheckPack::new);
+		registerPTSPacket(PTS_MODE_TRANSF_PACK, PTSModeTransfPack::new);
+	}
+
+	public static void registerClient() {
 		registerPTCPacket(PTC_CHECK_PACK, PTCCheckPack::new);
 		registerPTCPacket(PTC_INFO_CLIENT_PACK, PTCInfoClientPack::new);
-		registerPTSPacket(PTS_MODE_TRANSF_PACK, PTSModeTransfPack::new);
 	}
 
 	public static void sendToServer(PTSPack o) {

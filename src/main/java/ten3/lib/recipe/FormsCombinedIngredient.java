@@ -1,10 +1,14 @@
 package ten3.lib.recipe;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
 import com.google.gson.JsonObject;
 
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -18,11 +22,6 @@ import net.minecraft.world.level.material.Fluids;
 import ten3.lib.tile.extension.CmTileMachineRecipe;
 import ten3.util.RAUtil;
 import ten3.util.TagUtil;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 
 public class FormsCombinedIngredient {
 
@@ -86,20 +85,20 @@ public class FormsCombinedIngredient {
 			case "fluid":
 				ResourceAmount<FluidVariant> f;
 				for (int i = 0; i < tile.tanks.size(); i++) {
-					f = tile.tanks.get(i);
+					f = RAUtil.of(tile.tanks.get(i));
 					if (tile.tankType(i) != CmTileMachineRecipe.RecipeCheckType.INPUT)
 						continue;
-					if (f.getAmount() < amountOrCount) {
+					if (f.amount() < amountOrCount) {
 						continue;
 					}
 					switch (type) {
 						case "tag":
-							if (TagUtil.containsFluid(f.getFluid(), ifTagFluid)) {
+							if (TagUtil.containsFluid(f.resource().getFluid(), ifTagFluid)) {
 								ret = true;
 							}
 							break;
 						case "static":
-							if (matchFluids.contains(f.getFluid())) {
+							if (matchFluids.contains(f.resource().getFluid())) {
 								ret = true;
 							}
 							break;

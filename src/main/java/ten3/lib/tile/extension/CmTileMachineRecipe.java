@@ -1,19 +1,21 @@
 package ten3.lib.tile.extension;
 
+import java.util.List;
+
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import ten3.init.RecipeInit;
 import ten3.lib.recipe.FormsCombinedIngredient;
 import ten3.lib.recipe.IBaseRecipeCm;
 import ten3.lib.recipe.RandRecipe;
-import ten3.init.RecipeInit;
 import ten3.util.KeyUtil;
-
-import java.util.List;
+import ten3.util.TransferUtil;
 
 public abstract class CmTileMachineRecipe extends CmTileMachineProcess {
 
@@ -102,12 +104,12 @@ public abstract class CmTileMachineRecipe extends CmTileMachineProcess {
 		List<ResourceAmount<FluidVariant>> fullFu = ((RandRecipe<Container>) recipeNow).allOutputFluids();
 
 		for (ItemStack ss : full) {
-			if (!itr.selfGive(ss, slotInfo.ots, slotInfo.ote, true)) {
+			if (!TransferUtil.simulateExecute(tr -> itr.selfGive(ss, slotInfo.ots, slotInfo.ote, tr))) {
 				give = false;
 			}
 		}
 		for (ResourceAmount<FluidVariant> ss : fullFu) {
-			if (!ftr.selfGive(ss, true)) {
+			if (!TransferUtil.simulateExecute(tr -> ftr.selfGive(ss, tr))) {
 				give = false;
 			}
 		}
@@ -126,10 +128,10 @@ public abstract class CmTileMachineRecipe extends CmTileMachineProcess {
 		List<ResourceAmount<FluidVariant>> genFu = ((RandRecipe<Container>) recipeNow).generateFluids();
 
 		for (ItemStack s : gen) {
-			itr.selfGive(s, slotInfo.ots, slotInfo.ote, false);
+			TransferUtil.execute(tr -> itr.selfGive(s, slotInfo.ots, slotInfo.ote, tr));
 		}
 		for (ResourceAmount<FluidVariant> s : genFu) {
-			ftr.selfGive(s, false);
+			TransferUtil.execute(tr -> ftr.selfGive(s, tr));
 		}
 		shrinkItems();
 	}
