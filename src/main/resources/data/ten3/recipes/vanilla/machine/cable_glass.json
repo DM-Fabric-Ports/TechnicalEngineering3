@@ -5,7 +5,7 @@
   ],
   "key": {
     "A": {
-      "tag": "c:glass_blocks"
+      "tag": "forge:glass"
     },
     "B": {
       "item": "minecraft:redstone_block"

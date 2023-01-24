@@ -10,7 +10,7 @@
       "item": "minecraft:iron_bars"
     },
     "B": {
-      "tag": "c:copper_ingots"
+      "tag": "forge:ingots/copper"
     },
     "C": {
       "item": "ten3:redstone_storer"

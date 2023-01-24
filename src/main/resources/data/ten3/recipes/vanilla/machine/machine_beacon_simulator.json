@@ -10,7 +10,7 @@
       "item": "ten3:azure_glass"
     },
     "B": {
-      "tag": "c:powered_tin_plates"
+      "tag": "forge:plates/powered_tin"
     },
     "C": {
       "item": "ten3:redstone_storer"

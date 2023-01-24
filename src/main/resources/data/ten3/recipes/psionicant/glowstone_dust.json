@@ -10,7 +10,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:yellow_dyes",
+      "key": "forge:dyes/yellow",
       "count": 1
     }
   ],

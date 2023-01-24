@@ -3,8 +3,8 @@
   "inputs": [
     {
       "form": "item",
-      "type": "static",
-      "key": "minecraft:stone",
+      "type": "tag",
+      "key": "forge:stone",
       "count": 1
     },
     {

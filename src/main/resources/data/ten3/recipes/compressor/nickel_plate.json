@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:nickel_ingots"
+      "key": "forge:ingots/nickel"
     },
     {
       "form": "item",

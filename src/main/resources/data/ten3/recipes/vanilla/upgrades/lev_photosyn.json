@@ -10,10 +10,10 @@
       "tag": "minecraft:leaves"
     },
     "B": {
-      "tag": "c:chlorium_gears"
+      "tag": "forge:gears/chlorium"
     },
     "C": {
-      "tag": "c:glass_blocks"
+      "tag": "forge:glass"
     },
     "D": {
       "item": "minecraft:glowstone_dust"

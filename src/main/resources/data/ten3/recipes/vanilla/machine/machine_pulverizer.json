@@ -10,13 +10,13 @@
       "item": "minecraft:flint"
     },
     "B": {
-      "tag": "c:iron_plates"
+      "tag": "forge:plates/iron"
     },
     "C": {
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "tag": "c:iron_gears"
+      "tag": "forge:gears/iron"
     },
     "D": {
       "item": "ten3:redstone_converter"

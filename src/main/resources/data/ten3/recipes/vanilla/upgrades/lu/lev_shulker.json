@@ -10,7 +10,7 @@
       "item": "ten3:powered_levelup"
     },
     "B": {
-      "tag": "c:powered_tin_gears"
+      "tag": "forge:gears/powered_tin"
     },
     "D": {
       "tag": "forge:glass"
