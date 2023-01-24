@@ -1,6 +1,6 @@
 {
 	"parent": "ten3:block/cable/ccoa",
 	"textures": {
-		"texture": "ten3:machine/cable_azure"
+		"texture": "ten3:block/machine/cable_azure"
 	}
 }

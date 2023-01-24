@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.Lists;
 
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -30,6 +32,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
+import team.reborn.energy.api.EnergyStorage;
 import ten3.core.item.energy.EnergyItemHelper;
 import ten3.init.ContInit;
 import ten3.init.TileInit;
@@ -46,10 +49,34 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 	String tileName;
 
 	public Machine(String name) {
-
 		this(Material.METAL, SoundType.STONE, name, true);
 		tileName = name;
 
+		System.out.println(name + " registering transfer!");
+
+		ItemStorage.SIDED.registerForBlocks((w, p, s, b, d) -> {
+			if (b instanceof CmTileMachine t)
+				return t.getItemStorage(d).orElse(null);
+			else if (w.getBlockEntity(p) instanceof CmTileMachine t)
+				return t.getItemStorage(d).orElse(null);
+			return null;
+		}, this);
+
+		FluidStorage.SIDED.registerForBlocks((w, p, s, b, d) -> {
+			if (b instanceof CmTileMachine t)
+				return t.getFluidStorage(d).orElse(null);
+			else if (w.getBlockEntity(p) instanceof CmTileMachine t)
+				return t.getFluidStorage(d).orElse(null);
+			return null;
+		}, this);
+
+		EnergyStorage.SIDED.registerForBlocks((w, p, s, b, d) -> {
+			if (b instanceof CmTileMachine t)
+				return t.getEnergyStorage(d).orElse(null);
+			else if (w.getBlockEntity(p) instanceof CmTileMachine t)
+				return t.getEnergyStorage(d).orElse(null);
+			return null;
+		}, this);
 	}
 
 	public Machine(Material m, SoundType s, String name, boolean solid) {
@@ -64,7 +91,7 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
 	}
 
-	@org.jetbrains.annotations.Nullable
+	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return TileInit.getType(tileName).create(pos, state);

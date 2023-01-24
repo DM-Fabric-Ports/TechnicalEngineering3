@@ -1,9 +1,9 @@
 {
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "ten3:machine/engine/engine_metal_active",
-    "1": "ten3:machine/engine/engine_metal_bottom",
-    "particle": "ten3:machine/engine/engine_metal_active"
+    "0": "ten3:block/machine/engine/engine_metal_active",
+    "1": "ten3:block/machine/engine/engine_metal_bottom",
+    "particle": "ten3:block/machine/engine/engine_metal_active"
   },
   "elements": [
     {

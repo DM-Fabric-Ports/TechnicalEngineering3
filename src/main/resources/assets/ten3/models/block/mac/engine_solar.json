@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "ten3:machine/engine/engine_solar",
-		"1": "ten3:machine/engine/engine_solar_bottom",
-		"particle": "ten3:machine/engine/engine_solar"
+		"0": "ten3:block/machine/engine/engine_solar",
+		"1": "ten3:block/machine/engine/engine_solar_bottom",
+		"particle": "ten3:block/machine/engine/engine_solar"
 	},
 	"elements": [
 		{
