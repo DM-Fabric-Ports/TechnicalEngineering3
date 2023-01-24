@@ -21,7 +21,7 @@ public class Battery implements EnergyStorage {
 		if (!supportsInsertion()) {
 			return 0;
 		}
-		long energyReceived = Math.min(getCapacity() - getAmount(), Math.min(getMaxReceive(), maxReceive));
+		long energyReceived = Math.min(getCapacity() - getAmount(), Math.min(getMaxReceive(), maxAmount));
 		translateEnergy(energyReceived);
 		return energyReceived;
 	}
@@ -31,7 +31,7 @@ public class Battery implements EnergyStorage {
 		if (!supportsInsertion()) {
 			return 0;
 		}
-		long energyExtracted = Math.min(getAmount(), Math.min(getMaxExtract(), maxExtract));
+		long energyExtracted = Math.min(getAmount(), Math.min(getMaxExtract(), maxAmount));
 		translateEnergy(-energyExtracted);
 		return energyExtracted;
 	}

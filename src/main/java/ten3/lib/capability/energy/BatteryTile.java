@@ -12,12 +12,10 @@ public class BatteryTile extends Battery {
 	public CmTileMachine tile;
 
 	public BatteryTile(Direction d, CmTileMachine t) {
-
 		super(0, 0, 0);
 
 		di = d;
 		tile = t;
-
 	}
 
 	public BatteryTile with(Direction d) {
