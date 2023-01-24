@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#c:gears/tin",
-    "#c:gears/powered_tin",
-    "#c:gears/chlorium",
-    "#c:gears/gold",
-    "#c:gears/iron",
-    "#c:gears/copper",
-    "#c:gears/nickel"
+    "#c:tin_gears",
+    "#c:powered_tin_gears",
+    "#c:chlorium_gears",
+    "#c:gold_gears",
+    "#c:iron_gears",
+    "#c:copper_gears",
+    "#c:nickel_gears"
   ]
 }

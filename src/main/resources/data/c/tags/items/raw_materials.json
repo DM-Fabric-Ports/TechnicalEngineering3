@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:raw_materials/tin",
-    "#c:raw_materials/nickel"
+    "#c:raw_tin_ores",
+    "#c:raw_nickel_ores"
   ]
 }

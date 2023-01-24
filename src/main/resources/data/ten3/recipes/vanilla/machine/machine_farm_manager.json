@@ -10,7 +10,7 @@
       "item": "minecraft:iron_hoe"
     },
     "B": {
-      "tag": "c:plates/chlorium"
+      "tag": "c:chlorium_plates"
     },
     "C": {
       "item": "ten3:redstone_storer"

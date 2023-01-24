@@ -10,7 +10,7 @@
       "item": "ten3:azure_glass"
     },
     "B": {
-      "tag": "c:plates/powered_tin"
+      "tag": "c:powered_tin_plates"
     },
     "C": {
       "item": "ten3:redstone_storer"

@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "c:dusts/powered_tin"
+      "tag": "c:powered_tin_dusts"
     },
     {
-      "tag": "c:dusts/powered_tin"
-    },
-    {
-      "item": "minecraft:glowstone_dust"
+      "tag": "c:powered_tin_dusts"
     },
     {
       "item": "minecraft:glowstone_dust"
     },
     {
-      "tag": "c:dusts/nickel"
+      "item": "minecraft:glowstone_dust"
+    },
+    {
+      "tag": "c:nickel_dusts"
     }
   ],
   "result": {

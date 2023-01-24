@@ -10,7 +10,7 @@
       "item": "minecraft:glowstone"
     },
     "B": {
-      "tag": "c:plates/gold"
+      "tag": "c:gold_plates"
     },
     "C": {
       "item": "ten3:redstone_storer"

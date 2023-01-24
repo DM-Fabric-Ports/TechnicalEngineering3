@@ -10,7 +10,7 @@
       "item": "minecraft:redstone"
     },
     "B": {
-      "tag": "c:gears/copper"
+      "tag": "c:copper_gears"
     },
     "D": {
       "tag": "c:glass"

@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#c:storage_blocks/tin",
-    "#c:storage_blocks/powered_tin",
-    "#c:storage_blocks/nickel",
-    "#c:storage_blocks/chlorium"
+    "#c:tin_blocks",
+    "#c:powered_tin_blocks",
+    "#c:nickel_blocks",
+    "#c:chlorium_blocks"
   ]
 }

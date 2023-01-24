@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:ingots/powered_tin"
+      "key": "c:powered_tin_ingots"
     }
   ],
   "outputs": [

@@ -10,7 +10,7 @@
       "item": "minecraft:charcoal"
     },
     "B": {
-      "tag": "c:gears/iron"
+      "tag": "c:iron_gears"
     },
     "C": {
       "item": "minecraft:blaze_rod"

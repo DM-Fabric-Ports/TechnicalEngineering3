@@ -4,7 +4,7 @@
     {
       "form": "item",
       "type": "tag",
-      "key": "c:raw_materials/nickel"
+      "key": "c:raw_nickel_ores"
     }
   ],
   "outputs": [

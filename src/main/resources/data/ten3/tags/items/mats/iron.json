@@ -2,6 +2,6 @@
   "replace": false,
   "values": [
     "#c:ingots/iron",
-    "#c:dusts/iron"
+    "#c:iron_dusts"
   ]
 }

@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#c:ores/tin",
+    "#c:tin_ores",
     "#c:ores/copper",
-    "#c:ores/nickel"
+    "#c:nickel_ores"
   ]
 }

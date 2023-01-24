@@ -10,7 +10,7 @@
       "item": "minecraft:lava_bucket"
     },
     "B": {
-      "tag": "c:gears/copper"
+      "tag": "c:copper_gears"
     },
     "C": {
       "item": "minecraft:blaze_rod"

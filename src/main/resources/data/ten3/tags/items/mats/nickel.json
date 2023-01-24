@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/nickel",
-    "#c:dusts/nickel"
+    "#c:nickel_ingots",
+    "#c:nickel_dusts"
   ]
 }

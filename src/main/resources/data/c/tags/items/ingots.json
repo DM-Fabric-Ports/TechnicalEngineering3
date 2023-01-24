@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/tin",
-    "#c:ingots/powered_tin",
-    "#c:ingots/chlorium",
-    "#c:ingots/nickel"
+    "#c:tin_ingots",
+    "#c:powered_tin_ingots",
+    "#c:chlorium_ingots",
+    "#c:nickel_ingots"
   ]
 }

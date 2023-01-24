@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "#c:plates/tin",
-    "#c:plates/powered_tin",
-    "#c:plates/chlorium",
-    "#c:plates/gold",
-    "#c:plates/iron",
-    "#c:plates/copper",
-    "#c:plates/nickel"
+    "#c:tin_plates",
+    "#c:powered_tin_plates",
+    "#c:chlorium_plates",
+    "#c:gold_plates",
+    "#c:iron_plates",
+    "#c:copper_plates",
+    "#c:nickel_plates"
   ]
 }

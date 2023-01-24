@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#c:ingots/tin",
-    "#c:dusts/tin"
+    "#c:tin_ingots",
+    "#c:tin_dusts"
   ]
 }
