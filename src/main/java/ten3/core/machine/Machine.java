@@ -52,8 +52,6 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 		this(Material.METAL, SoundType.STONE, name, true);
 		tileName = name;
 
-		System.out.println(name + " registering transfer!");
-
 		ItemStorage.SIDED.registerForBlocks((w, p, s, b, d) -> {
 			if (b instanceof CmTileMachine t)
 				return t.getItemStorage(d).orElse(null);

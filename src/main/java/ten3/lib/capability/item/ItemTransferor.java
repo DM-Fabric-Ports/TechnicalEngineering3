@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.util.DireUtil;
+import ten3.util.TransferUtil;
 
 @SuppressWarnings("all")
 public class ItemTransferor {
@@ -110,11 +111,13 @@ public class ItemTransferor {
 
 	// s - the extract item from src
 	// return - src's max cap for <s>
-	public static int getFirstSlotFit(InventoryStorage src, ItemStack s, TransactionContext transaction) {
+	public static int getFirstSlotFit(InventoryStorage src, ItemStack s) {
 		long sin = s.getCount();
 		long orid = sin;
 		for (int i = 0; i < src.getSlots().size(); i++) {
-			sin = src.getSlot(i).simulateInsert(ItemVariant.of(s), sin, transaction);
+			var it = i;
+			var sint = sin;
+			sin = TransferUtil.simulateExecute(tr -> src.getSlot(it).insert(ItemVariant.of(s), sint, tr));
 			if (orid > sin) {
 				return i;
 			}
@@ -168,7 +171,7 @@ public class ItemTransferor {
 	}
 
 	// return : stack is completely given.
-	public boolean selfGive(ItemStack stack, int from, int to, TransactionContext transaction) {
+	public boolean selfGive(ItemStack stack, int from, int to, boolean sim) {
 		if (stack.isEmpty() || !(handlerOf(t, null) instanceof InventoryStorage dest))
 			return true;
 
@@ -181,7 +184,13 @@ public class ItemTransferor {
 			if (k > to)
 				break;
 
-			stack.shrink((int) dest.getSlot(k).insert(ItemVariant.of(stack), stack.getCount(), transaction));
+			var kt = k;
+			stack.shrink(sim
+					? TransferUtil
+							.simulateExecute(tr -> dest.getSlot(kt).insert(ItemVariant.of(stack), stack.getCount(), tr))
+							.intValue()
+					: TransferUtil.execute(tr -> dest.getSlot(kt).insert(ItemVariant.of(stack), stack.getCount(), tr))
+							.intValue());
 			if (stack.isEmpty())
 				break;
 		}
@@ -189,15 +198,15 @@ public class ItemTransferor {
 		return stack.isEmpty();
 	}
 
-	public boolean selfGive(ItemStack stack, TransactionContext transaction) {
-		return selfGive(stack, 0, t.inventory.getContainerSize() - 1, transaction);
+	public boolean selfGive(ItemStack stack) {
+		return selfGive(stack, 0, t.inventory.getContainerSize() - 1, false);
 	}
 
-	public boolean selfGiveList(List<ItemStack> ss, TransactionContext transaction) {
+	public boolean selfGiveList(List<ItemStack> ss) {
 		boolean allReceive = true;
 
 		for (ItemStack stack : ss) {
-			if (!selfGive(stack, transaction)) {
+			if (!selfGive(stack)) {
 				allReceive = false;
 			}
 		}
@@ -205,7 +214,7 @@ public class ItemTransferor {
 		return allReceive;
 	}
 
-	public ItemStack selfGet(int max, int from, int to, TransactionContext transaction) {
+	public ItemStack selfGet(int max, int from, int to) {
 		var temp = handlerOf(t, null);
 		if (temp == null || !(temp instanceof InventoryStorage src))
 			return ItemStack.EMPTY;
@@ -218,14 +227,15 @@ public class ItemTransferor {
 				break;
 
 			var resource = src.getSlot(i).getResource();
-			s = resource.toStack((int) src.getSlot(i).extract(resource, max, transaction));
+			var it = i;
+			s = resource.toStack(TransferUtil.execute(tr -> src.getSlot(it).extract(resource, max, tr)).intValue());
 		}
 
 		return s;
 	}
 
-	public ItemStack selfGet(int max, TransactionContext transaction) {
-		return selfGet(max, 0, t.inventory.getContainerSize() - 1, transaction);
+	public ItemStack selfGet(int max) {
+		return selfGet(max, 0, t.inventory.getContainerSize() - 1);
 	}
 
 }

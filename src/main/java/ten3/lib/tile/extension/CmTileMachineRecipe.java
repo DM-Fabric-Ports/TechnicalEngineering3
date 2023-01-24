@@ -104,7 +104,7 @@ public abstract class CmTileMachineRecipe extends CmTileMachineProcess {
 		List<ResourceAmount<FluidVariant>> fullFu = ((RandRecipe<Container>) recipeNow).allOutputFluids();
 
 		for (ItemStack ss : full) {
-			if (!TransferUtil.simulateExecute(tr -> itr.selfGive(ss, slotInfo.ots, slotInfo.ote, tr))) {
+			if (!itr.selfGive(ss, slotInfo.ots, slotInfo.ote, true)) {
 				give = false;
 			}
 		}
@@ -128,7 +128,8 @@ public abstract class CmTileMachineRecipe extends CmTileMachineProcess {
 		List<ResourceAmount<FluidVariant>> genFu = ((RandRecipe<Container>) recipeNow).generateFluids();
 
 		for (ItemStack s : gen) {
-			TransferUtil.execute(tr -> itr.selfGive(s, slotInfo.ots, slotInfo.ote, tr));
+			//TODO
+			System.out.println(itr.selfGive(s, slotInfo.ots, slotInfo.ote, false));
 		}
 		for (ResourceAmount<FluidVariant> s : genFu) {
 			TransferUtil.execute(tr -> ftr.selfGive(s, tr));
