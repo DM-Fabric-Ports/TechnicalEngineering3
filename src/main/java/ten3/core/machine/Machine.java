@@ -173,9 +173,6 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 				if (!ContInit.hasType(tileName))
 					return InteractionResult.PASS;
 
-				// TODO
-				// GuiOpenerUtil.openGui((ServerPlayer) player, tile, buf ->
-				// buf.writeBlockPos(tile.getBlockPos()));
 				player.openMenu(tile);
 			}
 		}
