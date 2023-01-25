@@ -150,6 +150,7 @@ public class CableBased extends Machine implements SimpleWaterloggedBlock {
 				.setValue(WATERLOGGED, state2.getType() == Fluids.WATER);
 	}
 
+	@SuppressWarnings("deprecation")
 	public FluidState getFluidState(BlockState p_51581_) {
 		return p_51581_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_51581_);
 	}

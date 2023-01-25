@@ -122,7 +122,7 @@ public class ContInit {
 		}
 	}
 
-	@SuppressWarnings("all")
+	@SuppressWarnings("unchecked")
 	private static <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void bindScr(String s,
 			MenuScreens.ScreenConstructor<M, U> fac) {
 		MenuScreens.register((MenuType<? extends M>) getType(s), fac);
