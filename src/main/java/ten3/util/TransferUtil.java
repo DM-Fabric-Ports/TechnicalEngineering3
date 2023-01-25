@@ -26,7 +26,9 @@ public class TransferUtil {
 
 	public static <T> T execute(Function<Transaction, T> func) {
 		try (Transaction t = getTransaction()) {
-			return func.apply(t);
+			T ret = func.apply(t);
+			t.commit();
+			return ret;
 		}
 	}
 

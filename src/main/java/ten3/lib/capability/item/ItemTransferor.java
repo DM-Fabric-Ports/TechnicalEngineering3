@@ -191,6 +191,7 @@ public class ItemTransferor {
 							.intValue()
 					: TransferUtil.execute(tr -> dest.getSlot(kt).insert(ItemVariant.of(stack), stack.getCount(), tr))
 							.intValue());
+
 			if (stack.isEmpty())
 				break;
 		}
