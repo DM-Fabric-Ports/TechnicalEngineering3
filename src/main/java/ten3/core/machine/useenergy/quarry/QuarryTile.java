@@ -19,7 +19,6 @@ import ten3.lib.wrapper.SlotCm;
 import ten3.lib.wrapper.SlotCustomCm;
 import ten3.util.ItemUtil;
 import ten3.util.TagUtil;
-import ten3.util.TransferUtil;
 import ten3.util.WorkUtil;
 
 public class QuarryTile extends CmTileMachineRadiused {
@@ -107,8 +106,8 @@ public class QuarryTile extends CmTileMachineRadiused {
 				BlockState bs = level.getBlockState(pos2);
 				if (canBreak(bs)) {
 					List<ItemStack> ss = bs.getDrops(WorkUtil.getLoot(level, pos2, inventory.getItem(0)));
-					if (TransferUtil.simulateExecute(tr -> itr.selfGiveList(ss, tr))) {
-						TransferUtil.execute(tr -> itr.selfGiveList(ss, tr));
+					if (itr.selfGiveList(ss, true)) {
+						itr.selfGiveList(ss, false);
 						level.destroyBlock(pos2, false);
 						ItemUtil.damage(inventory.getItem(0), level, 1);
 					}
@@ -123,8 +122,8 @@ public class QuarryTile extends CmTileMachineRadiused {
 				} else {
 					s = Items.BLUE_ICE.getDefaultInstance();
 				}
-				if (TransferUtil.simulateExecute(tr -> itr.selfGive(s, tr))) {
-					TransferUtil.execute(tr -> itr.selfGive(s, tr));
+				if (itr.selfGive(s, true)) {
+					itr.selfGive(s, false);
 				}
 				break;
 			case 2:
@@ -133,8 +132,8 @@ public class QuarryTile extends CmTileMachineRadiused {
 				} else {
 					s = Items.MAGMA_CREAM.getDefaultInstance();
 				}
-				if (TransferUtil.simulateExecute(tr -> itr.selfGive(s, tr))) {
-					TransferUtil.execute(tr -> itr.selfGive(s, tr));
+				if (itr.selfGive(s, true)) {
+					itr.selfGive(s, false);
 				}
 				break;
 		}

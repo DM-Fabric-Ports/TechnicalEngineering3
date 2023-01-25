@@ -41,7 +41,7 @@ public class AdvancedInventory extends SimpleContainer {
 	@Override
 	public boolean canPlaceItem(int index, ItemStack stack) {
 		SlotCm s = match(index);
-		return s.isItemValidInHandler(stack);// not mayPlace!
+		return s == null ? false : s.isItemValidInHandler(stack);// not mayPlace!
 	}
 
 	public List<ItemStack> getStackInRange(int fr, int to) {

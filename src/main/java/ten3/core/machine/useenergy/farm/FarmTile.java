@@ -13,7 +13,6 @@ import ten3.lib.tile.extension.CmTileMachineRadiused;
 import ten3.lib.tile.option.Type;
 import ten3.lib.wrapper.SlotCm;
 import ten3.lib.wrapper.SlotCustomCm;
-import ten3.util.TransferUtil;
 import ten3.util.WorkUtil;
 
 public class FarmTile extends CmTileMachineRadiused {
@@ -65,20 +64,20 @@ public class FarmTile extends CmTileMachineRadiused {
 				int age = s.getValue(cr.getAgeProperty());
 				if (age >= cr.getMaxAge()) {
 					List<ItemStack> ss = s.getDrops(WorkUtil.getLoot(level, worldPosition, ItemStack.EMPTY));
-					if (TransferUtil.simulateExecute(tr -> itr.selfGiveList(ss, tr))) {
-						TransferUtil.execute(tr -> itr.selfGiveList(ss, tr));
+					if (itr.selfGiveList(ss, true)) {
+						itr.selfGiveList(ss, false);
 						level.destroyBlock(pin, false);
 					}
 				}
 			}
 
 			if (sd.is(Blocks.FARMLAND) && s.isAir()) {
-				ItemStack seedSim = TransferUtil.simulateExecute(tr -> itr.selfGet(1, 0, 5, tr));
+				ItemStack seedSim = itr.selfGet(1, 0, 5, true);
 				if (seedSim.getItem() instanceof BlockItem) {
 					Block plant = ((BlockItem) seedSim.getItem()).getBlock();
 					if (plant instanceof CropBlock) {
 						level.setBlock(pin, plant.defaultBlockState(), 3);
-						TransferUtil.execute(tr -> itr.selfGet(1, 0, 5, tr));
+						itr.selfGet(1, 0, 5, false);
 						ret = true;
 					}
 				}

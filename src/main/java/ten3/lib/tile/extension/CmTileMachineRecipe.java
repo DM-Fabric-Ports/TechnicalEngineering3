@@ -128,7 +128,7 @@ public abstract class CmTileMachineRecipe extends CmTileMachineProcess {
 		List<ResourceAmount<FluidVariant>> genFu = ((RandRecipe<Container>) recipeNow).generateFluids();
 
 		for (ItemStack s : gen) {
-			//TODO
+			// TODO
 			System.out.println(itr.selfGive(s, slotInfo.ots, slotInfo.ote, false));
 		}
 		for (ResourceAmount<FluidVariant> s : genFu) {

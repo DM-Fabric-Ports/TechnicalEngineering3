@@ -18,7 +18,6 @@ import ten3.lib.tile.option.RedstoneMode;
 import ten3.lib.tile.option.Type;
 import ten3.util.ItemUtil;
 import ten3.util.KeyUtil;
-import ten3.util.TransferUtil;
 
 public class MachinePostEvent {
 
@@ -59,14 +58,12 @@ public class MachinePostEvent {
 			return false;
 		} else if (i.getItem() instanceof UpgradeItem && tile.typeOf() != Type.CABLE) {
 			boolean success = ((UpgradeItem) i.getItem()).effect(tile);
-			boolean giveSuc = TransferUtil.simulateExecute(
-					tr -> tile.itr.selfGive(i.copy(), UpgradeSlots.upgSlotFrom, UpgradeSlots.upgSlotTo, tr));
+			boolean giveSuc = tile.itr.selfGive(i.copy(), UpgradeSlots.upgSlotFrom, UpgradeSlots.upgSlotTo, true);
 			if (success && giveSuc) {
 				player.sendSystemMessage(
 						KeyUtil.translated(KeyUtil.GREEN, i.getDisplayName().getString(),
 								"ten3.info.upgrade_successfully"));
-				TransferUtil.execute(
-						tr -> tile.itr.selfGive(i.copy(), UpgradeSlots.upgSlotFrom, UpgradeSlots.upgSlotTo, tr));
+				tile.itr.selfGive(i.copy(), UpgradeSlots.upgSlotFrom, UpgradeSlots.upgSlotTo, false);
 				if (!player.isCreative()) {
 					i.shrink(1);
 				}

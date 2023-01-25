@@ -198,15 +198,15 @@ public class ItemTransferor {
 		return stack.isEmpty();
 	}
 
-	public boolean selfGive(ItemStack stack) {
+	public boolean selfGive(ItemStack stack, boolean sim) {
 		return selfGive(stack, 0, t.inventory.getContainerSize() - 1, false);
 	}
 
-	public boolean selfGiveList(List<ItemStack> ss) {
+	public boolean selfGiveList(List<ItemStack> ss, boolean sim) {
 		boolean allReceive = true;
 
 		for (ItemStack stack : ss) {
-			if (!selfGive(stack)) {
+			if (!selfGive(stack, sim)) {
 				allReceive = false;
 			}
 		}
@@ -214,7 +214,7 @@ public class ItemTransferor {
 		return allReceive;
 	}
 
-	public ItemStack selfGet(int max, int from, int to) {
+	public ItemStack selfGet(int max, int from, int to, boolean sim) {
 		var temp = handlerOf(t, null);
 		if (temp == null || !(temp instanceof InventoryStorage src))
 			return ItemStack.EMPTY;
@@ -228,14 +228,16 @@ public class ItemTransferor {
 
 			var resource = src.getSlot(i).getResource();
 			var it = i;
-			s = resource.toStack(TransferUtil.execute(tr -> src.getSlot(it).extract(resource, max, tr)).intValue());
+			s = resource.toStack(
+					sim ? TransferUtil.simulateExecute(tr -> src.getSlot(it).extract(resource, max, tr)).intValue()
+							: TransferUtil.execute(tr -> src.getSlot(it).extract(resource, max, tr)).intValue());
 		}
 
 		return s;
 	}
 
-	public ItemStack selfGet(int max) {
-		return selfGet(max, 0, t.inventory.getContainerSize() - 1);
+	public ItemStack selfGet(int max, boolean sim) {
+		return selfGet(max, 0, t.inventory.getContainerSize() - 1, sim);
 	}
 
 }
