@@ -9,13 +9,16 @@ import org.lwjgl.glfw.GLFW;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import ten3.init.tab.DefGroup;
+import ten3.lib.item.ItemGroupProvider;
 import ten3.util.KeyUtil;
 
-public class DefItem extends Item {
+public class DefItem extends Item implements ItemGroupProvider {
 
 	public static Properties build(int stack) {
 		return new Properties().stacksTo(stack);
@@ -59,6 +62,11 @@ public class DefItem extends Item {
 	public static boolean shift() {
 		return GLFW.glfwGetKey(Minecraft.getInstance().getWindow().getWindow(),
 				GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS;
+	}
+
+	@Override
+	public CreativeModeTab getTab() {
+		return DefGroup.ITEM;
 	}
 
 }

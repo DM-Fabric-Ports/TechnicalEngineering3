@@ -8,13 +8,16 @@ import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import ten3.init.tab.DefGroup;
+import ten3.lib.item.ItemGroupProvider;
 import ten3.util.KeyUtil;
 
-public class DefItemBlock extends BlockItem {
+public class DefItemBlock extends BlockItem implements ItemGroupProvider {
 
 	public DefItemBlock(Block b, Properties prp) {
 		super(b, prp);
@@ -45,6 +48,11 @@ public class DefItemBlock extends BlockItem {
 	@Override
 	public String getDescriptionId() {
 		return KeyUtil.getKey(BuiltInRegistries.ITEM.getKey(this).getPath());
+	}
+
+	@Override
+	public CreativeModeTab getTab() {
+		return DefGroup.BLOCK;
 	}
 
 }

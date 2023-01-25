@@ -1,14 +1,15 @@
 package ten3;
 
+import java.util.List;
+
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.minecraft.ClientOnly;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import ten3.core.client.HudSpanner;
 import ten3.core.network.Network;
@@ -17,16 +18,9 @@ import ten3.init.ContInit;
 import ten3.init.ItemInit;
 import ten3.init.RecipeInit;
 import ten3.init.TileInit;
-import ten3.init.template.InvisibleItem;
+import ten3.lib.item.ItemGroupProvider;
 
 public class TechnicalEngineering implements ModInitializer, ClientModInitializer {
-
-	public static final CreativeModeTab GROUP_BLOCK =
-			FabricItemGroup.builder(TConst.asResource("block"))
-					.icon(() -> ItemInit.getItem("technical_block").getDefaultInstance()).build();
-	public static final CreativeModeTab GROUP_ITEM =
-			FabricItemGroup.builder(TConst.asResource("item"))
-					.icon(() -> ItemInit.getItem("technical_item").getDefaultInstance()).build();
 
 	@Override
 	public void onInitialize(ModContainer mod) {
@@ -35,21 +29,8 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 		ContInit.regAll();
 		ItemInit.regAll();
 		RecipeInit.regAll();
-
-		ItemGroupEvents.modifyEntriesEvent(GROUP_BLOCK).register(entries -> BuiltInRegistries.ITEM
-				.stream()
-				.filter(i -> i instanceof BlockItem
-						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid)
-						&& !(i instanceof InvisibleItem))
-				.forEach(entries::accept));
-		ItemGroupEvents.modifyEntriesEvent(GROUP_ITEM).register(entries -> BuiltInRegistries.ITEM
-				.stream()
-				.filter(i -> !(i instanceof BlockItem)
-						&& BuiltInRegistries.ITEM.getKey(i).getNamespace().equals(TConst.modid)
-						&& !(i instanceof InvisibleItem))
-				.forEach(entries::accept));
-
 		Network.register();
+		initItemGroups();
 	}
 
 	@ClientOnly
@@ -60,6 +41,17 @@ public class TechnicalEngineering implements ModInitializer, ClientModInitialize
 		// FluidInit.clientInit();
 		HudRenderCallback.EVENT.register(HudSpanner::onRender);
 		Network.registerClient();
+	}
+
+	public void initItemGroups() {
+		List<CreativeModeTab> tabs = BuiltInRegistries.ITEM.stream()
+				.filter(item -> item instanceof ItemGroupProvider p && p.getTab() != null)
+				.map(item -> ((ItemGroupProvider) item).getTab()).toList();
+
+		tabs.forEach(tab -> ItemGroupEvents.modifyEntriesEvent(tab)
+				.register(e -> BuiltInRegistries.ITEM.stream()
+						.filter(item -> item instanceof ItemGroupProvider p && p.getTab() == tab)
+						.forEachOrdered(e::accept)));
 	}
 
 }

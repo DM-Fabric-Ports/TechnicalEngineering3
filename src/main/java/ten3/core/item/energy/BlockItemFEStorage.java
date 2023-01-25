@@ -9,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -17,6 +18,7 @@ import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyItem;
 import ten3.core.machine.Cell;
 import ten3.init.TileInit;
+import ten3.init.tab.DefGroup;
 import ten3.init.template.DefItemBlock;
 import ten3.lib.tile.mac.CmTileEntity;
 import ten3.lib.tile.mac.CmTileMachine;
@@ -102,6 +104,11 @@ public class BlockItemFEStorage extends DefItemBlock implements SimpleEnergyItem
 	@Override
 	public long getEnergyMaxOutput(ItemStack stack) {
 		return stack.getTag().getInt("extract");
+	}
+
+	@Override
+	public CreativeModeTab getTab() {
+		return DefGroup.MAC;
 	}
 
 }
