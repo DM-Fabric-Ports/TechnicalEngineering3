@@ -3,10 +3,10 @@
   "values": [
     "#c:ores",
     "#c:stone",
-    "#c:sand",
-    "#c:gravel",
-    "#c:netherrack",
-    "#c:obsidian",
+    "#minecraft:sand",
+    "minecraft:gravel",
+    "minecraft:netherrack",
+    "minecraft:obsidian",
     "#c:cobblestone"
   ]
 }

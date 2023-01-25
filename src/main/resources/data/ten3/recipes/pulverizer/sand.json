@@ -3,8 +3,8 @@
   "inputs": [
     {
       "form": "item",
-      "type": "tag",
-      "key": "c:gravel"
+      "type": "static",
+      "key": "minecraft:gravel"
     }
   ],
   "outputs": [
