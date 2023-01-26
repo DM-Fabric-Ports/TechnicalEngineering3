@@ -29,7 +29,14 @@ public class TEEmiPlugin implements EmiPlugin {
 	@Override
 	public void register(EmiRegistry registry) {
 		registerCategory(registry, PULV, "pulverizer", EmiStack.of(ItemInit.getItem("machine_pulverizer")),
-                recipe -> new EmiTERecipeSg((FormsCombinedRecipe) recipe, PULV));
+				recipe -> new EmiTERecipeSg((FormsCombinedRecipe) recipe, PULV));
+		registerCategory(registry, COMP, "compressor", EmiStack.of(ItemInit.getItem("machine_compressor")),
+				recipe -> new EmiTERecipeSg((FormsCombinedRecipe) recipe, COMP));
+		registerCategory(registry, PSIO, "psionicant", EmiStack.of(ItemInit.getItem("machine_psionicant")),
+				recipe -> new EmiTERecipeSg((FormsCombinedRecipe) recipe, PSIO));
+		registerCategory(registry, INDF, "induction_furnace",
+				EmiStack.of(ItemInit.getItem("machine_induction_furnace")),
+				recipe -> new EmiTERecipeSg((FormsCombinedRecipe) recipe, INDF));
 	}
 
 	@SuppressWarnings("unchecked")
