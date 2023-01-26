@@ -25,8 +25,8 @@ import ten3.util.TagUtil;
 
 public class FormsCombinedIngredient {
 
-	String type;// inputUsed
-	String form;
+	public String type;// inputUsed
+	public String form;
 	// ITEM
 	Collection<Item> matchItems = new ArrayList<>();// static used
 	TagKey<Item> ifTagItem;// tagged used
@@ -35,9 +35,9 @@ public class FormsCombinedIngredient {
 	Collection<Fluid> matchFluids = new ArrayList<>();
 	TagKey<Fluid> ifTagFluid;
 	// END
-	ResourceLocation key;
-	int amountOrCount;
-	double chance;// outputUsed
+	public ResourceLocation key;
+	public int amountOrCount;
+	public double chance;// outputUsed
 
 	public List<ItemStack> itemStacks() {
 		List<ItemStack> lst = new ArrayList<>();

@@ -19,6 +19,12 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/releases/"
+    }
+
     mavenCentral()
 }
 
@@ -37,6 +43,8 @@ dependencies {
     include modApi('teamreborn:energy:2.3.0') {
         exclude(group: "net.fabricmc.fabric-api")
     }
+
+    modImplementation "dev.emi:emi:0.6.2+1.19.3"
 }
 
 processResources {

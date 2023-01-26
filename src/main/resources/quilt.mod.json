@@ -20,7 +20,8 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
 			"init": "ten3.TechnicalEngineering",
-			"client_init": "ten3.TechnicalEngineering"
+			"client_init": "ten3.TechnicalEngineering",
+			"emi": "ten3.plugin.emi.TEEmiPlugin"
 		},
 		"depends": [
 			{

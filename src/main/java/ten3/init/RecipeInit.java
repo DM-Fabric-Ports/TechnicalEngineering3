@@ -2,6 +2,8 @@ package ten3.init;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import ten3.TConst;
@@ -20,7 +22,7 @@ public class RecipeInit {
 	}
 
 	public static void regFormsCombined(String id, int i, int o) {
-		regRcp((new FormsCombinedRecipeSerializer<>(FormsCombinedRecipe::new, id, i, o)));
+		regRcp(new FormsCombinedRecipeSerializer<>(FormsCombinedRecipe::new, id, i, o));
 	}
 
 	public static void regRcp(CmSerializer<?> s) {
@@ -33,8 +35,9 @@ public class RecipeInit {
 		return BuiltInRegistries.RECIPE_SERIALIZER.get(TConst.asResource(id));
 	}
 
-	public static RecipeType<?> getRcpType(String id) {
-		return BuiltInRegistries.RECIPE_TYPE.get(TConst.asResource(id));
+	@SuppressWarnings("unchecked")
+	public static <C extends Container, T extends Recipe<C>> RecipeType<T> getRcpType(String id) {
+		return (RecipeType<T>) BuiltInRegistries.RECIPE_TYPE.get(TConst.asResource(id));
 	}
 
 }

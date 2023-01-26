@@ -19,8 +19,8 @@ public class FormsCombinedRecipe implements RandRecipe<Container> {
 
 	protected ResourceLocation reg;
 	protected ResourceLocation id;
-	protected List<FormsCombinedIngredient> input;
-	protected List<FormsCombinedIngredient> output;
+	public List<FormsCombinedIngredient> input;
+	public List<FormsCombinedIngredient> output;
 	protected int time;
 
 	public FormsCombinedRecipe(ResourceLocation regName, ResourceLocation idIn,
