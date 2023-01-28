@@ -90,11 +90,10 @@ public class CableBased extends Machine implements SimpleWaterloggedBlock {
 
 	// 0-none, 1-cable-to-cable 2 cable-to-machine
 	public int connectType(@NotNull Level world, @NotNull Direction facing, BlockPos pos) {
-
-		BlockState sf = world.getBlockState(pos.offset(facing.getNormal()));
+		BlockState sf = world.getBlockState(pos.relative(facing));
 
 		BlockEntity t = world.getBlockEntity(pos);
-		BlockEntity tf = world.getBlockEntity(pos.offset(facing.getNormal()));
+		BlockEntity tf = world.getBlockEntity(pos.relative(facing));
 
 		if (tf == null)
 			return 0;

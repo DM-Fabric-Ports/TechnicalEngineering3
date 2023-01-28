@@ -1,4 +1,3 @@
-
 package ten3.core.machine.cable;
 
 import net.minecraft.core.BlockPos;
@@ -59,10 +58,7 @@ public class CableTile extends CmTileMachine {
 
 	@Override
 	protected boolean hasFaceCapability(StorageType cap, Direction d) {
-		if (cap == StorageType.ITEM) {
-			return false;
-		}
-		return super.hasFaceCapability(cap, d);
+		return cap == StorageType.ENERGY;
 	}
 
 }
