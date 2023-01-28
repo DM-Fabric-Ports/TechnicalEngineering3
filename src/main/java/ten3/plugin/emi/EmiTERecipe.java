@@ -5,9 +5,9 @@ import org.jetbrains.annotations.Nullable;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import ten3.lib.recipe.RandRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 
-public abstract class EmiTERecipe<T extends RandRecipe<? extends Container>> implements EmiRecipe {
+public abstract class EmiTERecipe<T extends Recipe<? extends Container>> implements EmiRecipe {
 
 	protected final T recipe;
 

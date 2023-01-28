@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
-import dev.emi.emi.api.render.EmiTexture;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
@@ -61,7 +60,7 @@ public class EmiTERecipeSg extends EmiTERecipe<FormsCombinedRecipe> {
 			addSlotSafe(widgets, () -> this.getOutputs().get(3), 83, 31);
 		}
 
-		widgets.addTexture(EmiTexture.EMPTY_ARROW, 43 + 1, this.getOutputs().size() <= 1 ? 22 + 1 : 18 + 1);
+		widgets.addFillingArrow(this.getOutputs().size() <= 1 ? 43 + 1 : 37 + 1, 22 + 1, recipe.time() * 50);
 	}
 
 	protected void addSlotSafe(WidgetHolder widgets, Supplier<EmiIngredient> ingredient, int x, int y) {
