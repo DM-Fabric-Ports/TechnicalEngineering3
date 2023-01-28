@@ -22,7 +22,7 @@ public abstract class EmiTERecipe<T extends Recipe<? extends Container>> impleme
 
 	@Override
 	public int getDisplayHeight() {
-		return 60;
+		return 40;
 	}
 
 	@Override

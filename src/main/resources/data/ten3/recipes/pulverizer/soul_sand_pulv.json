@@ -3,8 +3,8 @@
   "inputs": [
     {
       "form": "item",
-      "type": "tag",
-      "key": "c:netherrack"
+      "type": "static",
+      "key": "minecraft:netherrack"
     }
   ],
   "outputs": [
